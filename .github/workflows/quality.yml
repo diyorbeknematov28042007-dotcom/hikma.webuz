@@ -1,0 +1,33 @@
+name: HIKMA quality
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_TELEMETRY_DISABLED: 1
+      CONTACT_FORM_ENABLED: "false"
+      NEXT_PUBLIC_SITE_URL: https://hikma.example
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-qa
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+      - name: Lighthouse mobile budget
+        run: npx --yes @lhci/cli@0.15.1 autorun
