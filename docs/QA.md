@@ -10,11 +10,21 @@
 - Rang kontrasti hisoblandi: CTA #007D53/off-white ≥4.5:1; body muted #ADBBB3/surface 8.08:1; accent text/charcoal 9.94:1; placeholder/charcoal 8.95:1.
 - Statik HTML: bitta H1; ichki anchorlar mavjud; no-JS holatida submit disabled; tasdiqlanmagan portfolio/narx placeholderlari chiqarilmagan.
 
-## Avtomatlashtirilgan browser tekshiruvi
+## GitHub CI natijasi: muvaffaqiyatli
 
-GitHub Actions `quality.yml` Playwright, axe va Lighthouse’ga sozlangan. Viewportlar: 320, 360, 375, 390, 430, 768, 1024, 1440, 1920. Har birida overflow, CTA, menyu, Escape/focus return, anchor, FAQ, brief copy, axe va screenshot tekshiriladi. Alohida no-JS/reduced-motion hamda route/metadata testlari bor.
+Tekshirilgan kod commit: `f7a57edafa1ce0fea1e77556851945c2cf85ca50`.
 
-Bu executor muhitida kerakli browser-control capability mavjud emas. Sites managed-preview yo‘riqnomasi bunday holatda alternativ browser yo‘lini ishga tushirmaslikni belgilaydi. Shuning uchun bu yerda browser screenshot, axe, Lighthouse, actual FPS/scroll profiling yoki real screen-reader sinovi bajarilgan deb ko‘rsatilmaydi. CI natijalari alohida tekshirilishi kerak; screenshotlar faqat CI muvaffaqiyatli bajarilganda yaratiladi.
+[HIKMA quality / run 1](https://github.com/diyorbeknematov28042007-dotcom/hikma.webuz/actions/runs/38797437716) 2026-10-16 (Asia/Tashkent) muvaffaqiyatli tugadi.
+
+- Toza `npm ci`, lint, strict typecheck, 11 API testi va production build: passed.
+- 11 Playwright brauzer testi: passed (16.0s).
+- 320, 360, 375, 390, 430, 768, 1024, 1440, 1920px: overflow, CTA, menyu, Escape/focus return, anchor, FAQ va brief copy passed.
+- 9 viewportda axe WCAG A/AA avtomatik tekshiruvi: violation yo‘q.
+- No-JS/reduced-motion kontekstida kontent/navigatsiya hamda privacy, 404 va metadata route testlari: passed.
+- Screenshotlar [browser-qa artifact](https://github.com/diyorbeknematov28042007-dotcom/hikma.webuz/actions/runs/38797437716/artifacts/12003420134)da saqlandi (14 kun).
+- Lighthouse 3 mobil laboratoriya run va konfiguratsiyadagi barcha assertion: passed. Budjetlar: performance ≥90, accessibility ≥95, SEO ≥90, LCP ≤2500ms, CLS ≤0.1. Bu budjetlar; aniq ball yoki vaqt natijasi sifatida ko‘rsatilmaydi. Real foydalanuvchi INP/CLS/LCP o‘lchanmagan.
+
+Lokal executor’da browser-control imkoniyati bo‘lmagani uchun browser testlar GitHub Actions runnerida bajarildi. Screenshotlar ishlab chiqarilgan, lekin ularning qo‘lda vizual review’i va tasdiqlangan baseline bilan diff hali bajarilmagan. Real mobil qurilma, screen-reader va actual FPS profiling ham CI tekshiruvi bilan almashtirilmaydi.
 
 ## Qolgan release tekshiruvlari
 
