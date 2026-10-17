@@ -10,7 +10,7 @@ export function StaticLogo({ compact = false }: { compact?: boolean }) {
           alt=""
           width={384}
           height={447}
-          unoptimized
+          sizes="25px"
         />
       </span>
       <span>

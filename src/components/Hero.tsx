@@ -44,7 +44,8 @@ export function Hero() {
           alt=""
           className="stage-environment"
           sizes="(min-width: 1024px) 48vw, 100vw"
-          preload
+          loading="eager"
+          fetchPriority="high"
         />
         <div className="stage-halo" aria-hidden="true" />
         <div className="stage-identity" aria-hidden="true">
