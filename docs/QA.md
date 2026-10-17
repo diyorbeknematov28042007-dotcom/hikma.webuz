@@ -1,5 +1,9 @@
 # QA holati
 
+## 2026-10-17 refresh
+
+Yangi kontent va depth effektlari uchun lokal lint, strict typecheck, 12 API testi, production build va anchor/ID tekshiruvlari muvaffaqiyatli. Joriy browser va Lighthouse natijasi yangi CI run yakunlangach qayd etiladi. Quyidagi 2026-10-16 natijalar oldingi kod versiyasiga tegishli.
+
 ## Ushbu muhitda bajarilgan
 
 - ESLint: 0 warning/error.

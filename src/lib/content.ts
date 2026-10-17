@@ -6,82 +6,125 @@ export const navigation = [
 export const primaryCta = "Loyihani muhokama qilish";
 export const services = [
   {
+    id: "landing",
     title: "Landing page",
+    short: "Veb-sahifa",
+    category: "Raqamli qiyofa",
     description:
-      "Mahsulot yoki xizmatingizni bir sahifada aniq tanishtiradigan va tashrif buyuruvchini murojaatga yo‘naltiradigan sayt.",
-    tag: "Asosiy yo‘nalish",
+      "Brendingizni aniq tanishtiradigan, mobil qurilmalarga mos va murojaatga yo‘naltirilgan veb-sahifa.",
+    features: [
+      "Brendingizga mos dizayn",
+      "Mobil va desktop ko‘rinish",
+      "SEO asoslari, domen va hosting sozlamalari",
+    ],
+    note: "Domen, hosting va qo‘llab-quvvatlash tarkibi alohida kelishiladi.",
   },
   {
-    title: "Moslashuvchan veb-sahifalar",
+    id: "bot",
+    title: "Telegram bot",
+    short: "Telegram bot",
+    category: "Avtomatlashtirish",
     description:
-      "Telefon, planshet va kompyuter ekranlariga mos, o‘qish va foydalanish qulay bo‘lgan sahifalar.",
+      "Buyurtmalar, savollar va kundalik jarayonlar uchun biznesingizga mos Telegram bot.",
+    features: [
+      "Buyurtma va murojaatlarni qabul qilish",
+      "Mijozlar bilan qulay muloqot",
+      "Ehtiyojingizga mos funksiyalar",
+    ],
+    note: "Bot funksiyalari loyiha maqsadiga qarab belgilanadi.",
   },
   {
-    title: "Zarur integratsiyalar",
+    id: "instagram",
+    title: "Instagram Ads",
+    short: "Instagram Ads",
+    category: "Auditoriyaga chiqish",
     description:
-      "Loyiha ehtiyojiga qarab domen, qidiruv tizimi sozlamalari yoki murojaat kanallarini ulash imkoniyatlarini ko‘rib chiqamiz.",
-    note: "Integratsiya tarkibi alohida kelishiladi.",
+      "Instagram’da biznesingizni kerakli auditoriyaga tanishtirish uchun reklama strategiyasi va boshqaruvi.",
+    features: [
+      "Auditoriya va reklama strategiyasi",
+      "Kreativ va kampaniya sozlamalari",
+      "Boshqaruv va natijalarni tahlil qilish",
+    ],
+    note: "Reklama budjeti va xizmat tarkibi alohida kelishiladi.",
   },
+  {
+    id: "telegram",
+    title: "Telegram Ads",
+    short: "Telegram Ads",
+    category: "Yangi imkoniyatlar",
+    description:
+      "Telegram’da brendingizni maqsadli auditoriyaga olib chiqish uchun reklama sozlamalari va tahlil.",
+    features: [
+      "Maqsadli auditoriyani aniqlash",
+      "Kreativ va kampaniyani sozlash",
+      "Statistika va hisobot",
+    ],
+    note: "Natijalar taklif, auditoriya va reklama budjetiga bog‘liq.",
+  },
+];
+export const serviceOptions = [
+  ...services.map((service) => service.title),
+  "Hali aniq emas",
 ];
 export const values = [
   {
-    title: "Aniqlik",
-    body: "Muhim ma’lumotlar va taklif birinchi qarashdayoq tushunarli bo‘lishi uchun ishlaymiz.",
+    title: "Aniq maqsad",
+    body: "Avval biznes vazifasini tushunamiz. Keyin unga mos sayt, bot yoki reklama yechimini tanlaymiz.",
   },
   {
-    title: "Mobil qulaylik",
-    body: "Kontent va navigatsiyani kichik ekranlardan boshlab rejalashtiramiz.",
+    title: "Qulay tajriba",
+    body: "Mijoz kerakli ma’lumotni topishi, buyurtma berishi va bog‘lanishi oson bo‘lishiga e’tibor beramiz.",
   },
   {
-    title: "Maqsadli dizayn",
-    body: "Har bir blok biznesingiz vazifasi va foydalanuvchi ehtiyojiga xizmat qiladi.",
+    title: "Izchil yondashuv",
+    body: "Vizual uslub, matn va foydalanuvchi yo‘li brendingizning bitta maqsadiga xizmat qiladi.",
   },
   {
-    title: "Ortiqcha murakkabliksiz",
-    body: "Keraksiz elementlardan voz kechib, kerakli funksiyalarga e’tibor qaratamiz.",
+    title: "Tushunarli jarayon",
+    body: "Xizmat tarkibi, kerakli funksiyalar va keyingi qadamlarni oldindan kelishib olamiz.",
   },
 ];
 export const processSteps = [
   {
     label: "Tushunish",
     title: "Maqsadni aniqlaymiz",
-    body: "Biznesingiz, auditoriyangiz va saytdan kutayotgan natijani muhokama qilamiz.",
+    body: "Biznesingiz, auditoriyangiz va kutilayotgan natijani birga muhokama qilamiz.",
   },
   {
-    label: "Loyihalash",
-    title: "Tajribani shakllantiramiz",
-    body: "Kontent tuzilmasi, vizual uslub va foydalanuvchi yo‘lini ishlab chiqamiz.",
+    label: "Rejalashtirish",
+    title: "Yechimni tanlaymiz",
+    body: "Sayt, bot yoki reklama uchun xizmat tarkibi, kontent va ish rejasini kelishamiz.",
   },
   {
     label: "Ishlab chiqish",
-    title: "Sahifani yaratamiz",
-    body: "Kelishilgan dizaynni mobil va desktop uchun mos veb-sahifaga aylantiramiz.",
+    title: "G‘oyani ishga tushiramiz",
+    body: "Kelishilgan reja asosida sahifa, bot yoki reklama kampaniyasini tayyorlaymiz.",
   },
   {
     label: "Tekshirish",
-    title: "Ishlashini sinaymiz",
-    body: "Asosiy ekranlar, havolalar va murojaat yo‘llarini tekshirib chiqamiz.",
+    title: "Natijani kuzatamiz",
+    body: "Funksiyalarni tekshiramiz yoki reklama statistikasini tahlil qilib, keyingi qadamlarni belgilaymiz.",
   },
 ];
 export const faqs = [
   {
-    q: "Landing page nima uchun kerak?",
-    a: "Landing page mahsulot yoki xizmatni bitta sahifada aniq tushuntirish va tashrif buyuruvchini muayyan harakatga yo‘naltirish uchun xizmat qiladi.",
+    q: "Qaysi xizmat menga mos?",
+    a: "Brendingizni tanishtirish uchun landing page, buyurtmalarni qulay qabul qilish uchun Telegram bot, auditoriyaga chiqish uchun Instagram yoki Telegram Ads mos bo‘lishi mumkin. Tanlov biznesingiz maqsadidan boshlanadi.",
   },
   {
     q: "Sayt telefonda ham ishlaydimi?",
-    a: "Dizayn mobil qurilmalar uchun ham rejalashtiriladi. Yakuniy natija turli ekran o‘lchamlarida tekshiriladi.",
+    a: "Ha. Landing page mobil va desktop ekranlar uchun rejalashtiriladi. Yakuniy sahifa turli ekran o‘lchamlarida tekshiriladi.",
   },
   {
     q: "Narx qanday aniqlanadi?",
-    a: "Narx sahifalar soni, kontent, dizayn murakkabligi va zarur funksiyalarga qarab kelishiladi.",
+    a: "Narx xizmat turi, ish hajmi, kontent va kerakli funksiyalarga qarab kelishiladi. Reklama kampaniyasi uchun reklama budjeti ham alohida muhokama qilinadi.",
   },
   {
-    q: "Domenni ulash mumkinmi?",
-    a: "Domen va qidiruv tizimi sozlamalari loyiha talabiga qarab xizmat tarkibiga kiritilishi mumkin.",
+    q: "Telegram bot nimalarni qila oladi?",
+    a: "Loyiha ehtiyojiga qarab buyurtma qabul qilish, savollarga javob berish, ma’lumot taqdim etish va ayrim jarayonlarni avtomatlashtirish funksiyalari ishlab chiqiladi.",
   },
   {
-    q: "Ish qancha vaqt oladi?",
-    a: "Muddat loyiha hajmi va tayyor materiallarga qarab alohida belgilanadi.",
+    q: "Reklama natijasi kafolatlanadimi?",
+    a: "Aniq sotuv yoki o‘sish foizini kafolatlamaymiz. Natija taklifingiz, auditoriya, kreativ va budjetga bog‘liq. Kampaniya statistikasi tahlil qilinadi.",
   },
 ];

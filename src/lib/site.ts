@@ -22,3 +22,5 @@ export function isContactEnabled() {
   );
 }
 export const instagramUrl = "https://www.instagram.com/hikma.service/";
+// Owner-supplied brand profile screenshot, 2026-10-17.
+export const telegramUrl = "https://t.me/Hikmaservice_bot";

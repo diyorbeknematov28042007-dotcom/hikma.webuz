@@ -7,6 +7,23 @@ for (const width of widths) {
     await page.goto("/");
     await page.getByRole("heading", { level: 1 }).waitFor();
     await expect(page.locator("html")).toHaveAttribute("lang", "uz");
+    await expect(page.locator(".service")).toHaveCount(4);
+    await expect(page.locator(".stage-services a")).toHaveCount(4);
+    for (const service of [
+      "Landing page",
+      "Telegram bot",
+      "Instagram Ads",
+      "Telegram Ads",
+    ]) {
+      await expect(
+        page
+          .locator("#xizmatlar")
+          .getByRole("heading", { name: service, exact: true }),
+      ).toBeVisible();
+    }
+    await expect(
+      page.getByRole("link", { name: "Telegramda yozish" }),
+    ).toHaveAttribute("href", "https://t.me/Hikmaservice_bot");
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -77,6 +94,27 @@ test("reduced motion and no-JavaScript navigation retain content", async ({
     page.getByRole("button", { name: "Tavsifni nusxalash" }),
   ).toBeDisabled();
   await context.close();
+});
+test("quick service navigation and reduced-motion depth remain usable", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator(".depth-scene")).toHaveCSS("transform", "none");
+  await page
+    .getByRole("navigation", { name: "Xizmatlarni tez tanlash" })
+    .getByRole("link", { name: "Telegram bot" })
+    .click();
+  await expect(page).toHaveURL(/#service-bot$/);
+  await page.locator("#service").selectOption("Instagram Ads");
+  await expect(page.locator("#service")).toHaveValue("Instagram Ads");
+});
+test("primary action fits a small iPhone-sized viewport", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.goto("/");
+  const box = await page.locator(".hero-actions .button").boundingBox();
+  expect(box!.y + box!.height).toBeLessThanOrEqual(568);
 });
 test("privacy, missing route and crawl metadata", async ({ page, request }) => {
   await page.goto("/privacy");

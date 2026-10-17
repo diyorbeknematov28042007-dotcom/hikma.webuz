@@ -42,7 +42,7 @@ export default function OpenGraphImage() {
           <span style={{ color: "#5bd6a1" }}>zamonaviy yechimlar.</span>
         </div>
         <div style={{ display: "flex", fontSize: 22, color: "#adbbb3" }}>
-          Landing page va zamonaviy veb-sahifalar.
+          Landing page / Telegram bot / Instagram Ads / Telegram Ads
         </div>
       </div>
     ),

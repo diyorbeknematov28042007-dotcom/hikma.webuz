@@ -1,8 +1,10 @@
 import {
   ArrowUpRight,
   Browser,
-  DeviceMobile,
-  PlugsConnected,
+  Robot,
+  InstagramLogo,
+  TelegramLogo,
+  Check,
   CaretDown,
 } from "@phosphor-icons/react/dist/ssr";
 import {
@@ -14,7 +16,7 @@ import {
 } from "@/lib/content";
 import { Reveal } from "./Reveal";
 import { LogoAssembly } from "./Brand";
-const serviceIcons = [Browser, DeviceMobile, PlugsConnected];
+const serviceIcons = [Browser, Robot, InstagramLogo, TelegramLogo];
 export function Services() {
   return (
     <section
@@ -24,30 +26,36 @@ export function Services() {
     >
       <Reveal>
         <h2 id="services-title" className="section-title">
-          Raqamli ishtirokingizni
-          <br className="desktop-break" /> kuchaytiradigan yechimlar.
+          Sizga kerakli
+          <br className="desktop-break" /> raqamli yechim.
         </h2>
         <p className="section-description">
-          Har bir loyiha maqsadi, auditoriyasi va kerakli funksiyalaridan
-          boshlanadi.
+          Tanishtiring. Avtomatlashtiring. Auditoriyangizga yetib boring.
         </p>
       </Reveal>
-      <div className="services-grid">
+      <Reveal className="services-grid" stagger>
         {services.map((service, index) => {
           const Icon = serviceIcons[index];
           return (
-            <Reveal
+            <article
               key={service.title}
               className={`service service-${index + 1}`}
+              id={`service-${service.id}`}
             >
               <div className="service-top">
                 <Icon size={32} weight="light" aria-hidden="true" />
-                {service.tag && (
-                  <span className="service-tag">{service.tag}</span>
-                )}
+                <span className="service-category">{service.category}</span>
               </div>
               <h3>{service.title}</h3>
               <p>{service.description}</p>
+              <ul className="service-features">
+                {service.features.map((feature) => (
+                  <li key={feature}>
+                    <Check size={15} aria-hidden="true" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
               {service.note && <p className="service-note">{service.note}</p>}
               <a
                 className="service-link"
@@ -57,10 +65,10 @@ export function Services() {
                 <span>{primaryCta}</span>
                 <ArrowUpRight size={21} aria-hidden="true" />
               </a>
-            </Reveal>
+            </article>
           );
         })}
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -75,12 +83,12 @@ export function Approach() {
         <Reveal>
           <p className="eyebrow">Yondashuvimiz</p>
           <h2 className="section-title" id="approach-title">
-            Dizayn chiroyli bo‘lishi bilan
-            <br className="desktop-break" /> birga ishlashi ham kerak.
+            Bir maqsad.
+            <br className="desktop-break" /> Bir-birini to‘ldiradigan yechimlar.
           </h2>
           <p className="section-description">
-            Saytning har bir qismi kerakli ma’lumotni topish va keyingi qadamni
-            tushunishga yordam berishi kerak.
+            Sayt, bot va reklama mijozingizga kerakli ma’lumotni topish va
+            keyingi qadamni tushunishga yordam bersin.
           </p>
         </Reveal>
         <div className="values-grid">
@@ -109,7 +117,7 @@ export function Process() {
     >
       <Reveal>
         <h2 id="process-title" className="section-title">
-          G‘oyadan tayyor sahifagacha.
+          G‘oyadan amaliy yechimgacha.
           <br />
           <span className="muted-title">Aniq bosqichlar.</span>
         </h2>
@@ -157,13 +165,18 @@ export function About() {
             <br className="desktop-break" /> keng qarash.
           </h2>
           <p>
-            HIKMA odamlar va bizneslar uchun raqamli mahsulotlar va xizmatlarni
-            rivojlantirishga qaratilgan brend. Bugun asosiy amaliy
-            yo‘nalishlarimizdan biri professional veb-sahifalar yaratish.
+            HIKMA raqamli xizmatlar va texnologik g‘oyalarni birlashtiradigan
+            brend. Landing page, Telegram bot, Instagram Ads va Telegram Ads
+            orqali bizneslarga raqamli ishtirokini shakllantirishda yordam
+            beramiz.
           </p>
           <p className="about-mission">
             Texnologiya va dizaynni sodda, tushunarli va amaliy yechimlarga
             aylantirish.
+          </p>
+          <p>
+            Sun’iy intellekt, avtomatlashtirish va startaplar ekotizimi
+            brendimizning kengroq qarashiga kiradi.
           </p>
         </Reveal>
       </div>

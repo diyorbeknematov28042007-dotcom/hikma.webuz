@@ -6,7 +6,8 @@ import { Footer } from "@/components/Footer";
 import { isContactEnabled } from "@/lib/site";
 export default function Home() {
   const enabled = isContactEnabled();
-  const instagramVerified = process.env.INSTAGRAM_VERIFIED === "true";
+  // The owner supplied the current brand profile as the new source of truth.
+  const instagramVerified = true;
   return (
     <>
       <Header />

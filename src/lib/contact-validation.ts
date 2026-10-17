@@ -1,3 +1,4 @@
+import { serviceOptions } from "./content";
 export type ContactInput = {
   name: string;
   contact: string;
@@ -26,7 +27,7 @@ export function validateContact(
     /^\d{9,15}$/.test(contact.replace(/\D/g, ""));
   if ((!email && !phone) || contact.length > 160)
     errors.contact = "Telefon raqami yoki emailni to‘g‘ri kiriting.";
-  if (!["Landing page", "Veb-sahifa", "Hali aniq emas"].includes(service))
+  if (![...serviceOptions, "Veb-sahifa"].includes(service))
     errors.service = "Xizmat turini tanlang.";
   if (
     message.length < 10 ||

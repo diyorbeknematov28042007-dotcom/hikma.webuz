@@ -15,7 +15,8 @@ import {
   Copy,
   PaperPlaneTilt,
 } from "@phosphor-icons/react";
-import { instagramUrl } from "@/lib/site";
+import { instagramUrl, telegramUrl } from "@/lib/site";
+import { serviceOptions } from "@/lib/content";
 import { validateContact, type ContactInput } from "@/lib/contact-validation";
 import { Reveal } from "./Reveal";
 type TurnstileApi = {
@@ -182,21 +183,33 @@ export function Contact({
             <span>birga boshlaylik.</span>
           </h2>
           <p>
-            Qanday sayt kerakligini qisqacha yozing. Talablaringizni aniqlashdan
-            boshlaymiz.
+            Sayt, bot yoki reklama? G‘oyangizni ayting. Ehtiyojingizga mos
+            yechimni birga tanlaymiz.
           </p>
-          {instagramVerified && (
+          <div className="contact-channels">
             <a
-              href={instagramUrl}
-              className="text-link"
+              href={telegramUrl}
+              className="button"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Instagram orqali yozish
+              Telegramda yozish
               <ArrowUpRight size={20} aria-hidden="true" />
               <span className="sr-only"> (yangi sahifada ochiladi)</span>
             </a>
-          )}
+            {instagramVerified && (
+              <a
+                href={instagramUrl}
+                className="text-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Instagram orqali yozish
+                <ArrowUpRight size={20} aria-hidden="true" />
+                <span className="sr-only"> (yangi sahifada ochiladi)</span>
+              </a>
+            )}
+          </div>
         </Reveal>
         <Reveal className="contact-form-wrap">
           <form
@@ -215,7 +228,7 @@ export function Contact({
             <p className="form-note" id="form-note">
               {enabled
                 ? "So‘rovingizni ko‘rib chiqish uchun kerakli ma’lumotlar."
-                : "Tavsifni nusxalab oling. Ma’lumotlar qurilmangizda qoladi va yuborilmaydi."}
+                : "Tavsifni nusxalab, Telegram yoki Instagram orqali yuboring. Bu forma ma’lumotni avtomatik yubormaydi."}
             </p>
             {enabled && (
               <div className="form-row">
@@ -258,9 +271,9 @@ export function Contact({
             <div className="field">
               <label htmlFor="service">Qanday yordam kerak?</label>
               <select name="service" id="service" defaultValue="Landing page">
-                <option>Landing page</option>
-                <option>Veb-sahifa</option>
-                <option>Hali aniq emas</option>
+                {serviceOptions.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
               </select>
             </div>
             <div className="field">
@@ -274,7 +287,7 @@ export function Contact({
                 minLength={10}
                 maxLength={2000}
                 rows={4}
-                placeholder="Biznesingiz va qanday sayt kerakligini yozing"
+                placeholder="Biznesingiz va qanday yordam kerakligini yozing"
                 aria-invalid={Boolean(errors.message)}
                 aria-describedby={errors.message ? "message-error" : undefined}
               />
@@ -373,6 +386,18 @@ export function Contact({
                 </>
               )}
               {status === "copied" && "Loyiha tavsifi nusxalandi."}
+              {status === "copied" && (
+                <a
+                  href={telegramUrl}
+                  className="copied-next text-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Telegram botni ochish
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                  <span className="sr-only"> (yangi sahifada ochiladi)</span>
+                </a>
+              )}
             </div>
             {copyFallback && (
               <div className="field">

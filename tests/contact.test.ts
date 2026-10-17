@@ -2,8 +2,27 @@ import { test, afterEach } from "node:test";
 import assert from "node:assert/strict";
 import { POST } from "../src/app/api/contact/route";
 import { validateContact } from "../src/lib/contact-validation";
+import { services } from "../src/lib/content";
 const originalEnv = { ...process.env };
 const originalFetch = globalThis.fetch;
+test("accepts every current advertised service and the legacy web-page value", () => {
+  for (const service of [
+    ...services.map((service) => service.title),
+    "Veb-sahifa",
+  ]) {
+    assert.equal(
+      validateContact({
+        name: "Diyorbek",
+        contact: "owner@example.com",
+        service,
+        message: "Biznes uchun raqamli yechim kerak.",
+        consent: true,
+      }).ok,
+      true,
+      service,
+    );
+  }
+});
 afterEach(() => {
   process.env = { ...originalEnv };
   globalThis.fetch = originalFetch;

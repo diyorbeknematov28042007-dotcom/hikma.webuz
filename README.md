@@ -1,6 +1,8 @@
 # HIKMA
 
-HIKMA uchun mobile-first, o‘zbekcha landing page. Next.js 16 App Router, React, TypeScript, native CSS. Asosiy sahifalar statik tayyorlanadi; murojaat endpointi serverda ishlaydi.
+HIKMA raqamli xizmatlari uchun mobile-first, o‘zbekcha landing page: **Landing page, Telegram bot, Instagram Ads va Telegram Ads**. Next.js 16 App Router, React, TypeScript, native CSS. Asosiy sahifalar statik tayyorlanadi; murojaat endpointi serverda ishlaydi.
+
+2026-10-17 yangilanishi: original raster logo saqlangan interaktiv 3D hero, to‘rtta xizmatga tez navigatsiya, staggered scroll reveal va haqiqiy aloqa havolalari. Effektlar touch va reduced-motion rejimlarida soddalashadi. Qo‘shimcha motion kutubxonasi qo‘shilmagan.
 
 ## Ishga tushirish
 
@@ -34,7 +36,8 @@ npm start
 | `TELEGRAM_CHAT_ID`               | HIKMA uchun tasdiqlangan, bot yozish huquqiga ega chat              |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile public site key                                |
 | `TURNSTILE_SECRET_KEY`           | Turnstile server-side secret                                        |
-| `INSTAGRAM_VERIFIED`             | @hikma.service havolasi tekshirilgach `true`; standart yashirin     |
+
+Instagram `@hikma.service` va Telegram `https://t.me/Hikmaservice_bot` foydalanuvchining 2026-10-17 profil screenshotidan olindi. Eski `INSTAGRAM_VERIFIED` sozlamasi endi kerak emas. Formani yoqmasdan ham ushbu havolalar orqali murojaat qilish mumkin; lokal tavsifni nusxalab Telegramga joylash mumkin. Havolani bosish avtomatik xabar yubormaydi.
 
 Turnstile widgetda production domeningizni ruxsat etilgan hostlarga qo‘shing. Preview host kerak bo‘lsa uni ham alohida sozlang. Test kalitlarini productionda ishlatmang. Maxfiy kalitlarni GitHubga, frontendga yoki chatga joylamang.
 
@@ -55,6 +58,7 @@ src/app/api/contact/      # Server-side Turnstile + Telegram delivery
 src/components/           # Header, Hero, Services, Process, About, Contact, Footer
 src/lib/content.ts        # O‘zbekcha sahifa kontenti
 src/app/globals.css       # Design tokens, mobile-first layout, reduced motion
+src/app/experience.css    # 3D hero, xizmat kartalari, refresh motion
 public/brand/             # Design V2 PDFdan olingan o‘zgartirilmagan raster belgi
 public/images/            # Optimallashtirilgan, aniq konsept deb belgilangan vizual
 tests/                    # API testlari va CI browser tekshiruvlari
@@ -63,7 +67,7 @@ docs/                     # Source audit, QA holati, tasdiqlash uchun ochiq qaro
 
 ## Tekshiruvlar
 
-`npm run check` lint, TypeScript va 11 ta API testini bajaradi. Testlar real Telegram xabari yubormaydi. `npm run build` production build yaratadi. GitHub Actions 9 viewport, klaviatura, menyu, no-JS fallback, reduced-motion, axe va Lighthouse tekshiruvlariga sozlangan. Brauzer testlarini lokal bajarish uchun:
+`npm run check` lint, TypeScript va 12 ta API testini bajaradi. Testlar real Telegram xabari yubormaydi. `npm run build` production build yaratadi. GitHub Actions 9 viewport, klaviatura, menyu, no-JS fallback, reduced-motion, axe va Lighthouse tekshiruvlariga sozlangan. Brauzer testlarini lokal bajarish uchun:
 
 ```bash
 npx playwright install chromium
@@ -81,3 +85,5 @@ CI screenshot va hisobotlari Actions artifact sifatida saqlanadi. Lighthouse lab
 - CI browser/axe/Lighthouse natijalarini va Vercel preview’ni tekshiring; 200% zoom hamda iOS/Android real qurilma QA’sini bajaring.
 
 Batafsil: [Source audit](docs/SOURCE_AUDIT.md), [QA holati](docs/QA.md), [Vizual manbalar](docs/ASSETS.md).
+
+Joriy kontent manbalari va o‘zgarishlar: [2026-10-17 source audit](docs/UPDATE_2026-10-17.md).

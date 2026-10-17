@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { siteOrigin } from "@/lib/site";
 import "./globals.css";
+import "./experience.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),
   title: {
@@ -8,14 +9,15 @@ export const metadata: Metadata = {
     template: "%s | HIKMA",
   },
   description:
-    "HIKMA bizneslar va mutaxassislar uchun zamonaviy landing page hamda qulay veb-sahifalar yaratishga yo‘naltirilgan. Loyihangizni birga muhokama qilamiz.",
+    "HIKMA: landing page, Telegram bot, Instagram Ads va Telegram Ads. Biznesingiz uchun dizayn, avtomatlashtirish va maqsadli reklama yechimlari.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "uz_UZ",
     siteName: "HIKMA",
     title: "HIKMA — Millat uchun zamonaviy yechimlar",
-    description: "Aniq maqsad. Puxta dizayn. Qulay raqamli tajriba.",
+    description:
+      "Veb-sahifa. Telegram bot. Maqsadli reklama. G‘oyadan amaliy yechimgacha.",
     url: "/",
     images: [
       {

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUp, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { StaticLogo } from "./Brand";
-import { instagramUrl } from "@/lib/site";
+import { instagramUrl, telegramUrl } from "@/lib/site";
 export function Footer({ instagramVerified }: { instagramVerified: boolean }) {
   return (
     <footer className="site-footer">
@@ -21,6 +21,11 @@ export function Footer({ instagramVerified }: { instagramVerified: boolean }) {
           </small>
           <div>
             <Link href="/privacy">Maxfiylik</Link>
+            <a href={telegramUrl} target="_blank" rel="noopener noreferrer">
+              Telegram
+              <ArrowUpRight size={14} aria-hidden="true" />
+              <span className="sr-only"> (yangi sahifada ochiladi)</span>
+            </a>
             {instagramVerified && (
               <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
                 Instagram

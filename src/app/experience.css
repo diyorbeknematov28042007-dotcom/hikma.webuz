@@ -1,0 +1,449 @@
+/* October 2026 refresh. All motion reinforces navigation or section hierarchy.
+   Native CSS + WAAPI; no animation framework, canvas or scroll hijacking. */
+.hero-updated {
+  gap: 40px;
+}
+.hero-updated h1 {
+  max-width: 620px;
+  font-weight: 500;
+}
+.hero-updated .hero-accent {
+  display: block;
+  color: var(--color-accent-text);
+}
+.hero-updated .hero-description {
+  max-width: 440px;
+}
+.depth-stage {
+  position: relative;
+  height: 360px;
+  min-width: 0;
+  isolation: isolate;
+  overflow: clip;
+  border: 1px solid #344b3e;
+  border-radius: 24px;
+  background: #14251c;
+}
+.depth-scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg));
+  transition: transform 380ms var(--ease);
+}
+.stage-environment {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.44;
+  transform: translateZ(-30px) scale(1.1);
+  pointer-events: none;
+}
+.stage-halo {
+  position: absolute;
+  inset: 20% 12%;
+  border-radius: 50%;
+  border: 1px solid #638974;
+  transform: translateZ(8px) rotateX(62deg) rotateZ(-25deg);
+  opacity: 0.6;
+  pointer-events: none;
+}
+.stage-identity {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  width: 146px;
+  height: 170px;
+  margin: -85px 0 0 -73px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 20px;
+  border: 1px solid #dcebe1;
+  background: #f7faf8;
+  color: #101816;
+  box-shadow:
+    0 24px 44px #071b14aa,
+    inset 0 0 0 6px #ffffff;
+  transform: translateZ(36px) rotateZ(-8deg);
+  pointer-events: none;
+}
+.stage-mark {
+  width: 54px;
+  height: 63px;
+  background: #fff;
+}
+.stage-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.stage-wordmark {
+  font-size: 29px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+.stage-motto {
+  font-size: 8px;
+  line-height: 1.5;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: #45594e;
+}
+.stage-services {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.stage-tile {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 19px minmax(0, 1fr) 12px;
+  align-items: center;
+  gap: 6px;
+  width: calc(50% - 20px);
+  min-height: 64px;
+  padding: 10px 9px;
+  background: #172b21f5;
+  border: 1px solid #55715f;
+  border-radius: var(--radius-control);
+  color: #f7faf8;
+  box-shadow: 0 12px 28px #081b1499;
+  font-size: 11px;
+  line-height: 1.35;
+  transform: translateZ(64px) rotateZ(var(--card-angle, -3deg));
+  transition:
+    transform 250ms var(--ease),
+    background 200ms;
+}
+.stage-tile-icon {
+  color: #81dfb0;
+  display: flex;
+  align-items: center;
+}
+.stage-tile-icon svg {
+  width: 19px;
+  height: 19px;
+}
+.stage-tile > svg {
+  width: 12px;
+}
+.stage-tile-1 {
+  left: 12px;
+  top: 16px;
+  --card-angle: -4deg;
+}
+.stage-tile-2 {
+  right: 12px;
+  top: 16px;
+  --card-angle: 4deg;
+}
+.stage-tile-3 {
+  left: 12px;
+  bottom: 36px;
+  --card-angle: 3deg;
+}
+.stage-tile-4 {
+  right: 12px;
+  bottom: 36px;
+  --card-angle: -3deg;
+}
+.stage-tile:hover,
+.stage-tile:focus-visible {
+  transform: translateZ(80px) rotateZ(0deg) translateY(-3px);
+  background: #254d38;
+}
+.stage-caption {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 10px;
+  color: #d2e4d9;
+  transform: translateZ(10px);
+  pointer-events: none;
+}
+.services-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+.service {
+  position: relative;
+  scroll-margin-top: 104px;
+}
+.service-top {
+  margin-bottom: 28px;
+}
+.service-category {
+  font-size: 11px;
+  color: #c0d4c6;
+}
+.service-2 {
+  background: #1b2d25;
+  border-color: #42604d;
+}
+.service-3 {
+  background: #192321;
+}
+.service-4 {
+  background: linear-gradient(150deg, #173d2c, #192a21);
+  border-color: #42604d;
+}
+.service-features {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+  display: grid;
+  gap: 10px;
+  color: #d4e0d8;
+  font-size: 13px;
+}
+.service-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.service-features svg {
+  margin-top: 4px;
+  color: #81dfb0;
+}
+.service .service-note {
+  font-size: 11px;
+  margin-top: 24px;
+}
+.service-link {
+  padding-top: 24px;
+}
+.contact-channels {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 32px;
+}
+.contact-channels .text-link {
+  margin-top: 0;
+}
+.copied-next {
+  margin-top: 8px;
+}
+.footer-bottom > div {
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+.about-brand {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #3c5546;
+  background: linear-gradient(145deg, #213c2d, #192321 70%);
+}
+.process-list li {
+  position: relative;
+}
+.process-list li::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 0;
+  height: 32px;
+  width: 2px;
+  background: var(--color-accent-text);
+  transform-origin: top;
+}
+@media (min-width: 640px) {
+  .depth-stage {
+    height: 440px;
+  }
+  .stage-identity {
+    width: 194px;
+    height: 240px;
+    margin: -120px 0 0 -97px;
+    gap: 14px;
+  }
+  .stage-mark {
+    width: 76px;
+    height: 89px;
+  }
+  .stage-wordmark {
+    font-size: 37px;
+  }
+  .stage-motto {
+    font-size: 9px;
+  }
+  .stage-tile {
+    width: 188px;
+    grid-template-columns: 24px minmax(0, 1fr) 14px;
+    gap: 10px;
+    padding: 14px;
+    font-size: 12px;
+    min-height: 70px;
+  }
+  .stage-tile-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  .stage-tile-1,
+  .stage-tile-3 {
+    left: 20px;
+  }
+  .stage-tile-2,
+  .stage-tile-4 {
+    right: 20px;
+  }
+  .stage-tile-1,
+  .stage-tile-2 {
+    top: 20px;
+  }
+  .stage-tile-3,
+  .stage-tile-4 {
+    bottom: 40px;
+  }
+}
+@media (min-width: 768px) {
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .service-1 {
+    grid-column: auto;
+  }
+  .service-1 h3 {
+    font-size: 25px;
+  }
+}
+@media (min-width: 1024px) {
+  .hero.hero-updated {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    padding-block: 64px 80px;
+  }
+  .hero-updated h1 {
+    font-size: clamp(46px, 4.4vw, 64px);
+  }
+  .depth-stage {
+    height: 480px;
+  }
+  .stage-identity {
+    width: 194px;
+    height: 240px;
+  }
+  .stage-tile {
+    width: calc(50% - 28px);
+    font-size: 12px;
+  }
+  .services-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .service-1,
+  .service-4 {
+    grid-column: span 7;
+  }
+  .service-2,
+  .service-3 {
+    grid-column: span 5;
+  }
+  .service {
+    padding: 36px;
+    min-height: 400px;
+  }
+  .service h3,
+  .service-1 h3 {
+    font-size: 30px;
+  }
+  .service p {
+    max-width: 480px;
+  }
+  .process-list li::before {
+    left: 0;
+    top: -1px;
+    height: 2px;
+    width: 48px;
+    transform-origin: left;
+  }
+}
+@media (min-width: 1440px) {
+  .hero.hero-updated {
+    gap: 72px;
+    padding-block: 72px 88px;
+  }
+  .depth-stage {
+    height: 520px;
+  }
+  .stage-identity {
+    width: 218px;
+    height: 264px;
+    margin: -132px 0 0 -109px;
+  }
+  .stage-mark {
+    width: 88px;
+    height: 103px;
+  }
+  .stage-tile {
+    font-size: 13px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .stage-identity {
+    animation: identity-arrive 1100ms var(--ease) both;
+  }
+  .stage-tile {
+    animation: tile-arrive 700ms var(--ease) backwards;
+  }
+  .stage-tile-1 {
+    animation-delay: 120ms;
+  }
+  .stage-tile-2 {
+    animation-delay: 220ms;
+  }
+  .stage-tile-3 {
+    animation-delay: 320ms;
+  }
+  .stage-tile-4 {
+    animation-delay: 420ms;
+  }
+  @keyframes identity-arrive {
+    from {
+      opacity: 0;
+      transform: translateZ(0) translateY(24px) rotateZ(-15deg);
+    }
+    to {
+      opacity: 1;
+      transform: translateZ(36px) rotateZ(-8deg);
+    }
+  }
+  @keyframes tile-arrive {
+    from {
+      opacity: 0;
+      transform: translateZ(20px) translateY(24px) rotateZ(0);
+    }
+    to {
+      opacity: 1;
+      transform: translateZ(64px) rotateZ(var(--card-angle, -3deg));
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .depth-scene {
+    transform: none;
+  }
+  .stage-tile:hover {
+    transform: translateZ(64px) rotateZ(var(--card-angle, -3deg));
+  }
+}
+@media (forced-colors: active) {
+  .stage-tile,
+  .stage-identity {
+    border: 1px solid ButtonText;
+  }
+  .stage-environment,
+  .stage-halo {
+    display: none;
+  }
+}

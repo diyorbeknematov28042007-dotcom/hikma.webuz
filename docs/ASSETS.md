@@ -1,5 +1,7 @@
 # Visual assets
 
+2026-10-17 refresh: mavjud emerald artwork hero sahnasida dekorativ fon sifatida qayta ishlatildi. Uning ustidagi kartalar haqiqiy xizmat anchor navigatsiyasi; mahsulot screenshot’i yoki portfolio namunasi emas. Original raster belgi butunligicha ishlatiladi. Yangi screenshotlardan faqat xizmatlar va ochiq aloqa manzillari olindi; shaxsiy dashboard va reklama foizlari public asset sifatida tarqatilmadi.
+
 `public/brand/hikma-mark-reference.png`: supplied HIKMA Design Visual V2 PDF, first page embedded RGB raster, 384×447. Extracted without tracing, masking, recoloring or geometry changes. This is a reference, not an approved master SVG. Favicon/apple icon use proportional resizing and white padding; the geometry is preserved.
 
 `public/images/emerald-panels.webp`: generated using the built-in imagegen tool for this project, 1536×1024, converted to WebP quality 85 (approximately 76 KiB). The composition represents conceptual digital materiality, not a website screenshot or completed client project. Caption labels it as conceptual. No third-party logos, customer or stock-photo attribution claims.
