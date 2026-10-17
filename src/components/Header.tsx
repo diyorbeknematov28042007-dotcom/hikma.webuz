@@ -3,7 +3,8 @@ import { useEffect, useRef } from "react";
 import { List, X, ArrowUpRight } from "@phosphor-icons/react";
 import { navigation, primaryCta } from "@/lib/content";
 import { StaticLogo } from "./Brand";
-export function Header() {
+export function Header({ innerPage = false }: { innerPage?: boolean }) {
+  const anchorHref = (href: string) => (innerPage ? `/${href}` : href);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
@@ -46,17 +47,20 @@ export function Header() {
       <div className="header-sentinel" ref={sentinel} aria-hidden="true" />
       <header className="site-header" ref={header}>
         <div className="container header-inner">
-          <a href="#top" aria-label="HIKMA bosh sahifa">
+          <a href={innerPage ? "/" : "#top"} aria-label="HIKMA bosh sahifa">
             <StaticLogo />
           </a>
           <nav className="desktop-nav" aria-label="Asosiy navigatsiya">
             {navigation.map((item) => (
-              <a key={item.href} href={item.href}>
+              <a key={item.href} href={anchorHref(item.href)}>
                 {item.label}
               </a>
             ))}
           </nav>
-          <a className="button button-small header-cta" href="#aloqa">
+          <a
+            className="button button-small header-cta"
+            href={anchorHref("#aloqa")}
+          >
             {primaryCta}
             <ArrowUpRight size={17} aria-hidden="true" />
           </a>
@@ -74,11 +78,11 @@ export function Header() {
         <noscript>
           <nav className="nojs-nav" aria-label="Navigatsiya">
             {navigation.map((item) => (
-              <a key={item.href} href={item.href}>
+              <a key={item.href} href={anchorHref(item.href)}>
                 {item.label}
               </a>
             ))}
-            <a href="#aloqa">Bog‘lanish</a>
+            <a href={anchorHref("#aloqa")}>Bog‘lanish</a>
           </nav>
         </noscript>
       </header>
@@ -106,12 +110,16 @@ export function Header() {
           </div>
           <nav aria-label="Mobil navigatsiya">
             {navigation.map((item) => (
-              <a key={item.href} href={item.href} onClick={followAnchor}>
+              <a
+                key={item.href}
+                href={anchorHref(item.href)}
+                onClick={followAnchor}
+              >
                 {item.label}
                 <ArrowUpRight size={22} aria-hidden="true" />
               </a>
             ))}
-            <a href="#aloqa" onClick={followAnchor}>
+            <a href={anchorHref("#aloqa")} onClick={followAnchor}>
               Bog‘lanish
               <ArrowUpRight size={22} aria-hidden="true" />
             </a>

@@ -2,10 +2,11 @@ import type { Metadata, Viewport } from "next";
 import { siteOrigin } from "@/lib/site";
 import "./globals.css";
 import "./experience.css";
+import "./details.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),
   title: {
-    default: "HIKMA — Biznesingiz uchun zamonaviy raqamli yechimlar",
+    default: "HIKMA — Landing page, Telegram bot va reklama xizmatlari",
     template: "%s | HIKMA",
   },
   description:

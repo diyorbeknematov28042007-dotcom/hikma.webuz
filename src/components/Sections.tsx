@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   ArrowUpRight,
   Browser,
@@ -7,13 +8,8 @@ import {
   Check,
   CaretDown,
 } from "@phosphor-icons/react/dist/ssr";
-import {
-  services,
-  values,
-  processSteps,
-  faqs,
-  primaryCta,
-} from "@/lib/content";
+import { values, processSteps, faqs } from "@/lib/content";
+import { servicePages } from "@/lib/service-pages";
 import { Reveal } from "./Reveal";
 import { LogoAssembly } from "./Brand";
 const serviceIcons = [Browser, Robot, InstagramLogo, TelegramLogo];
@@ -34,7 +30,7 @@ export function Services() {
         </p>
       </Reveal>
       <Reveal className="services-grid" stagger>
-        {services.map((service, index) => {
+        {servicePages.map((service, index) => {
           const Icon = serviceIcons[index];
           return (
             <article
@@ -57,14 +53,14 @@ export function Services() {
                 ))}
               </ul>
               {service.note && <p className="service-note">{service.note}</p>}
-              <a
+              <Link
                 className="service-link"
-                href="#aloqa"
-                aria-label={`${service.title}: ${primaryCta}`}
+                href={service.href}
+                aria-label={`${service.title} haqida batafsil`}
               >
-                <span>{primaryCta}</span>
+                <span>Xizmat haqida batafsil</span>
                 <ArrowUpRight size={21} aria-hidden="true" />
-              </a>
+              </Link>
             </article>
           );
         })}

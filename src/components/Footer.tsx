@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUp, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { StaticLogo } from "./Brand";
 import { instagramUrl, telegramUrl } from "@/lib/site";
+import { servicePages } from "@/lib/service-pages";
 export function Footer({ instagramVerified }: { instagramVerified: boolean }) {
   return (
     <footer className="site-footer">
@@ -15,6 +16,15 @@ export function Footer({ instagramVerified }: { instagramVerified: boolean }) {
             <ArrowUp size={20} aria-hidden="true" />
           </a>
         </div>
+        <nav className="footer-services" aria-label="Xizmat sahifalari">
+          {servicePages.map((service) => (
+            <Link key={service.id} href={service.href}>
+              {service.title}
+            </Link>
+          ))}
+          <Link href="/loyihalar">Loyihalar</Link>
+          <Link href="/xizmatlar">Barcha xizmatlar</Link>
+        </nav>
         <div className="footer-bottom">
           <small>
             © {new Date().getFullYear()} HIKMA. Barcha huquqlar himoyalangan.
