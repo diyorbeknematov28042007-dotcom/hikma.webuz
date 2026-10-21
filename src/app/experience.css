@@ -48,14 +48,15 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 146px;
-  height: 170px;
-  margin: -85px 0 0 -73px;
+  z-index: 2;
+  width: 112px;
+  height: 136px;
+  margin: -68px 0 0 -56px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 6px;
   border-radius: 20px;
   border: 1px solid #dcebe1;
   background: #f7faf8;
@@ -67,8 +68,8 @@
   pointer-events: none;
 }
 .stage-mark {
-  width: 54px;
-  height: 63px;
+  width: 40px;
+  height: 47px;
   background: #fff;
 }
 .stage-mark img {
@@ -77,13 +78,13 @@
   object-fit: contain;
 }
 .stage-wordmark {
-  font-size: 29px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.06em;
 }
 .stage-motto {
-  font-size: 8px;
+  font-size: 7px;
   line-height: 1.5;
   letter-spacing: 0.17em;
   text-transform: uppercase;
@@ -92,68 +93,82 @@
 .stage-services {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
   transform-style: preserve-3d;
 }
-.stage-tile {
+.stage-orbit {
   position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  width: calc(50% - 12px);
-  height: 78px;
-  padding: 4px 8px 4px 2px;
-  background: #172b21f5;
-  border: 1px solid #55715f;
-  border-radius: var(--radius-control);
-  color: #f7faf8;
-  box-shadow: 0 12px 28px #081b1499;
-  font-size: 11px;
-  line-height: 1.35;
-  transform: translateZ(64px) rotateZ(var(--card-angle, -3deg));
-  transition:
-    transform 250ms var(--ease),
-    background 200ms;
+  top: 50%;
+  left: 50%;
+  width: min(calc(100% - 66px), 270px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border: 1px solid #59836b88;
+  border-radius: 50%;
+  --satellite-size: 54px;
 }
-.stage-tile-sticker {
-  width: 54px;
-  height: 54px;
-  flex: none;
+.stage-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border: 1px dashed #63897455;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.stage-satellite {
+  position: absolute;
+  display: block;
+  width: var(--satellite-size);
+  height: var(--satellite-size);
+  border-radius: 50%;
+  pointer-events: auto;
+}
+.stage-satellite-face {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  border: 1px solid #578366;
+  border-radius: 50%;
+  background: #173a2bcc;
+  box-shadow: 0 9px 24px #071b14b8, inset 0 0 14px #40875c44;
+  transition: background 200ms, box-shadow 200ms;
+}
+.stage-satellite img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  transition: scale 200ms var(--ease);
 }
-.stage-tile-label {
-  min-width: 0;
-  flex: 1;
-  font-weight: 600;
-  overflow-wrap: normal;
+.stage-satellite-1 {
+  top: 0;
+  left: 50%;
+  translate: -50% -50%;
 }
-.stage-tile-arrow {
-  display: none;
-  flex: none;
+.stage-satellite-2 {
+  top: 50%;
+  right: 0;
+  translate: 50% -50%;
 }
-.stage-tile-1 {
-  left: 6px;
-  top: 10px;
-  --card-angle: -4deg;
+.stage-satellite-3 {
+  bottom: 0;
+  left: 50%;
+  translate: -50% 50%;
 }
-.stage-tile-2 {
-  right: 6px;
-  top: 10px;
-  --card-angle: 4deg;
+.stage-satellite-4 {
+  top: 50%;
+  left: 0;
+  translate: -50% -50%;
 }
-.stage-tile-3 {
-  left: 6px;
-  bottom: 12px;
-  --card-angle: 3deg;
+.stage-satellite:hover .stage-satellite-face,
+.stage-satellite:focus-visible .stage-satellite-face {
+  background: #28563c;
+  box-shadow: 0 12px 30px #071b14dd, 0 0 0 4px #68d69a55;
 }
-.stage-tile-4 {
-  right: 6px;
-  bottom: 12px;
-  --card-angle: -3deg;
-}
-.stage-tile:hover,
-.stage-tile:focus-visible {
-  transform: translateZ(80px) rotateZ(0deg) translateY(-3px);
-  background: #254d38;
+.stage-satellite:hover img,
+.stage-satellite:focus-visible img {
+  scale: 1.12;
 }
 .services-grid {
   grid-template-columns: minmax(0, 1fr);
@@ -250,6 +265,23 @@
   background: var(--color-accent-text);
   transform-origin: top;
 }
+@media (min-width: 375px) {
+  .stage-identity {
+    width: 128px;
+    height: 154px;
+    margin: -77px 0 0 -64px;
+  }
+  .stage-mark {
+    width: 48px;
+    height: 56px;
+  }
+  .stage-wordmark {
+    font-size: 26px;
+  }
+  .stage-orbit {
+    --satellite-size: 60px;
+  }
+}
 @media (min-width: 640px) {
   .depth-stage {
     height: 440px;
@@ -270,35 +302,9 @@
   .stage-motto {
     font-size: 9px;
   }
-  .stage-tile {
-    width: 188px;
-    gap: 8px;
-    padding: 2px 12px 2px 4px;
-    font-size: 12px;
-    height: 80px;
-  }
-  .stage-tile-sticker {
-    width: 76px;
-    height: 76px;
-  }
-  .stage-tile-arrow {
-    display: block;
-  }
-  .stage-tile-1,
-  .stage-tile-3 {
-    left: 20px;
-  }
-  .stage-tile-2,
-  .stage-tile-4 {
-    right: 20px;
-  }
-  .stage-tile-1,
-  .stage-tile-2 {
-    top: 20px;
-  }
-  .stage-tile-3,
-  .stage-tile-4 {
-    bottom: 20px;
+  .stage-orbit {
+    width: 336px;
+    --satellite-size: 76px;
   }
 }
 @media (min-width: 768px) {
@@ -328,9 +334,8 @@
     width: 194px;
     height: 240px;
   }
-  .stage-tile {
-    width: calc(50% - 28px);
-    font-size: 12px;
+  .stage-orbit {
+    width: 354px;
   }
   .services-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -386,28 +391,34 @@
     width: 88px;
     height: 103px;
   }
-  .stage-tile {
-    font-size: 13px;
+  .stage-orbit {
+    width: 392px;
+    --satellite-size: 82px;
   }
 }
 @media (prefers-reduced-motion: no-preference) {
   .stage-identity {
     animation: identity-arrive 1100ms var(--ease) both;
   }
-  .stage-tile {
-    animation: tile-arrive 700ms var(--ease) backwards;
+  .stage-orbit {
+    animation: satellite-orbit 36s linear infinite;
   }
-  .stage-tile-1 {
-    animation-delay: 120ms;
+  .stage-satellite-face {
+    animation: satellite-counter-orbit 36s linear infinite;
   }
-  .stage-tile-2 {
-    animation-delay: 220ms;
+  .stage-orbit:is(:hover, :focus-within),
+  .stage-orbit:is(:hover, :focus-within) .stage-satellite-face {
+    animation-play-state: paused;
   }
-  .stage-tile-3 {
-    animation-delay: 320ms;
+  @keyframes satellite-orbit {
+    to {
+      rotate: 360deg;
+    }
   }
-  .stage-tile-4 {
-    animation-delay: 420ms;
+  @keyframes satellite-counter-orbit {
+    to {
+      rotate: -360deg;
+    }
   }
   @keyframes identity-arrive {
     from {
@@ -419,27 +430,15 @@
       transform: translateZ(36px) rotateZ(-8deg);
     }
   }
-  @keyframes tile-arrive {
-    from {
-      opacity: 0;
-      transform: translateZ(20px) translateY(24px) rotateZ(0);
-    }
-    to {
-      opacity: 1;
-      transform: translateZ(64px) rotateZ(var(--card-angle, -3deg));
-    }
-  }
 }
 @media (prefers-reduced-motion: reduce), (pointer: coarse) {
   .depth-scene {
     transform: none;
   }
-  .stage-tile:hover {
-    transform: translateZ(64px) rotateZ(var(--card-angle, -3deg));
-  }
 }
 @media (forced-colors: active) {
-  .stage-tile,
+  .stage-satellite-face,
+  .stage-orbit,
   .stage-identity {
     border: 1px solid ButtonText;
   }

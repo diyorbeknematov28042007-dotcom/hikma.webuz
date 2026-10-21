@@ -102,6 +102,10 @@ test("quick service navigation and reduced-motion depth remain usable", async ({
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator(".depth-scene")).toHaveCSS("transform", "none");
+  await expect(page.locator(".stage-orbit")).toHaveCSS(
+    "animation-name",
+    "none",
+  );
   await page
     .getByRole("navigation", { name: "Xizmatlarni tez tanlash" })
     .getByRole("link", { name: "Telegram bot" })
@@ -109,6 +113,22 @@ test("quick service navigation and reduced-motion depth remain usable", async ({
   await expect(page).toHaveURL(/#service-bot$/);
   await page.locator("#service").selectOption("Instagram Ads");
   await expect(page.locator("#service")).toHaveValue("Instagram Ads");
+});
+test("orbit pauses on focus while service links remain usable", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  const orbit = page.locator(".stage-orbit");
+  await expect(orbit).toHaveCSS("animation-name", "satellite-orbit");
+  const landing = page
+    .getByRole("navigation", { name: "Xizmatlarni tez tanlash" })
+    .getByRole("link", { name: "Landing page" });
+  await landing.focus();
+  await expect(orbit).toHaveCSS("animation-play-state", "paused");
+  await landing.click();
+  await expect(page).toHaveURL(/#service-landing$/);
 });
 test("primary action fits a small iPhone-sized viewport", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 568 });

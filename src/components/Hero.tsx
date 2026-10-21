@@ -46,30 +46,28 @@ export function Hero() {
           <span className="stage-motto">Ideas to impact</span>
         </div>
         <nav className="stage-services" aria-label="Xizmatlarni tez tanlash">
-          {servicePages.map((service, index) => (
-            <a
-              href={`#service-${service.id}`}
-              className={`stage-tile stage-tile-${index + 1}`}
-              key={service.id}
-            >
-              <Image
-                src={service.sticker}
-                alt=""
-                width={512}
-                height={512}
-                sizes="(min-width: 640px) 80px, 54px"
-                className="stage-tile-sticker"
-                loading={index < 2 ? "eager" : "lazy"}
-                fetchPriority={index === 0 ? "high" : "auto"}
-              />
-              <span className="stage-tile-label">{service.short}</span>
-              <ArrowUpRight
-                className="stage-tile-arrow"
-                size={14}
-                aria-hidden="true"
-              />
-            </a>
-          ))}
+          <div className="stage-orbit">
+            {servicePages.map((service, index) => (
+              <a
+                href={`#service-${service.id}`}
+                className={`stage-satellite stage-satellite-${index + 1}`}
+                aria-label={service.short}
+                key={service.id}
+              >
+                <span className="stage-satellite-face">
+                  <Image
+                    src={service.sticker}
+                    alt=""
+                    width={512}
+                    height={512}
+                    sizes="(min-width: 1440px) 82px, (min-width: 640px) 76px, (min-width: 375px) 60px, 54px"
+                    loading={index < 2 ? "eager" : "lazy"}
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                  />
+                </span>
+              </a>
+            ))}
+          </div>
         </nav>
       </DepthStage>
     </section>
