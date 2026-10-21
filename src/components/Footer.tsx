@@ -8,7 +8,7 @@ export function Footer({ instagramVerified, locale = "uz" }: { instagramVerified
   const copy = getHomeCopy(locale);
   const labels = locale === "uz" ? {
     services: "Xizmat sahifalari", projects: "Loyihalar", all: "Barça xizmatlar", privacy: "Maxfiylik",
-    rights: "Barcha huquqlar himoyalangan.", top: "Yuqoriga qaytish", newTab: "yangi sahifada ochiladi",
+    rights: "Barça huquqlar himoyalangan.", top: "Yuqoriga qaytish", newTab: "yangi sahifada oçiladi",
   } : locale === "ru" ? {
     services: "Страницы услуг", projects: "Проекты", all: "Все услуги", privacy: "Конфиденциальность",
     rights: "Все права защищены.", top: "Наверх", newTab: "открывается в новой вкладке",
@@ -20,7 +20,7 @@ export function Footer({ instagramVerified, locale = "uz" }: { instagramVerified
     <footer className="site-footer">
       <div className="container">
         <div className="footer-main">
-          <Link href={`${localePath(locale, "/")}#top`} aria-label="HIKMA home">
+          <Link href={`${localePath(locale, "/")}#top`} aria-label={`HIKMA — ${locale === "uz" ? "boş sahifa" : locale === "ru" ? "главная" : "home"}`}>
             <StaticLogo />
           </Link>
           <p>{copy.tagline}</p>

@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { localePath, type Locale } from "@/lib/i18n";
 
 const names: Record<Locale, string> = {
-  uz: "Özbekçe",
+  uz: "Özbekça",
   ru: "Русский",
   en: "English",
 };

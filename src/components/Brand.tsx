@@ -26,7 +26,7 @@ export function LogoAssembly() {
       <span className="brand-signature-mark">
         <Image
           src="/brand/hikma-mark-reference.png"
-          alt="HIKMA logotipi"
+          alt=""
           width={384}
           height={447}
           sizes="120px"

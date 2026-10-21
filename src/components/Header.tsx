@@ -54,7 +54,7 @@ export function Header({ innerPage = false, locale = "uz" }: { innerPage?: boole
           <a href={innerPage ? localePath(locale, "/") : "#top"} aria-label={`HIKMA — ${copy.nav[3]}`}>
             <StaticLogo />
           </a>
-          <nav className="desktop-nav" aria-label="Asosiy navigatsiya">
+          <nav className="desktop-nav" aria-label={locale === "uz" ? "Asosiy navigatsiya" : locale === "ru" ? "Основная навигация" : "Main navigation"}>
             {navigation.map((item) => (
               <a key={item.href} href={anchorHref(item.href)}>
                 {item.label}
@@ -81,7 +81,7 @@ export function Header({ innerPage = false, locale = "uz" }: { innerPage?: boole
           </button>
         </div>
         <noscript>
-          <nav className="nojs-nav" aria-label="Navigatsiya">
+          <nav className="nojs-nav" aria-label={locale === "uz" ? "Navigatsiya" : locale === "ru" ? "Навигация" : "Navigation"}>
             {navigation.map((item) => (
               <a key={item.href} href={anchorHref(item.href)}>
                 {item.label}
@@ -113,7 +113,7 @@ export function Header({ innerPage = false, locale = "uz" }: { innerPage?: boole
               <X size={26} aria-hidden="true" />
             </button>
           </div>
-          <nav aria-label="Mobil navigatsiya">
+          <nav aria-label={locale === "uz" ? "Mobil navigatsiya" : locale === "ru" ? "Мобильная навигация" : "Mobile navigation"}>
             {navigation.map((item) => (
               <a
                 key={item.href}

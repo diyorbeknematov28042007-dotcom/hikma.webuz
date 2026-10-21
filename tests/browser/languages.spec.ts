@@ -16,7 +16,7 @@ for (const [locale, title, service] of [
     await page.getByRole("link", { name: new RegExp(service === "Разработка лендинга" ? "Подробнее об услуге" : "Explore this service") }).first().click();
     await expect(page).toHaveURL(new RegExp(`/${locale}/xizmatlar/landing-page$`));
     await expect(page.locator("h1")).toContainText(service);
-    await page.getByRole("link", { name: "Özbekçe" }).click();
+    await page.getByRole("link", { name: "Özbekça" }).click();
     await expect(page).toHaveURL(/\/xizmatlar\/landing-page$/);
     await expect(page.locator("html")).toHaveAttribute("lang", "uz");
     const result = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
