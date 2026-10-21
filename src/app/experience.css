@@ -101,17 +101,18 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 276px;
+  width: 330px;
   aspect-ratio: 1;
   --orbit-scale-x: 0.761;
   --orbit-scale-x-inverse: 1.314;
+  --orbit-inset: 27px;
   transform: translate(-50%, -50%) scaleX(var(--orbit-scale-x));
   --satellite-size: 54px;
 }
 .stage-orbit::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: var(--orbit-inset);
   border: 1px solid #59836b88;
   border-radius: 50%;
   pointer-events: none;
@@ -143,23 +144,23 @@
   transition: scale 200ms var(--ease);
 }
 .stage-satellite-1 {
-  top: 0;
+  top: var(--orbit-inset);
   left: 50%;
   translate: -50% -50%;
 }
 .stage-satellite-2 {
   top: 50%;
-  right: 0;
+  right: var(--orbit-inset);
   translate: 50% -50%;
 }
 .stage-satellite-3 {
-  bottom: 0;
+  bottom: var(--orbit-inset);
   left: 50%;
   translate: -50% 50%;
 }
 .stage-satellite-4 {
   top: 50%;
-  left: 0;
+  left: var(--orbit-inset);
   translate: -50% -50%;
 }
 .stage-satellite:hover .stage-satellite-face,
@@ -280,7 +281,9 @@
     font-size: 26px;
   }
   .stage-orbit {
+    width: 336px;
     --satellite-size: 60px;
+    --orbit-inset: 30px;
     --orbit-scale-x: 0.942;
     --orbit-scale-x-inverse: 1.062;
   }
@@ -306,10 +309,11 @@
     font-size: 9px;
   }
   .stage-orbit {
-    width: 340px;
+    width: 416px;
     --satellite-size: 76px;
-    --orbit-scale-x: 1.412;
-    --orbit-scale-x-inverse: 0.708;
+    --orbit-inset: 38px;
+    --orbit-scale-x: 1.353;
+    --orbit-scale-x-inverse: 0.739;
   }
 }
 @media (min-width: 768px) {
@@ -340,9 +344,9 @@
     height: 212px;
   }
   .stage-orbit {
-    width: 376px;
-    --orbit-scale-x: 1.011;
-    --orbit-scale-x-inverse: 0.989;
+    width: 440px;
+    --orbit-scale-x: 1;
+    --orbit-scale-x-inverse: 1;
   }
   .services-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -399,8 +403,9 @@
     height: 94px;
   }
   .stage-orbit {
-    width: 388px;
+    width: 470px;
     --satellite-size: 82px;
+    --orbit-inset: 41px;
     --orbit-scale-x: 1.165;
     --orbit-scale-x-inverse: 0.858;
   }
