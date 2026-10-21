@@ -106,9 +106,15 @@
   --orbit-scale-x: 0.761;
   --orbit-scale-x-inverse: 1.314;
   transform: translate(-50%, -50%) scaleX(var(--orbit-scale-x));
+  --satellite-size: 54px;
+}
+.stage-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   border: 1px solid #59836b88;
   border-radius: 50%;
-  --satellite-size: 54px;
+  pointer-events: none;
 }
 .stage-satellite {
   position: absolute;
@@ -447,7 +453,7 @@
 }
 @media (forced-colors: active) {
   .stage-satellite-face,
-  .stage-orbit,
+  .stage-orbit::before,
   .stage-identity {
     border: 1px solid ButtonText;
   }
