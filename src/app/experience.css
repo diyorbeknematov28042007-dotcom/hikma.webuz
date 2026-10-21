@@ -101,9 +101,11 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(calc(100% - 66px), 270px);
+  width: 276px;
   aspect-ratio: 1;
-  translate: -50% -50%;
+  --orbit-scale-x: 0.761;
+  --orbit-scale-x-inverse: 1.314;
+  transform: translate(-50%, -50%) scaleX(var(--orbit-scale-x));
   border: 1px solid #59836b88;
   border-radius: 50%;
   --satellite-size: 54px;
@@ -133,6 +135,7 @@
   border-radius: 50%;
   background: #173a2bcc;
   box-shadow: 0 9px 24px #071b14b8, inset 0 0 14px #40875c44;
+  transform: scaleX(var(--orbit-scale-x-inverse));
   transition: background 200ms, box-shadow 200ms;
 }
 .stage-satellite img {
@@ -280,6 +283,8 @@
   }
   .stage-orbit {
     --satellite-size: 60px;
+    --orbit-scale-x: 0.942;
+    --orbit-scale-x-inverse: 1.062;
   }
 }
 @media (min-width: 640px) {
@@ -287,24 +292,26 @@
     height: 440px;
   }
   .stage-identity {
-    width: 194px;
-    height: 240px;
-    margin: -120px 0 0 -97px;
-    gap: 14px;
+    width: 176px;
+    height: 212px;
+    margin: -106px 0 0 -88px;
+    gap: 12px;
   }
   .stage-mark {
-    width: 76px;
-    height: 89px;
+    width: 68px;
+    height: 80px;
   }
   .stage-wordmark {
-    font-size: 37px;
+    font-size: 34px;
   }
   .stage-motto {
     font-size: 9px;
   }
   .stage-orbit {
-    width: 336px;
+    width: 340px;
     --satellite-size: 76px;
+    --orbit-scale-x: 1.412;
+    --orbit-scale-x-inverse: 0.708;
   }
 }
 @media (min-width: 768px) {
@@ -331,11 +338,13 @@
     height: 480px;
   }
   .stage-identity {
-    width: 194px;
-    height: 240px;
+    width: 176px;
+    height: 212px;
   }
   .stage-orbit {
-    width: 354px;
+    width: 364px;
+    --orbit-scale-x: 0.989;
+    --orbit-scale-x-inverse: 1.011;
   }
   .services-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -383,17 +392,19 @@
     height: 520px;
   }
   .stage-identity {
-    width: 218px;
-    height: 264px;
-    margin: -132px 0 0 -109px;
+    width: 200px;
+    height: 236px;
+    margin: -118px 0 0 -100px;
   }
   .stage-mark {
-    width: 88px;
-    height: 103px;
+    width: 80px;
+    height: 94px;
   }
   .stage-orbit {
-    width: 392px;
+    width: 388px;
     --satellite-size: 82px;
+    --orbit-scale-x: 1.165;
+    --orbit-scale-x-inverse: 0.858;
   }
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -411,13 +422,19 @@
     animation-play-state: paused;
   }
   @keyframes satellite-orbit {
+    from {
+      transform: translate(-50%, -50%) scaleX(var(--orbit-scale-x)) rotate(0deg);
+    }
     to {
-      rotate: 360deg;
+      transform: translate(-50%, -50%) scaleX(var(--orbit-scale-x)) rotate(360deg);
     }
   }
   @keyframes satellite-counter-orbit {
+    from {
+      transform: rotate(0deg) scaleX(var(--orbit-scale-x-inverse));
+    }
     to {
-      rotate: -360deg;
+      transform: rotate(-360deg) scaleX(var(--orbit-scale-x-inverse));
     }
   }
   @keyframes identity-arrive {
