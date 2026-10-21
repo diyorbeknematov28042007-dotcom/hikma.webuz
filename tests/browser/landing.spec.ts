@@ -124,7 +124,7 @@ test("orbit pauses on focus while service links remain usable", async ({
   await expect(orbit).toHaveCSS("animation-name", "satellite-orbit");
   const landing = page
     .getByRole("navigation", { name: "Xizmatlarni tez tanlash" })
-    .getByRole("link", { name: "Landing page" });
+    .getByRole("link", { name: "Veb-sahifa" });
   await landing.focus();
   await expect(orbit).toHaveCSS("animation-play-state", "paused");
   await landing.click();
