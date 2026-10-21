@@ -22,7 +22,7 @@ export function StaticLogo({ compact = false }: { compact?: boolean }) {
 export function LogoAssembly() {
   // Honest static fallback until an approved vector/fragment map is supplied.
   return (
-    <div className="brand-signature" aria-label="HIKMA">
+    <div className="brand-signature" role="img" aria-label="HIKMA">
       <span className="brand-signature-mark">
         <Image
           src="/brand/hikma-mark-reference.png"
