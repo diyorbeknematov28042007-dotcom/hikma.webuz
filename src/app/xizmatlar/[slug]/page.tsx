@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight, CaretDown } from "@phosphor-icons/react/dist/ssr";
@@ -53,29 +54,41 @@ export default async function ServicePage({ params }: Props) {
       />
       <div className="container detail-page">
         <Breadcrumbs items={crumbs} />
-        <header className="detail-hero">
-          <p className="eyebrow">HIKMA / {service.category}</p>
-          <h1>
-            {service.heading}
-            <span className="detail-title-dot">.</span>
-          </h1>
-          <p className="detail-lead">{service.intro}</p>
-          <div className="detail-actions">
-            <Link href="/#aloqa" className="button">
-              Loyihani muhokama qilish{" "}
-              <ArrowUpRight size={20} aria-hidden="true" />
-            </Link>
-            <a
-              href={telegramUrl}
-              className="text-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Telegramda bog‘lanish{" "}
-              <span className="sr-only">(yangi sahifada ochiladi)</span>
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
+        <header className="detail-hero detail-hero-with-sticker">
+          <div className="detail-hero-copy">
+            <p className="eyebrow">HIKMA / {service.category}</p>
+            <h1>
+              {service.heading}
+              <span className="detail-title-dot">.</span>
+            </h1>
+            <p className="detail-lead">{service.intro}</p>
+            <div className="detail-actions">
+              <Link href="/#aloqa" className="button">
+                Loyihani muhokama qilish{" "}
+                <ArrowUpRight size={20} aria-hidden="true" />
+              </Link>
+              <a
+                href={telegramUrl}
+                className="text-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Telegramda bog‘lanish{" "}
+                <span className="sr-only">(yangi sahifada ochiladi)</span>
+                <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
+            </div>
           </div>
+          <Image
+            src={service.sticker}
+            alt={`${service.title} xizmatini ifodalovchi HIKMA stikeri`}
+            width={512}
+            height={512}
+            sizes="(min-width: 900px) 320px, 220px"
+            className="detail-hero-sticker"
+            loading="eager"
+            fetchPriority="high"
+          />
         </header>
         <section
           className="detail-section detail-intro"

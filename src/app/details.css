@@ -37,6 +37,20 @@
   max-width: 940px;
   padding-block: var(--space-7) var(--space-8);
 }
+.detail-hero-with-sticker {
+  display: grid;
+  gap: var(--space-5);
+}
+.detail-hero-copy {
+  min-width: 0;
+}
+.detail-hero-sticker {
+  display: block;
+  width: min(220px, 100%);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
 .detail-hero h1 {
   font-size: clamp(36px, 5.5vw, 72px);
   font-weight: 500;
@@ -333,6 +347,15 @@
   .detail-example {
     padding: var(--space-7);
   }
+  .detail-hero-with-sticker {
+    max-width: none;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    align-items: center;
+    gap: var(--space-7);
+  }
+  .detail-hero-sticker {
+    width: 280px;
+  }
   .project-spotlight {
     grid-template-columns: 1fr 1fr;
     align-items: center;
@@ -346,6 +369,12 @@
 @media (min-width: 1024px) {
   .detail-hero {
     padding-block: var(--space-8) var(--space-9);
+  }
+  .detail-hero-with-sticker {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+  .detail-hero-sticker {
+    width: 320px;
   }
   .detail-example {
     flex-direction: row;

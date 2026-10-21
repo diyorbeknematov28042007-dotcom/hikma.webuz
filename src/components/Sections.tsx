@@ -1,10 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowUpRight,
-  Browser,
-  Robot,
-  InstagramLogo,
-  TelegramLogo,
   Check,
   CaretDown,
 } from "@phosphor-icons/react/dist/ssr";
@@ -12,7 +9,6 @@ import { values, processSteps, faqs } from "@/lib/content";
 import { servicePages } from "@/lib/service-pages";
 import { Reveal } from "./Reveal";
 import { LogoAssembly } from "./Brand";
-const serviceIcons = [Browser, Robot, InstagramLogo, TelegramLogo];
 export function Services() {
   return (
     <section
@@ -30,40 +26,45 @@ export function Services() {
         </p>
       </Reveal>
       <Reveal className="services-grid" stagger>
-        {servicePages.map((service, index) => {
-          const Icon = serviceIcons[index];
-          return (
-            <article
-              key={service.title}
-              className={`service service-${index + 1}`}
-              id={`service-${service.id}`}
+        {servicePages.map((service, index) => (
+          <article
+            key={service.title}
+            className={`service service-${index + 1}`}
+            id={`service-${service.id}`}
+          >
+            <div className="service-top">
+              <span className="service-category">{service.category}</span>
+              <Image
+                src={service.sticker}
+                alt=""
+                width={512}
+                height={512}
+                sizes="(min-width: 1024px) 144px, 120px"
+                className="service-sticker"
+                loading="lazy"
+              />
+            </div>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+            <ul className="service-features">
+              {service.features.map((feature) => (
+                <li key={feature}>
+                  <Check size={15} aria-hidden="true" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            {service.note && <p className="service-note">{service.note}</p>}
+            <Link
+              className="service-link"
+              href={service.href}
+              aria-label={`${service.title} haqida batafsil`}
             >
-              <div className="service-top">
-                <Icon size={32} weight="light" aria-hidden="true" />
-                <span className="service-category">{service.category}</span>
-              </div>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-              <ul className="service-features">
-                {service.features.map((feature) => (
-                  <li key={feature}>
-                    <Check size={15} aria-hidden="true" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-              {service.note && <p className="service-note">{service.note}</p>}
-              <Link
-                className="service-link"
-                href={service.href}
-                aria-label={`${service.title} haqida batafsil`}
-              >
-                <span>Xizmat haqida batafsil</span>
-                <ArrowUpRight size={21} aria-hidden="true" />
-              </Link>
-            </article>
-          );
-        })}
+              <span>Xizmat haqida batafsil</span>
+              <ArrowUpRight size={21} aria-hidden="true" />
+            </Link>
+          </article>
+        ))}
       </Reveal>
     </section>
   );

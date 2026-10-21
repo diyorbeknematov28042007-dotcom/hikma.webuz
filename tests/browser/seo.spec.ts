@@ -21,6 +21,15 @@ for (const service of services) {
     expect(response?.status()).toBe(200);
     await expect(page.locator("h1")).toHaveCount(1);
     await expect(page.locator("h1")).toContainText(service.title);
+    const sticker = page.locator(".detail-hero-sticker");
+    await expect(sticker).toBeVisible();
+    await expect
+      .poll(() =>
+        sticker.evaluate(
+          (image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+        ),
+      )
+      .toBe(true);
     await expect(page).toHaveTitle(`${service.title} | HIKMA`);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       "href",

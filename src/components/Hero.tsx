@@ -1,16 +1,8 @@
 import Image from "next/image";
-import {
-  ArrowUpRight,
-  ArrowDown,
-  Browser,
-  Robot,
-  InstagramLogo,
-  TelegramLogo,
-} from "@phosphor-icons/react/dist/ssr";
-import { primaryCta, services } from "@/lib/content";
+import { ArrowUpRight, ArrowDown } from "@phosphor-icons/react/dist/ssr";
+import { primaryCta } from "@/lib/content";
+import { servicePages } from "@/lib/service-pages";
 import { DepthStage } from "./DepthStage";
-import heroArtwork from "../../public/images/emerald-panels.webp";
-const icons = [Browser, Robot, InstagramLogo, TelegramLogo];
 
 export function Hero() {
   return (
@@ -39,14 +31,6 @@ export function Hero() {
         </div>
       </div>
       <DepthStage>
-        <Image
-          src={heroArtwork}
-          alt=""
-          className="stage-environment"
-          sizes="(min-width: 1024px) 48vw, 100vw"
-          loading="eager"
-          fetchPriority="high"
-        />
         <div className="stage-halo" aria-hidden="true" />
         <div className="stage-identity" aria-hidden="true">
           <div className="stage-mark">
@@ -62,24 +46,31 @@ export function Hero() {
           <span className="stage-motto">Ideas to impact</span>
         </div>
         <nav className="stage-services" aria-label="Xizmatlarni tez tanlash">
-          {services.map((service, index) => {
-            const Icon = icons[index];
-            return (
-              <a
-                href={`#service-${service.id}`}
-                className={`stage-tile stage-tile-${index + 1}`}
-                key={service.id}
-              >
-                <span className="stage-tile-icon">
-                  <Icon size={24} weight="light" aria-hidden="true" />
-                </span>
-                <span>{service.short}</span>
-                <ArrowUpRight size={14} aria-hidden="true" />
-              </a>
-            );
-          })}
+          {servicePages.map((service, index) => (
+            <a
+              href={`#service-${service.id}`}
+              className={`stage-tile stage-tile-${index + 1}`}
+              key={service.id}
+            >
+              <Image
+                src={service.sticker}
+                alt=""
+                width={512}
+                height={512}
+                sizes="(min-width: 640px) 80px, 54px"
+                className="stage-tile-sticker"
+                loading={index < 2 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "auto"}
+              />
+              <span className="stage-tile-label">{service.short}</span>
+              <ArrowUpRight
+                className="stage-tile-arrow"
+                size={14}
+                aria-hidden="true"
+              />
+            </a>
+          ))}
         </nav>
-        <p className="stage-caption">Xizmatni tanlang</p>
       </DepthStage>
     </section>
   );

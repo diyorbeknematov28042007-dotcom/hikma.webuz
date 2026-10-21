@@ -267,6 +267,7 @@ export const servicePages = services.map((service) => ({
   ...service,
   ...details[service.id],
   href: `/xizmatlar/${details[service.id].slug}`,
+  sticker: `/images/stickers/${details[service.id].slug}.webp`,
 }));
 
 export function findService(slug: string) {
