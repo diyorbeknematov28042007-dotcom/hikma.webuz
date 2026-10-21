@@ -22,6 +22,7 @@ import { interfaceCopy } from "@/lib/interface-copy";
 import { localePath, modernUzbek, type Locale } from "@/lib/i18n";
 import { validateContact, type ContactInput } from "@/lib/contact-validation";
 import { Reveal } from "./Reveal";
+import { ServicePlatformIcon } from "./ServicePlatformIcon";
 type TurnstileApi = {
   render: (
     element: HTMLElement,
@@ -203,6 +204,7 @@ export function Contact({
               target="_blank"
               rel="noopener noreferrer"
             >
+              <ServicePlatformIcon service="telegram" />
               {c.telegram}
               <ArrowUpRight size={20} aria-hidden="true" />
               <span className="sr-only"> ({c.newTab})</span>
@@ -214,6 +216,7 @@ export function Contact({
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                <ServicePlatformIcon service="instagram" />
                 {c.instagram}
                 <ArrowUpRight size={20} aria-hidden="true" />
                 <span className="sr-only"> ({c.newTab})</span>

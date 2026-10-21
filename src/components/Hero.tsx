@@ -3,6 +3,7 @@ import { ArrowUpRight, ArrowDown } from "@phosphor-icons/react/dist/ssr";
 import { getHomeCopy, getServicePages } from "@/lib/localized-content";
 import type { Locale } from "@/lib/i18n";
 import { DepthStage } from "./DepthStage";
+import { ServicePlatformIcon } from "./ServicePlatformIcon";
 
 export function Hero({ locale = "uz" }: { locale?: Locale }) {
   const copy = getHomeCopy(locale);
@@ -78,6 +79,7 @@ export function Hero({ locale = "uz" }: { locale?: Locale }) {
                     loading={index < 2 ? "eager" : "lazy"}
                     fetchPriority={index === 0 ? "high" : "auto"}
                   />
+                  <ServicePlatformIcon service={service.id} />
                 </span>
               </a>
             ))}

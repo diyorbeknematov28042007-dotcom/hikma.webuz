@@ -14,6 +14,40 @@
 .hero-updated .hero-description {
   max-width: 440px;
 }
+.platform-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--platform-icon-size, 40px);
+  height: var(--platform-icon-size, 40px);
+  overflow: hidden;
+  border: 2px solid #143327;
+  border-radius: 50%;
+  background: #10251c;
+  box-shadow: 0 6px 16px #071b14aa;
+}
+.platform-icon img,
+.platform-icon svg {
+  display: block;
+  width: 82%;
+  height: 82%;
+  object-fit: contain;
+}
+.platform-icon--telegram {
+  background: #229ed9;
+}
+.platform-icon--telegram img {
+  width: 100%;
+  height: 100%;
+}
+.platform-icon--landing {
+  color: #e1ffe9;
+  background: #16613e;
+}
+.platform-icon--landing svg {
+  width: 66%;
+  height: 66%;
+}
 .depth-stage {
   position: relative;
   height: 360px;
@@ -154,6 +188,7 @@
   pointer-events: auto;
 }
 .stage-satellite-face {
+  position: relative;
   display: grid;
   width: 100%;
   height: 100%;
@@ -165,11 +200,17 @@
   transform: scaleX(var(--orbit-scale-x-inverse));
   transition: background 200ms, box-shadow 200ms;
 }
-.stage-satellite img {
+.stage-satellite-face > img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   transition: scale 200ms var(--ease);
+}
+.stage-satellite .platform-icon {
+  position: absolute;
+  right: -8px;
+  bottom: -7px;
+  --platform-icon-size: 32px;
 }
 .stage-satellite-1 {
   top: var(--orbit-inset);
@@ -196,8 +237,8 @@
   background: #28563c;
   box-shadow: 0 12px 30px #071b14dd, 0 0 0 4px #68d69a55;
 }
-.stage-satellite:hover img,
-.stage-satellite:focus-visible img {
+.stage-satellite:hover .stage-satellite-face > img,
+.stage-satellite:focus-visible .stage-satellite-face > img {
   scale: 1.12;
 }
 .services-grid {
@@ -212,12 +253,24 @@
   margin-bottom: 12px;
   align-items: flex-start;
 }
-.service-sticker {
+.service-art {
+  position: relative;
   width: 120px;
   height: 120px;
   flex: none;
-  object-fit: contain;
   margin: -14px -10px -6px 0;
+}
+.service-sticker {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.service-art .platform-icon {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  --platform-icon-size: 42px;
 }
 .service-category {
   font-size: 11px;
@@ -268,6 +321,9 @@
 }
 .contact-channels .text-link {
   margin-top: 0;
+}
+.contact-channels .platform-icon {
+  --platform-icon-size: 36px;
 }
 .copied-next {
   margin-top: 8px;
@@ -343,6 +399,9 @@
     --orbit-scale-x: 1.353;
     --orbit-scale-x-inverse: 0.739;
   }
+  .stage-satellite .platform-icon {
+    --platform-icon-size: 36px;
+  }
 }
 @media (min-width: 768px) {
   .services-grid {
@@ -392,11 +451,14 @@
     padding: 36px;
     min-height: 400px;
   }
-  .service-sticker {
+  .service-art {
     width: 144px;
     height: 144px;
     margin-top: -20px;
     margin-right: -16px;
+  }
+  .service-art .platform-icon {
+    --platform-icon-size: 48px;
   }
   .service h3,
   .service-1 h3 {

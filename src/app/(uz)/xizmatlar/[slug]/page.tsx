@@ -11,6 +11,7 @@ import { interfaceCopy } from "@/lib/interface-copy";
 import { localePath, type Locale } from "@/lib/i18n";
 import { breadcrumbStructuredData, pageMetadata } from "@/lib/seo";
 import { siteOrigin, telegramUrl } from "@/lib/site";
+import { ServicePlatformIcon } from "@/components/ServicePlatformIcon";
 
 type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
@@ -84,16 +85,19 @@ export function ServicePageContent({ slug, locale = "uz" }: { slug: string; loca
               </a>
             </div>
           </div>
-          <Image
-            src={service.sticker}
-            alt={`${service.title} ${copy.sticker}`}
-            width={512}
-            height={512}
-            sizes="(min-width: 900px) 320px, 220px"
-            className="detail-hero-sticker"
-            loading="eager"
-            fetchPriority="high"
-          />
+          <div className="detail-hero-art">
+            <Image
+              src={service.sticker}
+              alt={`${service.title} ${copy.sticker}`}
+              width={512}
+              height={512}
+              sizes="(min-width: 900px) 320px, 220px"
+              className="detail-hero-sticker"
+              loading="eager"
+              fetchPriority="high"
+            />
+            <ServicePlatformIcon service={service.id} />
+          </div>
         </header>
         <section
           className="detail-section detail-intro"

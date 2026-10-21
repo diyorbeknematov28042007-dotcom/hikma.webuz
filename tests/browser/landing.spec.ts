@@ -2,6 +2,28 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { modernUzbek } from "../../src/lib/i18n";
 const widths = [320, 360, 375, 390, 430, 768, 1024, 1440, 1920];
+test("real platform marks accompany the stickers and contact links", async ({ page, request }) => {
+  for (const locale of ["/", "/ru", "/en"]) {
+    await page.goto(locale);
+    await expect(page.locator(".stage-satellite .platform-icon")).toHaveCount(4);
+    await expect(page.locator(".service-art .platform-icon")).toHaveCount(4);
+    await expect(page.locator(".stage-satellite [data-platform='instagram'] img")).toHaveAttribute(
+      "src",
+      /instagram-glyph\.png/,
+    );
+    await expect(page.locator(".stage-satellite [data-platform='telegram'] img")).toHaveCount(2);
+    await expect(page.locator(".contact-channels .platform-icon")).toHaveCount(2);
+    await expect(page.locator(".stage-satellite .platform-icon").first()).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
+  }
+  for (const path of ["/brand/instagram-glyph.png", "/brand/telegram-logo.svg"]) {
+    expect((await request.get(path)).ok()).toBe(true);
+  }
+  await page.goto("/en/xizmatlar/instagram-ads");
+  await expect(page.locator(".detail-hero-art [data-platform='instagram']")).toBeVisible();
+});
 for (const width of widths) {
   test(`layout and keyboard at ${width}px`, async ({ page }, info) => {
     await page.setViewportSize({ width, height: width < 768 ? 844 : 1000 });

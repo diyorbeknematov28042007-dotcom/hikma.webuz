@@ -9,6 +9,7 @@ import { getHomeCopy, getHomeLists, getServicePages } from "@/lib/localized-cont
 import type { Locale } from "@/lib/i18n";
 import { Reveal } from "./Reveal";
 import { LogoAssembly } from "./Brand";
+import { ServicePlatformIcon } from "./ServicePlatformIcon";
 export function Services({ locale = "uz" }: { locale?: Locale }) {
   const copy = getHomeCopy(locale);
   const servicePages = getServicePages(locale);
@@ -35,15 +36,18 @@ export function Services({ locale = "uz" }: { locale?: Locale }) {
           >
             <div className="service-top">
               <span className="service-category">{service.category}</span>
-              <Image
-                src={service.sticker}
-                alt=""
-                width={512}
-                height={512}
-                sizes="(min-width: 1024px) 144px, 120px"
-                className="service-sticker"
-                loading="lazy"
-              />
+              <div className="service-art" aria-hidden="true">
+                <Image
+                  src={service.sticker}
+                  alt=""
+                  width={512}
+                  height={512}
+                  sizes="(min-width: 1024px) 144px, 120px"
+                  className="service-sticker"
+                  loading="lazy"
+                />
+                <ServicePlatformIcon service={service.id} />
+              </div>
             </div>
             <h3>{service.title}</h3>
             <p>{service.description}</p>

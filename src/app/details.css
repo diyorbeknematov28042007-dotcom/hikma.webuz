@@ -44,12 +44,22 @@
 .detail-hero-copy {
   min-width: 0;
 }
+.detail-hero-art {
+  position: relative;
+  width: min(220px, 100%);
+}
 .detail-hero-sticker {
   display: block;
-  width: min(220px, 100%);
+  width: 100%;
   height: auto;
   aspect-ratio: 1;
   object-fit: contain;
+}
+.detail-hero-art .platform-icon {
+  position: absolute;
+  right: 7%;
+  bottom: 6%;
+  --platform-icon-size: 52px;
 }
 .detail-hero h1 {
   font-size: clamp(36px, 5.5vw, 72px);
@@ -356,6 +366,9 @@
   .detail-hero-sticker {
     width: 280px;
   }
+  .detail-hero-art {
+    width: 280px;
+  }
   .project-spotlight {
     grid-template-columns: 1fr 1fr;
     align-items: center;
@@ -374,6 +387,9 @@
     grid-template-columns: minmax(0, 1fr) 320px;
   }
   .detail-hero-sticker {
+    width: 320px;
+  }
+  .detail-hero-art {
     width: 320px;
   }
   .detail-example {
