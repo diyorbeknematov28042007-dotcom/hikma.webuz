@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { modernUzbek } from "../../src/lib/i18n";
 const widths = [320, 360, 375, 390, 430, 768, 1024, 1440, 1920];
 for (const width of widths) {
   test(`layout and keyboard at ${width}px`, async ({ page }, info) => {
@@ -22,7 +23,7 @@ for (const width of widths) {
       ).toBeVisible();
     }
     await expect(
-      page.getByRole("link", { name: "Telegramda yozish" }),
+      page.getByRole("link", { name: modernUzbek("Telegramda yozish") }),
     ).toHaveAttribute("href", "https://t.me/Hikmaservice_bot");
     expect(
       await page.evaluate(
@@ -34,7 +35,7 @@ for (const width of widths) {
     expect(box?.y).toBeGreaterThan(0);
     expect(box!.y + box!.height).toBeLessThan(width < 768 ? 844 : 1000);
     if (width < 1024) {
-      const trigger = page.getByRole("button", { name: "Menyuni ochish" });
+      const trigger = page.getByRole("button", { name: modernUzbek("Menyuni ochish") });
       await trigger.click();
       await expect(page.getByRole("dialog")).toBeVisible();
       await page.keyboard.press("Escape");
@@ -53,7 +54,7 @@ for (const width of widths) {
     await expect(page.locator("details[open]")).toHaveCount(1);
     await page.locator("#aloqa").scrollIntoViewIfNeeded();
     await page
-      .getByLabel("Loyiha haqida qisqacha")
+      .getByLabel(modernUzbek("Loyiha haqida qisqacha"))
       .fill("Biznes uchun mobilga mos sahifa kerak.");
     await page.evaluate(() => {
       Object.defineProperty(navigator, "clipboard", {
@@ -61,7 +62,7 @@ for (const width of widths) {
         value: { writeText: async () => {} },
       });
     });
-    await page.getByRole("button", { name: "Tavsifni nusxalash" }).click();
+    await page.getByRole("button", { name: modernUzbek("Tavsifni nusxalash") }).click();
     await expect(page.getByRole("status")).toContainText("nusxalandi");
     const result = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
@@ -91,7 +92,7 @@ test("reduced motion and no-JavaScript navigation retain content", async ({
     .click();
   await expect(page).toHaveURL(/#xizmatlar$/);
   await expect(
-    page.getByRole("button", { name: "Tavsifni nusxalash" }),
+    page.getByRole("button", { name: modernUzbek("Tavsifni nusxalash") }),
   ).toBeDisabled();
   await context.close();
 });
@@ -106,8 +107,9 @@ test("quick service navigation and reduced-motion depth remain usable", async ({
     "animation-name",
     "none",
   );
+  await expect(page.locator(".stage-identity-motion")).toHaveCSS("animation-name", "none");
   await page
-    .getByRole("navigation", { name: "Xizmatlarni tez tanlash" })
+    .getByRole("navigation", { name: modernUzbek("Xizmatlarni tez tanlash") })
     .getByRole("link", { name: "Telegram bot" })
     .click();
   await expect(page).toHaveURL(/#service-bot$/);
@@ -122,8 +124,9 @@ test("orbit pauses on focus while service links remain usable", async ({
   await page.goto("/");
   const orbit = page.locator(".stage-orbit");
   await expect(orbit).toHaveCSS("animation-name", "satellite-orbit");
+  await expect(page.locator(".stage-identity-motion")).toHaveCSS("animation-name", "identity-flight");
   const landing = page
-    .getByRole("navigation", { name: "Xizmatlarni tez tanlash" })
+    .getByRole("navigation", { name: modernUzbek("Xizmatlarni tez tanlash") })
     .getByRole("link", { name: "Veb-sahifa" });
   await landing.focus();
   await expect(orbit).toHaveCSS("animation-play-state", "paused");

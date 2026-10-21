@@ -4,7 +4,7 @@ export default function NotFound() {
     <main id="main" tabIndex={-1} className="container not-found">
       <p>404</p>
       <h1>Sahifa topilmadi.</h1>
-      <p>Siz qidirgan sahifa mavjud emas yoki manzili o‘zgargan.</p>
+      <p>Siz qidirgan sahifa mavjud emas yoki manzili özgargan.</p>
       <Link href="/" className="button">
         Bosh sahifaga qaytish
       </Link>

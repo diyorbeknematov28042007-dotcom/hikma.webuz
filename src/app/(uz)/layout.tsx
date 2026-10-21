@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { siteOrigin } from "@/lib/site";
-import "./globals.css";
-import "./experience.css";
-import "./details.css";
+import "../globals.css";
+import "../experience.css";
+import "../details.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),
   title: {
@@ -10,22 +10,22 @@ export const metadata: Metadata = {
     template: "%s | HIKMA",
   },
   description:
-    "HIKMA: landing page, Telegram bot, Instagram Ads va Telegram Ads. Biznesingiz uchun dizayn, avtomatlashtirish va maqsadli reklama yechimlari.",
-  alternates: { canonical: "/" },
+    "HIKMA: landing page, Telegram bot, Instagram Ads va Telegram Ads. Biznesingiz uchun dizayn, avtomatlashtirish va maqsadli reklama yeçimlari.",
+  alternates: { canonical: "/", languages: { "uz-UZ": "/", "ru-RU": "/ru", en: "/en" } },
   openGraph: {
     type: "website",
     locale: "uz_UZ",
     siteName: "HIKMA",
-    title: "HIKMA — Millat uchun zamonaviy yechimlar",
+    title: "HIKMA — Millat uçun zamonaviy yeçimlar",
     description:
-      "Veb-sahifa. Telegram bot. Maqsadli reklama. G‘oyadan amaliy yechimgacha.",
+      "Veb-sahifa. Telegram bot. Maqsadli reklama. Ğoyadan amaliy yeçimgacha.",
     url: "/",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "HIKMA. Millat uchun zamonaviy yechimlar.",
+        alt: "HIKMA. Millat uçun zamonaviy yeçimlar.",
       },
     ],
   },
@@ -45,7 +45,7 @@ export default function RootLayout({
     <html lang="uz">
       <body id="top">
         <a className="skip-link" href="#main">
-          Asosiy kontentga o‘tish
+          Asosiy kontentga ötish
         </a>
         {children}
       </body>

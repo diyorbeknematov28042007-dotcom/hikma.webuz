@@ -5,11 +5,13 @@ import {
   Check,
   CaretDown,
 } from "@phosphor-icons/react/dist/ssr";
-import { values, processSteps, faqs } from "@/lib/content";
-import { servicePages } from "@/lib/service-pages";
+import { getHomeCopy, getHomeLists, getServicePages } from "@/lib/localized-content";
+import type { Locale } from "@/lib/i18n";
 import { Reveal } from "./Reveal";
 import { LogoAssembly } from "./Brand";
-export function Services() {
+export function Services({ locale = "uz" }: { locale?: Locale }) {
+  const copy = getHomeCopy(locale);
+  const servicePages = getServicePages(locale);
   return (
     <section
       id="xizmatlar"
@@ -18,11 +20,10 @@ export function Services() {
     >
       <Reveal>
         <h2 id="services-title" className="section-title">
-          Sizga kerakli
-          <br className="desktop-break" /> raqamli yechim.
+          {copy.servicesTitle}
         </h2>
         <p className="section-description">
-          Tanishtiring. Avtomatlashtiring. Auditoriyangizga yetib boring.
+          {copy.servicesDescription}
         </p>
       </Reveal>
       <Reveal className="services-grid" stagger>
@@ -58,9 +59,9 @@ export function Services() {
             <Link
               className="service-link"
               href={service.href}
-              aria-label={`${service.title} haqida batafsil`}
+              aria-label={`${copy.serviceMore}: ${service.title}`}
             >
-              <span>Xizmat haqida batafsil</span>
+              <span>{copy.serviceMore}</span>
               <ArrowUpRight size={21} aria-hidden="true" />
             </Link>
           </article>
@@ -69,7 +70,9 @@ export function Services() {
     </section>
   );
 }
-export function Approach() {
+export function Approach({ locale = "uz" }: { locale?: Locale }) {
+  const copy = getHomeCopy(locale);
+  const { values } = getHomeLists(locale);
   return (
     <section
       id="yondashuv"
@@ -78,14 +81,12 @@ export function Approach() {
     >
       <div className="container">
         <Reveal>
-          <p className="eyebrow">Yondashuvimiz</p>
+          <p className="eyebrow">{copy.approachEyebrow}</p>
           <h2 className="section-title" id="approach-title">
-            Bir maqsad.
-            <br className="desktop-break" /> Bir-birini to‘ldiradigan yechimlar.
+            {copy.approachTitle}
           </h2>
           <p className="section-description">
-            Sayt, bot va reklama mijozingizga kerakli ma’lumotni topish va
-            keyingi qadamni tushunishga yordam bersin.
+            {copy.approachDescription}
           </p>
         </Reveal>
         <div className="values-grid">
@@ -105,7 +106,9 @@ export function Approach() {
     </section>
   );
 }
-export function Process() {
+export function Process({ locale = "uz" }: { locale?: Locale }) {
+  const copy = getHomeCopy(locale);
+  const { steps: processSteps } = getHomeLists(locale);
   return (
     <section
       id="jarayon"
@@ -114,9 +117,9 @@ export function Process() {
     >
       <Reveal>
         <h2 id="process-title" className="section-title">
-          G‘oyadan amaliy yechimgacha.
+          {copy.processTitle}
           <br />
-          <span className="muted-title">Aniq bosqichlar.</span>
+          <span className="muted-title">{copy.processAccent}</span>
         </h2>
       </Reveal>
       <ol className="process-list">
@@ -134,12 +137,13 @@ export function Process() {
         ))}
       </ol>
       <p className="process-note">
-        Aniq ish hajmi va muddat loyiha talablariga qarab kelishiladi.
+        {copy.processNote}
       </p>
     </section>
   );
 }
-export function About() {
+export function About({ locale = "uz" }: { locale?: Locale }) {
+  const copy = getHomeCopy(locale);
   return (
     <section
       id="haqimizda"
@@ -150,43 +154,35 @@ export function About() {
         <Reveal className="about-brand">
           <LogoAssembly />
           <p>
-            Millat uchun
-            <br /> zamonaviy yechimlar.
+            {copy.tagline}
           </p>
         </Reveal>
         <Reveal className="about-copy">
           <h2 id="about-title" className="section-title">
-            Bir brend.
-            <br />
-            Zamonaviy yechimlarga
-            <br className="desktop-break" /> keng qarash.
+            {copy.aboutTitle}
           </h2>
           <p>
-            HIKMA raqamli xizmatlar va texnologik g‘oyalarni birlashtiradigan
-            brend. Landing page, Telegram bot, Instagram Ads va Telegram Ads
-            orqali bizneslarga raqamli ishtirokini shakllantirishda yordam
-            beramiz.
+            {copy.aboutDescription}
           </p>
           <p className="about-mission">
-            Texnologiya va dizaynni sodda, tushunarli va amaliy yechimlarga
-            aylantirish.
+            {copy.aboutMission}
           </p>
           <p>
-            Sun’iy intellekt, avtomatlashtirish va startaplar ekotizimi
-            brendimizning kengroq qarashiga kiradi.
+            {copy.aboutVision}
           </p>
         </Reveal>
       </div>
     </section>
   );
 }
-export function FAQ() {
+export function FAQ({ locale = "uz" }: { locale?: Locale }) {
+  const copy = getHomeCopy(locale);
+  const { faqs } = getHomeLists(locale);
   return (
     <section className="section container faq" aria-labelledby="faq-title">
       <Reveal>
         <h2 id="faq-title" className="section-title">
-          Ko‘p so‘raladigan
-          <br /> savollar.
+          {copy.faqTitle}
         </h2>
       </Reveal>
       <div className="faq-list">

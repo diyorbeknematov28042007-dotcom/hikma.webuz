@@ -2,45 +2,57 @@ import Link from "next/link";
 import { ArrowUp, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { StaticLogo } from "./Brand";
 import { instagramUrl, telegramUrl } from "@/lib/site";
-import { servicePages } from "@/lib/service-pages";
-export function Footer({ instagramVerified }: { instagramVerified: boolean }) {
+import { getHomeCopy, getServicePages } from "@/lib/localized-content";
+import { localePath, type Locale } from "@/lib/i18n";
+export function Footer({ instagramVerified, locale = "uz" }: { instagramVerified: boolean; locale?: Locale }) {
+  const copy = getHomeCopy(locale);
+  const labels = locale === "uz" ? {
+    services: "Xizmat sahifalari", projects: "Loyihalar", all: "Barça xizmatlar", privacy: "Maxfiylik",
+    rights: "Barcha huquqlar himoyalangan.", top: "Yuqoriga qaytish", newTab: "yangi sahifada ochiladi",
+  } : locale === "ru" ? {
+    services: "Страницы услуг", projects: "Проекты", all: "Все услуги", privacy: "Конфиденциальность",
+    rights: "Все права защищены.", top: "Наверх", newTab: "открывается в новой вкладке",
+  } : {
+    services: "Service pages", projects: "Projects", all: "All services", privacy: "Privacy",
+    rights: "All rights reserved.", top: "Back to top", newTab: "opens in a new tab",
+  };
   return (
     <footer className="site-footer">
       <div className="container">
         <div className="footer-main">
-          <Link href="/#top" aria-label="HIKMA bosh sahifa">
+          <Link href={`${localePath(locale, "/")}#top`} aria-label="HIKMA home">
             <StaticLogo />
           </Link>
-          <p>Millat uchun zamonaviy yechimlar.</p>
-          <a href="#top" className="back-top" aria-label="Yuqoriga qaytish">
+          <p>{copy.tagline}</p>
+          <a href="#top" className="back-top" aria-label={labels.top}>
             <ArrowUp size={20} aria-hidden="true" />
           </a>
         </div>
-        <nav className="footer-services" aria-label="Xizmat sahifalari">
-          {servicePages.map((service) => (
+        <nav className="footer-services" aria-label={labels.services}>
+          {getServicePages(locale).map((service) => (
             <Link key={service.id} href={service.href}>
               {service.title}
             </Link>
           ))}
-          <Link href="/loyihalar">Loyihalar</Link>
-          <Link href="/xizmatlar">Barcha xizmatlar</Link>
+          <Link href={localePath(locale, "/loyihalar")}>{labels.projects}</Link>
+          <Link href={localePath(locale, "/xizmatlar")}>{labels.all}</Link>
         </nav>
         <div className="footer-bottom">
           <small>
-            © {new Date().getFullYear()} HIKMA. Barcha huquqlar himoyalangan.
+            © {new Date().getFullYear()} HIKMA. {labels.rights}
           </small>
           <div>
-            <Link href="/privacy">Maxfiylik</Link>
+            <Link href={localePath(locale, "/privacy")}>{labels.privacy}</Link>
             <a href={telegramUrl} target="_blank" rel="noopener noreferrer">
               Telegram
               <ArrowUpRight size={14} aria-hidden="true" />
-              <span className="sr-only"> (yangi sahifada ochiladi)</span>
+              <span className="sr-only"> ({labels.newTab})</span>
             </a>
             {instagramVerified && (
               <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
                 Instagram
                 <ArrowUpRight size={14} aria-hidden="true" />
-                <span className="sr-only"> (yangi sahifada ochiladi)</span>
+                <span className="sr-only"> ({labels.newTab})</span>
               </a>
             )}
           </div>

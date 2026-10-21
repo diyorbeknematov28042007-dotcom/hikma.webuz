@@ -17,6 +17,9 @@ import {
 } from "@phosphor-icons/react";
 import { instagramUrl, telegramUrl } from "@/lib/site";
 import { serviceOptions } from "@/lib/content";
+import { getServicePages } from "@/lib/localized-content";
+import { interfaceCopy } from "@/lib/interface-copy";
+import { localePath, modernUzbek, type Locale } from "@/lib/i18n";
 import { validateContact, type ContactInput } from "@/lib/contact-validation";
 import { Reveal } from "./Reveal";
 type TurnstileApi = {
@@ -45,11 +48,14 @@ export function Contact({
   enabled,
   siteKey,
   instagramVerified,
+  locale = "uz",
 }: {
   enabled: boolean;
   siteKey?: string;
   instagramVerified: boolean;
+  locale?: Locale;
 }) {
+  const c = interfaceCopy(locale).contact;
   const hydrated = useSyncExternalStore(
     subscribe,
     () => true,
@@ -107,12 +113,12 @@ export function Contact({
     if (!enabled) {
       const message = String(data.get("message") || "").trim();
       if (message.length < 10 || message.length > 2000) {
-        setErrors({ message: "Loyiha haqida 10-2000 belgi yozing." });
+        setErrors({ message: c.invalidBrief });
         form.querySelector<HTMLTextAreaElement>("#message")?.focus();
         return;
       }
       setErrors({});
-      const brief = `HIKMA uchun loyiha tavsifi\n\nXizmat: ${data.get("service")}\n\n${message}`;
+      const brief = `${c.briefTitle}\n\n${c.briefService}: ${data.get("service")}\n\n${message}`;
       try {
         await navigator.clipboard.writeText(brief);
         setCopyFallback("");
@@ -125,7 +131,14 @@ export function Contact({
     }
     const result = validateContact(Object.fromEntries(data));
     if (!result.ok) {
-      setErrors(result.errors);
+      const messages: Record<string, string> = locale === "ru" ? {
+        name: "Введите имя длиной 2–80 символов.", contact: "Введите корректный телефон или email.",
+        service: "Выберите услугу.", message: "Опишите проект (10–2000 символов).", consent: "Подтвердите согласие.",
+      } : locale === "en" ? {
+        name: "Enter a name of 2–80 characters.", contact: "Enter a valid phone number or email.",
+        service: "Choose a service.", message: "Describe your project in 10–2000 characters.", consent: "Please agree to continue.",
+      } : {};
+      setErrors(Object.fromEntries(Object.entries(result.errors).map(([key, value]) => [key, messages[key] || (value ? modernUzbek(value) : value)])));
       setStatus("idle");
       const first = Object.keys(result.errors)[0];
       form.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
@@ -176,16 +189,13 @@ export function Contact({
     >
       <div className="container contact-grid">
         <Reveal className="contact-copy">
-          <p className="eyebrow">Keyingi qadam</p>
+          <p className="eyebrow">{c.eyebrow}</p>
           <h2 id="contact-title">
-            Keyingi loyihangizni
+            {c.title}
             <br />
-            <span>birga boshlaylik.</span>
+            <span>{c.accent}</span>
           </h2>
-          <p>
-            Sayt, bot yoki reklama? G‘oyangizni ayting. Ehtiyojingizga mos
-            yechimni birga tanlaymiz.
-          </p>
+          <p>{c.intro}</p>
           <div className="contact-channels">
             <a
               href={telegramUrl}
@@ -193,9 +203,9 @@ export function Contact({
               target="_blank"
               rel="noopener noreferrer"
             >
-              Telegramda yozish
+              {c.telegram}
               <ArrowUpRight size={20} aria-hidden="true" />
-              <span className="sr-only"> (yangi sahifada ochiladi)</span>
+              <span className="sr-only"> ({c.newTab})</span>
             </a>
             {instagramVerified && (
               <a
@@ -204,9 +214,9 @@ export function Contact({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Instagram orqali yozish
+                {c.instagram}
                 <ArrowUpRight size={20} aria-hidden="true" />
-                <span className="sr-only"> (yangi sahifada ochiladi)</span>
+                <span className="sr-only"> ({c.newTab})</span>
               </a>
             )}
           </div>
@@ -222,19 +232,19 @@ export function Contact({
           >
             <h3 id="form-title">
               {enabled
-                ? "Loyihangiz haqida yozing"
-                : "Loyiha tavsifini tayyorlang"}
+                ? c.enabledTitle
+                : c.disabledTitle}
             </h3>
             <p className="form-note" id="form-note">
               {enabled
-                ? "So‘rovingizni ko‘rib chiqish uchun kerakli ma’lumotlar."
-                : "Tavsifni nusxalab, Telegram yoki Instagram orqali yuboring. Bu forma ma’lumotni avtomatik yubormaydi."}
+                ? c.enabledNote
+                : c.disabledNote}
             </p>
             {enabled && (
               <div className="form-row">
                 <div className="field">
                   <label htmlFor="name">
-                    Ismingiz <span aria-hidden="true">*</span>
+                    {c.name} <span aria-hidden="true">*</span>
                   </label>
                   <input
                     id="name"
@@ -244,13 +254,13 @@ export function Contact({
                     required
                     aria-invalid={Boolean(errors.name)}
                     aria-describedby={errors.name ? "name-error" : undefined}
-                    placeholder="Ismingizni kiriting"
+                    placeholder={c.namePlaceholder}
                   />
                   <FieldError name="name" message={errors.name} />
                 </div>
                 <div className="field">
                   <label htmlFor="contact">
-                    Telefon yoki email <span aria-hidden="true">*</span>
+                    {c.contact} <span aria-hidden="true">*</span>
                   </label>
                   <input
                     id="contact"
@@ -269,16 +279,18 @@ export function Contact({
               </div>
             )}
             <div className="field">
-              <label htmlFor="service">Qanday yordam kerak?</label>
+              <label htmlFor="service">{c.service}</label>
               <select name="service" id="service" defaultValue="Landing page">
-                {serviceOptions.map((option) => (
-                  <option key={option}>{option}</option>
+                {serviceOptions.map((option, index) => (
+                  <option key={option} value={option}>
+                    {index < 4 ? getServicePages(locale)[index].title : c.otherService}
+                  </option>
                 ))}
               </select>
             </div>
             <div className="field">
               <label htmlFor="message">
-                Loyiha haqida qisqacha <span aria-hidden="true">*</span>
+                {c.message} <span aria-hidden="true">*</span>
               </label>
               <textarea
                 id="message"
@@ -287,7 +299,7 @@ export function Contact({
                 minLength={10}
                 maxLength={2000}
                 rows={4}
-                placeholder="Biznesingiz va qanday yordam kerakligini yozing"
+                placeholder={c.messagePlaceholder}
                 aria-invalid={Boolean(errors.message)}
                 aria-describedby={errors.message ? "message-error" : undefined}
               />
@@ -316,16 +328,14 @@ export function Contact({
                     }
                   />
                   <label htmlFor="consent">
-                    Ma’lumotlarim so‘rovimga javob berish uchun ishlatilishiga
-                    roziman. <Link href="/privacy">Maxfiylik</Link>
+                    {c.consentBefore} <Link href={localePath(locale, "/privacy")}>{c.privacy}</Link>
                   </label>
                 </div>
                 <FieldError name="consent" message={errors.consent} />
                 <div ref={widget} className="captcha" />
                 {captchaError && (
                   <p role="alert" className="field-error">
-                    Xavfsizlik tekshiruvini bajaring. Yuklanmasa, sahifani
-                    yangilang.
+                    {c.captcha}
                   </p>
                 )}
                 <Script
@@ -344,14 +354,14 @@ export function Contact({
               }
             >
               {status === "sending"
-                ? "Yuborilmoqda…"
+                ? c.sending
                 : status === "success"
-                  ? "Yuborildi"
+                  ? c.sent
                   : enabled
                     ? status === "error"
-                      ? "Qayta yuborish"
-                      : "So‘rov yuborish"
-                    : "Tavsifni nusxalash"}
+                      ? c.retry
+                      : c.submit
+                    : c.copy}
               {status === "success" ? (
                 <Check size={20} aria-hidden="true" />
               ) : enabled ? (
@@ -369,23 +379,17 @@ export function Contact({
             >
               {status === "success" && (
                 <>
-                  <strong>So‘rovingiz yuborildi.</strong>
-                  <span>
-                    Xabaringiz qabul qilindi. Siz bilan bog‘lanish imkoniyati
-                    mavjud bo‘lganda javob beramiz.
-                  </span>
+                  <strong>{c.successTitle}</strong>
+                  <span>{c.successBody}</span>
                 </>
               )}
               {status === "error" && (
                 <>
-                  <strong>So‘rov yuborilmadi.</strong>
-                  <span>
-                    Ma’lumotlaringiz saqlandi. Xavfsizlik tekshiruvidan so‘ng
-                    qayta urinib ko‘ring.
-                  </span>
+                  <strong>{c.errorTitle}</strong>
+                  <span>{c.errorBody}</span>
                 </>
               )}
-              {status === "copied" && "Loyiha tavsifi nusxalandi."}
+              {status === "copied" && c.copied}
               {status === "copied" && (
                 <a
                   href={telegramUrl}
@@ -393,16 +397,16 @@ export function Contact({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Telegram botni ochish
+                  {c.bot}
                   <ArrowUpRight size={16} aria-hidden="true" />
-                  <span className="sr-only"> (yangi sahifada ochiladi)</span>
+                  <span className="sr-only"> ({c.newTab})</span>
                 </a>
               )}
             </div>
             {copyFallback && (
               <div className="field">
                 <label htmlFor="copy-brief">
-                  Tavsifni belgilang va nusxalang
+                  {c.fallback}
                 </label>
                 <textarea
                   id="copy-brief"
@@ -416,8 +420,8 @@ export function Contact({
             <noscript>
               <p className="form-note">
                 {instagramVerified
-                  ? "Forma uchun JavaScript kerak. Instagram havolasi orqali yozishingiz ham mumkin."
-                  : "Tavsifni nusxalash yoki so‘rov yuborish uchun JavaScriptni yoqing."}
+                  ? c.noScriptInstagram
+                  : c.noScript}
               </p>
             </noscript>
           </form>

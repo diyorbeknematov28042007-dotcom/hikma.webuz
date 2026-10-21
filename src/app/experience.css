@@ -44,7 +44,7 @@
   opacity: 0.6;
   pointer-events: none;
 }
-.stage-identity {
+.stage-identity-motion {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -52,6 +52,21 @@
   width: 112px;
   height: 136px;
   margin: -68px 0 0 -56px;
+  transform: translateZ(36px) rotateZ(-8deg);
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+.stage-identity {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  border-radius: 20px;
+}
+.stage-identity-front,
+.stage-identity-back {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,8 +79,21 @@
   box-shadow:
     0 24px 44px #071b14aa,
     inset 0 0 0 6px #ffffff;
-  transform: translateZ(36px) rotateZ(-8deg);
-  pointer-events: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.stage-identity-back {
+  transform: rotateY(180deg);
+  gap: 8px;
+  background: #e8f4ea;
+  color: #17643e;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+.stage-identity-back img {
+  width: 36%;
+  height: auto;
 }
 .stage-mark {
   width: 40px;
@@ -268,7 +296,7 @@
   transform-origin: top;
 }
 @media (min-width: 375px) {
-  .stage-identity {
+  .stage-identity-motion {
     width: 128px;
     height: 154px;
     margin: -77px 0 0 -64px;
@@ -292,7 +320,7 @@
   .depth-stage {
     height: 440px;
   }
-  .stage-identity {
+  .stage-identity-motion {
     width: 176px;
     height: 212px;
     margin: -106px 0 0 -88px;
@@ -339,7 +367,7 @@
   .depth-stage {
     height: 480px;
   }
-  .stage-identity {
+  .stage-identity-motion {
     width: 176px;
     height: 212px;
   }
@@ -393,7 +421,7 @@
   .depth-stage {
     height: 520px;
   }
-  .stage-identity {
+  .stage-identity-motion {
     width: 200px;
     height: 236px;
     margin: -118px 0 0 -100px;
@@ -411,8 +439,8 @@
   }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .stage-identity {
-    animation: identity-arrive 1100ms var(--ease) both;
+  .stage-identity-motion {
+    animation: identity-flight 13s ease-in-out infinite;
   }
   .stage-orbit {
     animation: satellite-orbit 36s linear infinite;
@@ -440,14 +468,21 @@
       transform: rotate(-360deg) scaleX(var(--orbit-scale-x-inverse));
     }
   }
-  @keyframes identity-arrive {
-    from {
-      opacity: 0;
-      transform: translateZ(0) translateY(24px) rotateZ(-15deg);
+  @keyframes identity-flight {
+    0%, 17% {
+      transform: translateZ(36px) rotateY(0deg) rotateZ(-8deg) scale(1);
     }
-    to {
-      opacity: 1;
-      transform: translateZ(36px) rotateZ(-8deg);
+    39% {
+      transform: translate3d(0, -24px, 54px) rotateY(180deg) rotateZ(-3deg) scale(.8);
+    }
+    62% {
+      transform: translate3d(0, -32px, 60px) rotateY(360deg) rotateZ(-5deg) scale(.85);
+    }
+    78% {
+      transform: translate3d(0, -8px, 40px) rotateY(360deg) rotateZ(-8deg) scale(.97);
+    }
+    92%, 100% {
+      transform: translateZ(36px) rotateY(360deg) rotateZ(-8deg) scale(1);
     }
   }
 }
@@ -459,7 +494,8 @@
 @media (forced-colors: active) {
   .stage-satellite-face,
   .stage-orbit::before,
-  .stage-identity {
+  .stage-identity-front,
+  .stage-identity-back {
     border: 1px solid ButtonText;
   }
   .stage-halo {

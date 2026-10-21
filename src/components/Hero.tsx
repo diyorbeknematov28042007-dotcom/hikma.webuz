@@ -1,53 +1,67 @@
 import Image from "next/image";
 import { ArrowUpRight, ArrowDown } from "@phosphor-icons/react/dist/ssr";
-import { primaryCta } from "@/lib/content";
-import { servicePages } from "@/lib/service-pages";
+import { getHomeCopy, getServicePages } from "@/lib/localized-content";
+import type { Locale } from "@/lib/i18n";
 import { DepthStage } from "./DepthStage";
 
-export function Hero() {
+export function Hero({ locale = "uz" }: { locale?: Locale }) {
+  const copy = getHomeCopy(locale);
   return (
     <section
       className="hero container hero-updated"
       aria-labelledby="hero-title"
     >
       <div className="hero-copy">
-        <p className="eyebrow">HIKMA / Raqamli yechimlar</p>
+        <p className="eyebrow">{copy.heroEyebrow}</p>
         <h1 id="hero-title">
-          Raqamli dunyoda <span className="hero-accent">o‘z o‘rningiz.</span>
+          {copy.heroTitle} <span className="hero-accent">{copy.heroAccent}</span>
         </h1>
         <p className="hero-description">
-          Veb-sahifa, Telegram bot va maqsadli reklama. G‘oyangizni
-          biznesingizga mos raqamli yechimga aylantiramiz.
+          {copy.heroDescription}
         </p>
         <div className="hero-actions">
           <a href="#aloqa" className="button">
-            {primaryCta}
+            {copy.cta}
             <ArrowUpRight size={20} aria-hidden="true" />
           </a>
           <a href="#xizmatlar" className="text-link">
-            Xizmatlarni ko‘rish
+            {copy.viewServices}
             <ArrowDown size={18} aria-hidden="true" />
           </a>
         </div>
       </div>
       <DepthStage>
         <div className="stage-halo" aria-hidden="true" />
-        <div className="stage-identity" aria-hidden="true">
-          <div className="stage-mark">
-            <Image
-              src="/brand/hikma-mark-reference.png"
-              alt=""
-              width={384}
-              height={447}
-              sizes="96px"
-            />
+        <div className="stage-identity-motion" aria-hidden="true">
+          <div className="stage-identity">
+            <div className="stage-identity-front">
+              <div className="stage-mark">
+                <Image
+                  src="/brand/hikma-mark-reference.png"
+                  alt=""
+                  width={384}
+                  height={447}
+                  sizes="96px"
+                />
+              </div>
+              <span className="stage-wordmark">HIKMA</span>
+              <span className="stage-motto">Ideas to impact</span>
+            </div>
+            <div className="stage-identity-back">
+              <Image
+                src="/brand/hikma-mark-reference.png"
+                alt=""
+                width={384}
+                height={447}
+                sizes="72px"
+              />
+              <span>HIKMA</span>
+            </div>
           </div>
-          <span className="stage-wordmark">HIKMA</span>
-          <span className="stage-motto">Ideas to impact</span>
         </div>
-        <nav className="stage-services" aria-label="Xizmatlarni tez tanlash">
+        <nav className="stage-services" aria-label={copy.quickServices}>
           <div className="stage-orbit">
-            {servicePages.map((service, index) => (
+            {getServicePages(locale).map((service, index) => (
               <a
                 href={`#service-${service.id}`}
                 className={`stage-satellite stage-satellite-${index + 1}`}

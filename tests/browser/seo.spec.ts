@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { modernUzbek } from "../../src/lib/i18n";
 
 const origin = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 const services = [
@@ -20,7 +21,7 @@ for (const service of services) {
     const response = await page.goto(service.path);
     expect(response?.status()).toBe(200);
     await expect(page.locator("h1")).toHaveCount(1);
-    await expect(page.locator("h1")).toContainText(service.title);
+    await expect(page.locator("h1")).toContainText(modernUzbek(service.title));
     const sticker = page.locator(".detail-hero-sticker");
     await expect(sticker).toBeVisible();
     await expect
@@ -30,7 +31,7 @@ for (const service of services) {
         ),
       )
       .toBe(true);
-    await expect(page).toHaveTitle(`${service.title} | HIKMA`);
+    await expect(page).toHaveTitle(`${modernUzbek(service.title)} | HIKMA`);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       "href",
       origin + service.path,
@@ -70,10 +71,10 @@ for (const service of services) {
       fullPage: true,
       animations: "disabled",
     });
-    await page.getByRole("button", { name: "Menyuni ochish" }).click();
+    await page.getByRole("button", { name: modernUzbek("Menyuni ochish") }).click();
     await page
       .getByRole("navigation", { name: "Mobil navigatsiya" })
-      .getByRole("link", { name: "Bog‘lanish" })
+      .getByRole("link", { name: modernUzbek("Bog‘lanish") })
       .click();
     await expect(page).toHaveURL(/\/#aloqa$/);
     await expect(page.locator("#aloqa")).toBeVisible();
@@ -160,15 +161,15 @@ test("homepage identity and service-to-project journey", async ({ page }) => {
     ).sameAs,
   ).toContain("https://www.instagram.com/hikma.service/");
   await page
-    .getByRole("link", { name: "Landing page haqida batafsil", exact: true })
+    .getByRole("link", { name: `${modernUzbek("Xizmat haqida batafsil")}: Landing page`, exact: true })
     .click();
   await expect(page).toHaveURL(/\/xizmatlar\/landing-page$/);
-  await page.getByRole("link", { name: "Bajarilgan ishlarni ko‘rish" }).click();
+  await page.getByRole("link", { name: modernUzbek("Bajarilgan ishlarni ko‘rish") }).click();
   await expect(page).toHaveURL(/\/loyihalar$/);
   await expect(
     page.getByRole("heading", { name: "Hikmaweb.uz", exact: true }),
   ).toBeVisible();
-  await page.getByRole("link", { name: "Saytni ko‘rish", exact: true }).click();
+  await page.getByRole("link", { name: modernUzbek("Saytni ko‘rish"), exact: true }).click();
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "Raqamli dunyoda",
   );

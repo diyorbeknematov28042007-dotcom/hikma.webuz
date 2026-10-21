@@ -1,28 +1,38 @@
 import type { Metadata } from "next";
 import { instagramUrl, siteOrigin, telegramUrl } from "./site";
+import { localePath, modernUzbek, type Locale } from "./i18n";
 
 export function pageMetadata(
   title: string,
   description: string,
   path: string,
+  locale: Locale = "uz",
 ): Metadata {
+  if (locale === "uz") {
+    title = modernUzbek(title);
+    description = modernUzbek(description);
+  }
+  const localizedPath = localePath(locale, path);
   return {
     title,
     description,
-    alternates: { canonical: path },
+    alternates: {
+      canonical: localizedPath,
+      languages: { "uz-UZ": localePath("uz", path), "ru-RU": localePath("ru", path), en: localePath("en", path) },
+    },
     openGraph: {
       type: "website",
-      locale: "uz_UZ",
+      locale: locale === "uz" ? "uz_UZ" : locale === "ru" ? "ru_RU" : "en_US",
       siteName: "HIKMA",
       title: `${title} | HIKMA`,
       description,
-      url: path,
+      url: localizedPath,
       images: [
         {
           url: "/opengraph-image",
           width: 1200,
           height: 630,
-          alt: "HIKMA — Millat uchun zamonaviy yechimlar",
+          alt: locale === "uz" ? "HIKMA — Millat uçun zamonaviy yeçimlar" : "HIKMA digital solutions",
         },
       ],
     },
@@ -35,7 +45,7 @@ export function pageMetadata(
   };
 }
 
-export function brandStructuredData() {
+export function brandStructuredData(locale: Locale = "uz") {
   const origin = siteOrigin();
   return {
     "@context": "https://schema.org",
@@ -46,18 +56,18 @@ export function brandStructuredData() {
         name: "HIKMA",
         url: `${origin}/`,
         logo: `${origin}/brand/hikma-mark-reference.png`,
-        slogan: "Millat uchun zamonaviy yechimlar",
+        slogan: locale === "uz" ? "Millat uçun zamonaviy yeçimlar" : locale === "ru" ? "Современные решения для общества" : "Modern solutions for our community",
         description:
           "Landing page, Telegram bot, Instagram Ads va Telegram Ads xizmatlari.",
         sameAs: [instagramUrl, telegramUrl],
       },
       {
         "@type": "WebSite",
-        "@id": `${origin}/#website`,
+        "@id": `${origin}${localePath(locale, "/")}#website`,
         name: "HIKMA",
         alternateName: "hikmaweb.uz",
-        url: `${origin}/`,
-        inLanguage: "uz",
+        url: `${origin}${localePath(locale, "/")}`,
+        inLanguage: locale,
         publisher: { "@id": `${origin}/#organization` },
       },
     ],

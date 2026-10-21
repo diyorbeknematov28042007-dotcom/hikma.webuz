@@ -7,31 +7,38 @@ import { isContactEnabled } from "@/lib/site";
 import { ProjectSpotlight } from "@/components/ProjectSpotlight";
 import { StructuredData } from "@/components/StructuredData";
 import { brandStructuredData } from "@/lib/seo";
-export default function Home() {
+import type { Locale } from "@/lib/i18n";
+
+export function HomeContent({ locale = "uz" }: { locale?: Locale }) {
   const enabled = isContactEnabled();
   // The owner supplied the current brand profile as the new source of truth.
   const instagramVerified = true;
   return (
     <>
-      <StructuredData data={brandStructuredData()} />
-      <Header />
+      <StructuredData data={brandStructuredData(locale)} />
+      <Header locale={locale} />
       <main id="main" tabIndex={-1}>
-        <Hero />
-        <Services />
-        <ProjectSpotlight />
-        <Approach />
-        <Process />
-        <About />
-        <FAQ />
+        <Hero locale={locale} />
+        <Services locale={locale} />
+        <ProjectSpotlight locale={locale} />
+        <Approach locale={locale} />
+        <Process locale={locale} />
+        <About locale={locale} />
+        <FAQ locale={locale} />
         <Contact
           enabled={enabled}
           siteKey={
             enabled ? process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY : undefined
           }
           instagramVerified={instagramVerified}
+          locale={locale}
         />
       </main>
-      <Footer instagramVerified={instagramVerified} />
+      <Footer instagramVerified={instagramVerified} locale={locale} />
     </>
   );
+}
+
+export default function Home() {
+  return <HomeContent />;
 }

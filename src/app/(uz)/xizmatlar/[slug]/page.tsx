@@ -6,6 +6,9 @@ import { ArrowUpRight, CaretDown } from "@phosphor-icons/react/dist/ssr";
 import { InnerPage, Breadcrumbs } from "@/components/InnerPage";
 import { StructuredData } from "@/components/StructuredData";
 import { findService, servicePages } from "@/lib/service-pages";
+import { getService, getServicePages } from "@/lib/localized-content";
+import { interfaceCopy } from "@/lib/interface-copy";
+import { localePath, type Locale } from "@/lib/i18n";
 import { breadcrumbStructuredData, pageMetadata } from "@/lib/seo";
 import { siteOrigin, telegramUrl } from "@/lib/site";
 
@@ -20,16 +23,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(service.heading, service.seoDescription, service.href);
 }
 
-export default async function ServicePage({ params }: Props) {
-  const service = findService((await params).slug);
+export function ServicePageContent({ slug, locale = "uz" }: { slug: string; locale?: Locale }) {
+  const service = getService(locale, slug);
   if (!service) notFound();
+  const copy = interfaceCopy(locale).details;
+  const localizedServices = getServicePages(locale);
   const crumbs = [
-    { label: "Bosh sahifa", href: "/" },
-    { label: "Xizmatlar", href: "/xizmatlar" },
+    { label: copy.home, href: localePath(locale, "/") },
+    { label: copy.services, href: localePath(locale, "/xizmatlar") },
     { label: service.title, href: service.href },
   ];
   return (
-    <InnerPage>
+    <InnerPage locale={locale}>
       <StructuredData
         data={{
           "@context": "https://schema.org",
@@ -53,7 +58,7 @@ export default async function ServicePage({ params }: Props) {
         }}
       />
       <div className="container detail-page">
-        <Breadcrumbs items={crumbs} />
+        <Breadcrumbs items={crumbs} locale={locale} />
         <header className="detail-hero detail-hero-with-sticker">
           <div className="detail-hero-copy">
             <p className="eyebrow">HIKMA / {service.category}</p>
@@ -63,8 +68,8 @@ export default async function ServicePage({ params }: Props) {
             </h1>
             <p className="detail-lead">{service.intro}</p>
             <div className="detail-actions">
-              <Link href="/#aloqa" className="button">
-                Loyihani muhokama qilish{" "}
+              <Link href={`${localePath(locale, "/")}#aloqa`} className="button">
+                {copy.discuss}{" "}
                 <ArrowUpRight size={20} aria-hidden="true" />
               </Link>
               <a
@@ -73,15 +78,15 @@ export default async function ServicePage({ params }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Telegramda bog‘lanish{" "}
-                <span className="sr-only">(yangi sahifada ochiladi)</span>
+                {copy.telegram}{" "}
+                <span className="sr-only">({copy.newTab})</span>
                 <ArrowUpRight size={18} aria-hidden="true" />
               </a>
             </div>
           </div>
           <Image
             src={service.sticker}
-            alt={`${service.title} xizmatini ifodalovchi HIKMA stikeri`}
+            alt={`${service.title} ${copy.sticker}`}
             width={512}
             height={512}
             sizes="(min-width: 900px) 320px, 220px"
@@ -94,12 +99,12 @@ export default async function ServicePage({ params }: Props) {
           className="detail-section detail-intro"
           aria-labelledby="audience-title"
         >
-          <h2 id="audience-title">Bu xizmat kimga mos?</h2>
+          <h2 id="audience-title">{copy.audience}</h2>
           <p>{service.audience}</p>
         </section>
         <section className="detail-section" aria-labelledby="scope-title">
-          <p className="eyebrow">Xizmat tarkibi</p>
-          <h2 id="scope-title">Nimalarni tayyorlaymiz?</h2>
+          <p className="eyebrow">{copy.scope}</p>
+          <h2 id="scope-title">{copy.deliverables}</h2>
           <div className="deliverables-grid">
             {service.deliverables.map((item, index) => (
               <article key={item.title}>
@@ -112,12 +117,11 @@ export default async function ServicePage({ params }: Props) {
             ))}
           </div>
           <p className="detail-note">
-            Yakuniy ish tarkibi, narx va muddat loyiha talablari aniqlangach
-            kelishiladi.
+            {copy.scopeNote}
           </p>
         </section>
         <section className="detail-section" aria-labelledby="steps-title">
-          <h2 id="steps-title">Qanday ishlaymiz?</h2>
+          <h2 id="steps-title">{copy.steps}</h2>
           <ol className="detail-steps">
             {service.steps.map((step) => (
               <li key={step.title}>
@@ -132,8 +136,8 @@ export default async function ServicePage({ params }: Props) {
           aria-labelledby="prepare-title"
         >
           <div>
-            <p className="eyebrow">Birinchi suhbat uchun</p>
-            <h2 id="prepare-title">Nimalar kerak bo‘ladi?</h2>
+            <p className="eyebrow">{copy.firstCall}</p>
+            <h2 id="prepare-title">{copy.preparation}</h2>
           </div>
           <ul>
             {service.preparation.map((item) => (
@@ -144,24 +148,23 @@ export default async function ServicePage({ params }: Props) {
         {service.id === "landing" && (
           <aside
             className="detail-example"
-            aria-label="Amaldagi loyiha namunasi"
+            aria-label={copy.sample}
           >
             <div>
-              <p className="eyebrow">O‘z brendimiz loyihasi</p>
+              <p className="eyebrow">{copy.ownProject}</p>
               <h2>Hikmaweb.uz</h2>
               <p>
-                Hozir ko‘rib turgan saytingiz: xizmatlar, mobil navigatsiya va
-                aniq murojaat yo‘li.
+                {copy.sampleBody}
               </p>
             </div>
-            <Link href="/loyihalar" className="text-link">
-              Bajarilgan ishlarni ko‘rish{" "}
+            <Link href={localePath(locale, "/loyihalar")} className="text-link">
+              {copy.sampleLink}{" "}
               <ArrowUpRight size={20} aria-hidden="true" />
             </Link>
           </aside>
         )}
         <section className="detail-section" aria-labelledby="questions-title">
-          <h2 id="questions-title">Ko‘p so‘raladigan savollar</h2>
+          <h2 id="questions-title">{copy.questions}</h2>
           <div className="faq-list detail-faq">
             {service.faqs.map((faq) => (
               <details key={faq.q}>
@@ -175,9 +178,9 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </section>
         <section className="detail-section" aria-labelledby="related-title">
-          <h2 id="related-title">Boshqa xizmatlar</h2>
-          <nav aria-label="Boshqa xizmatlar" className="related-services">
-            {servicePages
+          <h2 id="related-title">{copy.related}</h2>
+          <nav aria-label={copy.related} className="related-services">
+            {localizedServices
               .filter((item) => item.id !== service.id)
               .map((item) => (
                 <Link key={item.id} href={item.href}>
@@ -190,4 +193,8 @@ export default async function ServicePage({ params }: Props) {
       </div>
     </InnerPage>
   );
+}
+
+export default async function ServicePage({ params }: Props) {
+  return <ServicePageContent slug={(await params).slug} />;
 }

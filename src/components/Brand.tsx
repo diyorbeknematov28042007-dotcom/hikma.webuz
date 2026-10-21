@@ -14,7 +14,7 @@ export function StaticLogo({ compact = false }: { compact?: boolean }) {
         />
       </span>
       <span>
-        HIKMA<span className="sr-only"> bosh sahifa</span>
+        HIKMA<span className="sr-only"> boş sahifa</span>
       </span>
     </span>
   );

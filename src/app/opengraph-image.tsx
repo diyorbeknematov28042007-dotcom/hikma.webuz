@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-export const alt = "HIKMA. Millat uchun zamonaviy yechimlar.";
+export const alt = "HIKMA. Millat uçun zamonaviy yeçimlar.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default function OpenGraphImage() {
@@ -38,8 +38,8 @@ export default function OpenGraphImage() {
             lineHeight: 1.1,
           }}
         >
-          <span>Millat uchun</span>
-          <span style={{ color: "#5bd6a1" }}>zamonaviy yechimlar.</span>
+          <span>Millat uçun</span>
+          <span style={{ color: "#5bd6a1" }}>zamonaviy yeçimlar.</span>
         </div>
         <div style={{ display: "flex", fontSize: 22, color: "#adbbb3" }}>
           Landing page / Telegram bot / Instagram Ads / Telegram Ads

@@ -1,10 +1,14 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { List, X, ArrowUpRight } from "@phosphor-icons/react";
-import { navigation, primaryCta } from "@/lib/content";
+import { getHomeCopy } from "@/lib/localized-content";
+import { localePath, type Locale } from "@/lib/i18n";
 import { StaticLogo } from "./Brand";
-export function Header({ innerPage = false }: { innerPage?: boolean }) {
-  const anchorHref = (href: string) => (innerPage ? `/${href}` : href);
+import { LanguageSwitch } from "./LanguageSwitch";
+export function Header({ innerPage = false, locale = "uz" }: { innerPage?: boolean; locale?: Locale }) {
+  const copy = getHomeCopy(locale);
+  const navigation = ["#xizmatlar", "#loyihalar", "#yondashuv", "#haqimizda"].map((href, index) => ({ href, label: copy.nav[index] }));
+  const anchorHref = (href: string) => (innerPage ? `${localePath(locale, "/")}${href}` : href);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
@@ -47,7 +51,7 @@ export function Header({ innerPage = false }: { innerPage?: boolean }) {
       <div className="header-sentinel" ref={sentinel} aria-hidden="true" />
       <header className="site-header" ref={header}>
         <div className="container header-inner">
-          <a href={innerPage ? "/" : "#top"} aria-label="HIKMA bosh sahifa">
+          <a href={innerPage ? localePath(locale, "/") : "#top"} aria-label={`HIKMA — ${copy.nav[3]}`}>
             <StaticLogo />
           </a>
           <nav className="desktop-nav" aria-label="Asosiy navigatsiya">
@@ -57,18 +61,19 @@ export function Header({ innerPage = false }: { innerPage?: boolean }) {
               </a>
             ))}
           </nav>
+          <LanguageSwitch current={locale} />
           <a
             className="button button-small header-cta"
             href={anchorHref("#aloqa")}
           >
-            {primaryCta}
+            {copy.cta}
             <ArrowUpRight size={17} aria-hidden="true" />
           </a>
           <button
             ref={trigger}
             onClick={open}
             className="menu-trigger"
-            aria-label="Menyuni ochish"
+            aria-label={locale === "uz" ? "Menyuni oçiş" : locale === "ru" ? "Открыть меню" : "Open menu"}
             aria-expanded="false"
             aria-controls="mobile-menu"
           >
@@ -82,7 +87,7 @@ export function Header({ innerPage = false }: { innerPage?: boolean }) {
                 {item.label}
               </a>
             ))}
-            <a href={anchorHref("#aloqa")}>Bog‘lanish</a>
+            <a href={anchorHref("#aloqa")}>{copy.contactNav}</a>
           </nav>
         </noscript>
       </header>
@@ -102,7 +107,7 @@ export function Header({ innerPage = false }: { innerPage?: boolean }) {
             <button
               onClick={close}
               className="menu-trigger"
-              aria-label="Menyuni yopish"
+              aria-label={locale === "uz" ? "Menyuni yopiş" : locale === "ru" ? "Закрыть меню" : "Close menu"}
               autoFocus
             >
               <X size={26} aria-hidden="true" />
@@ -120,11 +125,11 @@ export function Header({ innerPage = false }: { innerPage?: boolean }) {
               </a>
             ))}
             <a href={anchorHref("#aloqa")} onClick={followAnchor}>
-              Bog‘lanish
+              {copy.contactNav}
               <ArrowUpRight size={22} aria-hidden="true" />
             </a>
           </nav>
-          <p>Millat uchun zamonaviy yechimlar.</p>
+          <p>{copy.tagline}</p>
         </div>
       </dialog>
     </>
