@@ -48,7 +48,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 2;
+  z-index: 1;
   width: 112px;
   height: 136px;
   margin: -68px 0 0 -56px;
@@ -93,7 +93,7 @@
 .stage-services {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
   transform-style: preserve-3d;
 }
@@ -109,14 +109,6 @@
   border: 1px solid #59836b88;
   border-radius: 50%;
   --satellite-size: 54px;
-}
-.stage-orbit::before {
-  content: "";
-  position: absolute;
-  inset: 14%;
-  border: 1px dashed #63897455;
-  border-radius: 50%;
-  pointer-events: none;
 }
 .stage-satellite {
   position: absolute;
@@ -342,9 +334,9 @@
     height: 212px;
   }
   .stage-orbit {
-    width: 364px;
-    --orbit-scale-x: 0.989;
-    --orbit-scale-x-inverse: 1.011;
+    width: 376px;
+    --orbit-scale-x: 1.011;
+    --orbit-scale-x-inverse: 0.989;
   }
   .services-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
