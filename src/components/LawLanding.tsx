@@ -1,59 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { LanguageSwitch } from "./LanguageSwitch";
-import { StaticLogo } from "./Brand";
-import { StructuredData } from "./StructuredData";
+import { LawInquiry } from "./LawInquiry";
 import { lawCopy } from "@/lib/law-copy";
 import { localePath, type Locale } from "@/lib/i18n";
-import { siteOrigin, telegramUrl } from "@/lib/site";
-import { breadcrumbStructuredData } from "@/lib/seo";
 
 const imageRoot = "/images/advokat/";
 
 export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
   const c = lawCopy(locale);
-  const home = localePath(locale, "/");
-  const projects = localePath(locale, "/loyihalar");
-  const breadcrumbs = [
-    { label: c.home, href: home },
-    { label: c.projectLink, href: projects },
-    { label: c.concept, href: localePath(locale, "/advokat") },
-  ];
   return (
     <div className="law-page">
-      <StructuredData data={{
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "CreativeWork",
-            name: c.concept,
-            description: c.conceptNote,
-            url: `${siteOrigin()}${localePath(locale, "/advokat")}`,
-            inLanguage: locale,
-            creator: { "@id": `${siteOrigin()}/#organization` },
-          },
-          breadcrumbStructuredData(breadcrumbs),
-        ],
-      }} />
-      <div className="law-concept-bar">
-        <div className="law-shell">
-          <span className="law-concept-dot" aria-hidden="true" />
-          <strong>{c.concept}</strong>
-          <span>{c.conceptNote}</span>
-        </div>
-      </div>
       <header className="law-header">
         <div className="law-shell law-header-inner">
-          <Link href={home} className="law-header-brand" aria-label={c.home}>
-            <StaticLogo compact />
+          <Link href={localePath(locale, "/advokat")} className="law-header-brand" aria-label={c.person}>
+            <span className="law-person-mark" aria-hidden="true">X<span>.</span></span>
             <span className="law-header-divider" aria-hidden="true" />
-            <span className="law-header-tag">{c.brandTag}</span>
+            <span className="law-header-identity"><strong>{c.person}</strong><small>{c.role}</small></span>
           </Link>
           <nav className="law-header-nav" aria-label={locale === "uz" ? "Sahifa bo‘limlari" : locale === "ru" ? "Разделы страницы" : "Page sections"}>
             <a href="#xizmatlar">{c.nav[0]}</a>
-            <a href="#yondashuv">{c.nav[1]}</a>
+            <a href="#men-haqimda">{c.nav[1]}</a>
             <a href="#savollar">{c.nav[2]}</a>
+            <a href="#boglanish">{c.nav[3]}</a>
           </nav>
           <LanguageSwitch current={locale} />
         </div>
@@ -66,11 +36,11 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
               <h1 id="law-title">{c.title} <em>{c.accent}</em></h1>
               <p className="law-lead">{c.lead}</p>
               <div className="law-hero-actions">
-                <a className="law-button law-button-light" href="#xizmatlar">
-                  {c.explore}<ArrowDown size={18} aria-hidden="true" />
+                <a className="law-button law-button-light" href="#boglanish">
+                  {c.contactAction}<ArrowUpRight size={18} aria-hidden="true" />
                 </a>
-                <a className="law-text-link" href="#namuna-haqida">
-                  {c.order}<ArrowUpRight size={18} aria-hidden="true" />
+                <a className="law-text-link" href="#xizmatlar">
+                  {c.explore}<ArrowDown size={18} aria-hidden="true" />
                 </a>
               </div>
             </div>
@@ -121,6 +91,18 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
           </div>
         </section>
 
+        <section className="law-about law-section" id="men-haqimda" aria-labelledby="law-about-title">
+          <div className="law-shell law-about-grid">
+            <div className="law-about-monogram" aria-hidden="true"><span>X.</span></div>
+            <div>
+              <p className="law-kicker">{c.aboutEyebrow}</p>
+              <h2 id="law-about-title">{c.aboutTitle}</h2>
+              <p className="law-about-body">{c.aboutBody}</p>
+              <p className="law-about-quote">“{c.aboutQuote}”</p>
+            </div>
+          </div>
+        </section>
+
         <section className="law-approach law-section" id="yondashuv" aria-labelledby="law-approach-title">
           <div className="law-shell law-approach-grid">
             <div className="law-approach-art">
@@ -164,21 +146,20 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
           </div>
         </section>
 
-        <section className="law-cta" id="namuna-haqida" aria-labelledby="law-cta-title">
+        <section className="law-cta" id="boglanish" aria-labelledby="law-cta-title">
           <div className="law-shell law-cta-grid">
             <div>
               <p className="law-kicker">{c.ctaEyebrow}</p>
               <h2 id="law-cta-title">{c.ctaTitle}</h2>
               <p>{c.ctaBody}</p>
-              <div className="law-cta-actions">
-                <a className="law-button law-button-dark" href={telegramUrl} target="_blank" rel="noopener noreferrer">
-                  {c.ctaButton}<ArrowUpRight size={19} aria-hidden="true" />
-                  <span className="sr-only">({c.newTab})</span>
-                </a>
-                <Link className="law-text-link law-text-link-dark" href={localePath(locale, "/xizmatlar/landing-page")}>
-                  {c.ctaSecondary}<ArrowRight size={18} aria-hidden="true" />
-                </Link>
-              </div>
+              <LawInquiry
+                label={c.draftLabel}
+                placeholder={c.draftPlaceholder}
+                button={c.draftButton}
+                copied={c.draftCopied}
+                error={c.draftError}
+                note={c.draftNote}
+              />
             </div>
             <Image src={`${imageRoot}08-contact.webp`} alt="" width={1000} height={1000} sizes="(max-width: 860px) 65vw, 29vw" loading="lazy" />
           </div>
@@ -186,8 +167,8 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
       </main>
       <footer className="law-footer">
         <div className="law-shell law-footer-inner">
-          <div><strong>HIKMA</strong><p>{c.footerNote}</p></div>
-          <Link href={projects}>{c.projectLink}<ArrowUpRight size={18} aria-hidden="true" /></Link>
+          <div><strong>{c.person}</strong><p>{c.footerNote}</p></div>
+          <a href="#main">{c.person}<ArrowUpRight size={18} aria-hidden="true" /></a>
         </div>
       </footer>
     </div>

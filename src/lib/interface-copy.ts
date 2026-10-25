@@ -37,8 +37,8 @@ const raw = {
       directoryAnswer: "Biznesingizdagi vazifani yozing. Suhbat davomida kerakli yo‘nalish va ish hajmini aniqlashtiramiz.",
     },
     projects: {
-      eyebrow: "HIKMA / Loyihalar", title: "Amalda ko‘rish mumkin bo‘lgan ish.", intro: "O‘z brendimiz uchun ishlayotgan sayt va advokatlik sohasi uchun tayyorlangan alohida dizayn konsepti.",
-      conceptEyebrow: "Konsept loyiha / Advokatlik", conceptTitle: "Advokatlik xizmatlari uchun landing page", conceptDescription: "HIKMA yaratgan ko‘rgazmali sahifa: sakkizta maxsus stiker, mobilga mos tuzilma va tushunarli murojaat yo‘li. Bu haqiqiy advokatlik idorasi emas.", conceptView: "Konsept sahifani ko‘rish",
+      eyebrow: "HIKMA / Loyihalar", title: "Amalda ko‘rish mumkin bo‘lgan ish.", intro: "O‘z brendimiz uchun ishlayotgan sayt va advokatning shaxsiy sahifasi qanday ko‘rinishini ko‘rsatadigan loyiha.",
+      conceptEyebrow: "Portfolio / Shaxsiy advokat sayti", conceptTitle: "Advokat X — shaxsiy landing page", conceptDescription: "Advokatning o‘z nomidan yozilgan sahifa: xizmatlari, yondashuvi va murojaat yo‘li. “Advokat X” — ko‘rgazmali personaj, qabul kanali ulanmagan; bu real yuridik xizmat emas.", conceptView: "Advokat sahifasini ko‘rish",
       caseEyebrow: "O‘z brendimiz loyihasi / Veb-sayt", caseIntro: "HIKMA xizmatlarini bitta raqamli manzilda tanishtirish.",
       view: "Saytni ko‘rish", source: "Ochiq kod", task: "Vazifa", work: "Bajarilgan ishlar", result: "Amaldagi natija",
       taskBody: "HIKMA’ning amaldagi to‘rtta xizmatini tushunarli ko‘rsatish, brend uslubini saqlash va tashrifchiga o‘z loyihasi haqida murojaat qilish uchun qulay yo‘l yaratish.",
@@ -98,7 +98,7 @@ const raw = {
     },
     projects: {
       eyebrow: "HIKMA / Проекты", title: "Работа, которую можно увидеть.", intro: "Работающий сайт нашего бренда и отдельный дизайн-концепт для адвокатской практики.",
-      conceptEyebrow: "Концепт / Адвокатские услуги", conceptTitle: "Лендинг для адвокатской практики", conceptDescription: "Демонстрационная страница HIKMA: восемь оригинальных иллюстраций, адаптивный дизайн и понятный путь обращения. Это не действующее адвокатское бюро.", conceptView: "Посмотреть концепт",
+      conceptEyebrow: "Портфолио / Личный сайт адвоката", conceptTitle: "Адвокат X — личный лендинг", conceptDescription: "Страница от лица адвоката: услуги, подход и путь обращения. «Адвокат X» — вымышленный персонаж, канал приёма обращений не подключён; юридические услуги не оказываются.", conceptView: "Посмотреть сайт адвоката",
       caseEyebrow: "Проект для собственного бренда / Сайт", caseIntro: "Все услуги HIKMA в одном цифровом пространстве.",
       view: "Открыть сайт", source: "Исходный код", task: "Задача", work: "Что сделано", result: "Результат",
       taskBody: "Понятно представить четыре действующие услуги HIKMA, сохранить стиль бренда и создать удобный путь для обращения.",
@@ -158,7 +158,7 @@ const raw = {
     },
     projects: {
       eyebrow: "HIKMA / Projects", title: "Work you can explore.", intro: "Our live brand website and a separate landing page concept for legal practices.",
-      conceptEyebrow: "Concept / Legal practice", conceptTitle: "Landing page for a legal practice", conceptDescription: "A HIKMA demonstration with eight bespoke stickers, a responsive layout and a clear enquiry journey. It is not an active law firm.", conceptView: "Explore the concept",
+      conceptEyebrow: "Portfolio / Personal lawyer site", conceptTitle: "Advocate X — personal landing page", conceptDescription: "A first-person lawyer page with services, approach and an enquiry journey. “Advocate X” is fictional, and no contact channel is connected; this is not an active legal service.", conceptView: "Explore the lawyer site",
       caseEyebrow: "Our own brand project / Website", caseIntro: "Presenting HIKMA services in one digital place.",
       view: "View website", source: "Open source", task: "The challenge", work: "What we built", result: "Live outcome",
       taskBody: "Showcase HIKMA's four current services clearly, keep the brand identity intact and make it easy for visitors to enquire about a project.",

@@ -1,185 +1,144 @@
 import { modernUzbek, type Locale } from "./i18n";
 
 type LawCopy = {
-  concept: string;
-  conceptNote: string;
-  brandTag: string;
-  nav: [string, string, string];
-  home: string;
-  eyebrow: string;
-  title: string;
-  accent: string;
-  lead: string;
-  explore: string;
-  order: string;
-  heroCaption: string;
-  markers: [string, string, string];
-  servicesEyebrow: string;
-  servicesTitle: string;
-  servicesIntro: string;
+  person: string; role: string; nav: [string, string, string, string];
+  eyebrow: string; title: string; accent: string; lead: string; contactAction: string; explore: string;
+  heroCaption: string; markers: [string, string, string];
+  servicesEyebrow: string; servicesTitle: string; servicesIntro: string;
   services: { title: string; body: string; image: string; alt: string }[];
-  approachEyebrow: string;
-  approachTitle: string;
-  approachIntro: string;
-  steps: { title: string; body: string }[];
-  confidential: string;
-  questionsEyebrow: string;
-  questionsTitle: string;
-  questions: { title: string; body: string }[];
-  ctaEyebrow: string;
-  ctaTitle: string;
-  ctaBody: string;
-  ctaButton: string;
-  ctaSecondary: string;
+  aboutEyebrow: string; aboutTitle: string; aboutBody: string; aboutQuote: string;
+  approachEyebrow: string; approachTitle: string; approachIntro: string;
+  steps: { title: string; body: string }[]; confidential: string;
+  questionsEyebrow: string; questionsTitle: string; questions: { title: string; body: string }[];
+  ctaEyebrow: string; ctaTitle: string; ctaBody: string;
+  draftLabel: string; draftPlaceholder: string; draftButton: string; draftCopied: string; draftError: string; draftNote: string;
   footerNote: string;
-  projectLink: string;
-  newTab: string;
 };
 
 const content: Record<Locale, LawCopy> = {
   uz: {
-    concept: "HIKMA konsept loyihasi",
-    conceptNote: "Bu advokatlik idorasi emas. Sahifa dizayn namunasi sifatida yaratilgan.",
-    brandTag: "ADVOKATLIK / NAMUNA",
-    nav: ["Xizmatlar", "Yondashuv", "Savollar"],
-    home: "HIKMA bosh sahifasi",
-    eyebrow: "01 / Advokatlik uchun sahifa namunasi",
-    title: "Huquqiy masalada",
-    accent: "yo‘lingiz aniq bo‘lsin.",
-    lead: "Birinchi suhbatdan keyingi qadamgacha — murakkab vaziyatni tushunarli tartibda ko‘rsatadigan advokatlik sahifasi konsepti.",
-    explore: "Yo‘nalishlar bilan tanishing",
-    order: "Shunday sahifa buyurtma qilish",
+    person: "Advokat X", role: "Shaxsiy advokatlik amaliyoti",
+    nav: ["Xizmatlar", "Men haqimda", "Savollar", "Bog‘lanish"],
+    eyebrow: "Advokat X / Shaxsiy amaliyot",
+    title: "Huquqiy masalada", accent: "aniq yo‘l topamiz.",
+    lead: "Murakkab vaziyatda aniq tushuntirish va puxta yondashuv muhim. Masalangizni tinglayman, imkoniyatlarni birgalikda ko‘rib chiqamiz.",
+    contactAction: "Masalamni muhokama qilish", explore: "Xizmatlar bilan tanishish",
     heroCaption: "Aniqlik. E’tibor. Ishonch.",
-    markers: ["Vaziyatni tushunish", "Yo‘nalishni belgilash", "Keyingi qadam"],
-    servicesEyebrow: "Yo‘nalishlar / 01—04",
-    servicesTitle: "Har bir masala o‘z yechimini talab qiladi.",
-    servicesIntro: "Mijoz o‘ziga kerakli yordamni tez topishi uchun xizmatlar qisqa va ravshan ko‘rsatilgan.",
+    markers: ["Sizni tinglayman", "Holatni o‘rganaman", "Keyingi qadamni tushuntiraman"],
+    servicesEyebrow: "Faoliyat yo‘nalishlari / 01—04", servicesTitle: "Har bir masalaga alohida e’tibor.",
+    servicesIntro: "Kerakli yo‘nalishni tanlang. Murojaatingizning tafsilotlarini dastlabki suhbatda aniqlashtiramiz.",
     services: [
-      { title: "Huquqiy maslahat", body: "Vaziyatni muhokama qilish, savollarni aniqlashtirish va keyingi qadamlar haqida suhbat.", image: "02-consultation.webp", alt: "Huquqiy maslahatni ifodalovchi suhbat stikeri" },
-      { title: "Sudda vakillik", body: "Nizo bilan bog‘liq jarayonni tushuntirish va ish yo‘nalishini belgilashga qaratilgan xizmat namunasi.", image: "03-court-representation.webp", alt: "Sud binosi va ish jildini ifodalovchi stiker" },
-      { title: "Hujjatlar bilan ishlash", body: "Shartnoma, murojaat va boshqa hujjatlarni ko‘rib chiqish yo‘nalishini tanishtirish.", image: "04-documents.webp", alt: "Hujjatlar va ruchka stikeri" },
-      { title: "Biznes masalalari", body: "Tadbirkorlik faoliyatida uchraydigan huquqiy savollar uchun alohida murojaat yo‘li.", image: "05-business-law.webp", alt: "Biznes binosi va hujjatlar stikeri" },
+      { title: "Huquqiy maslahat", body: "Savolingizni muhokama qilamiz, vaziyatga ta’sir qiladigan holatlarni aniqlaymiz va mumkin bo‘lgan qadamlarni ko‘rib chiqamiz.", image: "02-consultation.webp", alt: "Huquqiy suhbat tasviri" },
+      { title: "Sudda vakillik", body: "Nizo va sud jarayoniga oid hujjatlar, pozitsiya hamda ishning keyingi bosqichlari yuzasidan ishlaymiz.", image: "03-court-representation.webp", alt: "Sud binosi va ish jildi tasviri" },
+      { title: "Hujjatlar bilan ishlash", body: "Shartnoma, ariza va boshqa muhim hujjatlarni ko‘rib chiqish, tayyorlash yoki tartibga solish.", image: "04-documents.webp", alt: "Hujjatlar va ruchka tasviri" },
+      { title: "Biznes masalalari", body: "Tadbirkorlik faoliyatida yuzaga keladigan huquqiy savollarni muhokama qilish va mos yo‘nalishni belgilash.", image: "05-business-law.webp", alt: "Biznes binosi va hujjatlar tasviri" },
     ],
-    approachEyebrow: "Yondashuv / 03 qadam",
-    approachTitle: "Suhbatdan aniq rejagacha.",
-    approachIntro: "Yaxshi sahifa mijozga jarayon qanday boshlanishini ham ko‘rsatadi. Bu yerda uch qadamli namunaviy yo‘l tasvirlangan.",
+    aboutEyebrow: "Men haqimda", aboutTitle: "Avval tinglayman. Keyin yo‘lni aniqlaymiz.",
+    aboutBody: "Har bir murojaat ortida inson va uning muhim qarori turadi. Men uchun ishning boshlanish nuqtasi — vaziyatni tushunish, savollarni aniq qo‘yish va keyingi qadamlarni sizga sodda tilda izohlash.",
+    aboutQuote: "Huquqiy yordam avvalo tushunarli muloqotdan boshlanadi.",
+    approachEyebrow: "Ish tartibi / 03 qadam", approachTitle: "Suhbatdan aniq rejagacha.",
+    approachIntro: "Murojaatdan keyin ish qanday davom etishini oldindan bilishingiz uchun jarayonni sodda bosqichlarga ajratdim.",
     steps: [
-      { title: "Vaziyatni tinglash", body: "Murojaat mazmuni va asosiy savollar aniqlanadi." },
-      { title: "Ma’lumotni ko‘rib chiqish", body: "Tegishli hujjatlar va holatlar tartibga solinadi." },
-      { title: "Yo‘nalishni tushuntirish", body: "Mumkin bo‘lgan keyingi qadamlar haqida suhbat qilinadi." },
+      { title: "Vaziyatni tinglash", body: "Masalaning mazmuni va asosiy savollaringizni aniqlaymiz." },
+      { title: "Ma’lumotni ko‘rib chiqish", body: "Tegishli hujjatlar va holatlarni o‘rganib chiqamiz." },
+      { title: "Yo‘nalishni tushuntirish", body: "Mumkin bo‘lgan keyingi qadamlar haqida gaplashamiz." },
     ],
-    confidential: "Muloqotda ishonch va ehtiyotkorlik muhim.",
-    questionsEyebrow: "Savollar",
-    questionsTitle: "Murojaat qilishdan oldin.",
+    confidential: "Ishonch va ma’lumotga ehtiyotkor munosabat.",
+    questionsEyebrow: "Ko‘p so‘raladigan savollar", questionsTitle: "Murojaatdan oldin bilib oling.",
     questions: [
-      { title: "Birinchi suhbat qanday boshlanadi?", body: "Avval masalaning qisqacha mazmuni va kerakli yo‘nalish aniqlanadi. Ushbu sahifa faqat ko‘rgazmali konsept bo‘lgani uchun bu yerda yuridik qabul olib borilmaydi." },
-      { title: "Hujjatlarni yuborish kerakmi?", body: "Bu namunada hujjat yuklash funksiyasi yo‘q. Maxfiy fayllarni HIKMA’ga yubormang. Haqiqiy xizmat sahifasida murojaat tartibi advokat bilan kelishiladi." },
-      { title: "Natija kafolatlanadimi?", body: "Har bir vaziyat alohida ko‘rib chiqiladi. Ushbu namuna sahifada natija yoki yuridik xizmat va’da qilinmaydi." },
+      { title: "Dastlabki suhbat qanday o‘tadi?", body: "Avval masalangizni qisqacha aytib berasiz. Keyin aniqlashtiruvchi savollar va zarur bo‘lishi mumkin bo‘lgan ma’lumotlarni muhokama qilamiz." },
+      { title: "Hujjatlarni oldindan yuborishim kerakmi?", body: "Dastlab savolingizni qisqacha bayon qiling. Qaysi hujjatlar zarurligi vaziyat aniqlangach ma’lum bo‘ladi. Bu sahifada hujjat yuklash mavjud emas." },
+      { title: "Natija kafolatlanadimi?", body: "Har bir vaziyat alohida baholanadi. Muayyan natijani oldindan kafolatlab bo‘lmaydi; ehtimoliy yo‘llar va xavflarni tushuntirib berish muhim." },
     ],
-    ctaEyebrow: "HIKMA / Sizning loyihangiz",
-    ctaTitle: "Shunday ta’sirli sahifa sizning amaliyotingizga ham mos keladi.",
-    ctaBody: "Bu ko‘rgazmali loyiha HIKMA’ning advokatlik sohasiga mos landing page yondashuvini ko‘rsatadi. O‘z brendingiz va xizmatlaringiz uchun alohida sahifa yaratishni muhokama qilaylik.",
-    ctaButton: "HIKMA bilan bog‘lanish",
-    ctaSecondary: "Landing page xizmati",
-    footerNote: "Dizayn namunasi. HIKMA advokatlik yoki yuridik maslahat xizmati ko‘rsatmaydi.",
-    projectLink: "Loyihalarga qaytish",
-    newTab: "yangi sahifada ochiladi",
+    ctaEyebrow: "Bog‘lanish", ctaTitle: "Masalangizni birgalikda ko‘rib chiqamiz.",
+    ctaBody: "Savolingizni qisqacha yozing. Dastlabki suhbatda vaziyatni aniqlashtirishdan boshlaymiz.",
+    draftLabel: "Savolingizning qisqacha mazmuni", draftPlaceholder: "Masalan, shartnoma bo‘yicha savolim bor...",
+    draftButton: "Xabar matnini nusxalash",
+    draftCopied: "Xabar nusxalandi. Uni o‘zingiz tanlagan aloqa kanalida ishlatishingiz mumkin.",
+    draftError: "Avtomatik nusxalab bo‘lmadi. Matnni belgilab nusxalang.",
+    draftNote: "Hozircha qabul kanali ulanmagan. Bu shakl xabarni hech qayerga yubormaydi; maxfiy hujjat yoki shaxsiy ma’lumot kiritmang.",
+    footerNote: "Har bir huquqiy masala o‘ziga xos. Saytdagi umumiy ma’lumot individual yuridik xulosa o‘rnini bosmaydi.",
   },
   ru: {
-    concept: "Концепт-проект HIKMA",
-    conceptNote: "Это не адвокатское бюро. Страница создана как пример дизайна.",
-    brandTag: "АДВОКАТ / ПРИМЕР",
-    nav: ["Услуги", "Подход", "Вопросы"],
-    home: "Главная HIKMA",
-    eyebrow: "01 / Пример сайта для адвоката",
-    title: "Правовой вопрос?",
-    accent: "Начните с ясности.",
-    lead: "От первой беседы до следующих шагов — концепция адвокатского сайта, которая делает сложный процесс понятнее.",
-    explore: "Посмотреть направления",
-    order: "Заказать похожий сайт",
-    heroCaption: "Ясность. Внимание. Доверие.",
-    markers: ["Понять ситуацию", "Определить направление", "Следующий шаг"],
-    servicesEyebrow: "Направления / 01—04",
-    servicesTitle: "Каждому вопросу нужен свой подход.",
-    servicesIntro: "Услуги изложены кратко и ясно, чтобы посетитель мог быстро найти нужное направление.",
+    person: "Адвокат X", role: "Индивидуальная адвокатская практика",
+    nav: ["Услуги", "Обо мне", "Вопросы", "Контакт"],
+    eyebrow: "Адвокат X / Личная практика", title: "Правовой вопрос?", accent: "Найдём ясный путь.",
+    lead: "В сложной ситуации важны ясное объяснение и внимательный подход. Я выслушаю вас, и мы обсудим возможные шаги.",
+    contactAction: "Обсудить вопрос", explore: "Посмотреть услуги", heroCaption: "Ясность. Внимание. Доверие.",
+    markers: ["Выслушаю", "Изучу обстоятельства", "Объясню следующий шаг"],
+    servicesEyebrow: "Направления / 01—04", servicesTitle: "Каждому вопросу — своё внимание.",
+    servicesIntro: "Выберите подходящее направление. Детали вашего обращения обсудим во время первой беседы.",
     services: [
-      { title: "Правовая консультация", body: "Обсуждение ситуации, уточнение вопросов и разговор о следующих шагах.", image: "02-consultation.webp", alt: "Иллюстрация консультации" },
-      { title: "Представительство в суде", body: "Пример представления услуги по вопросам судебного спора и выбора направления работы.", image: "03-court-representation.webp", alt: "Иллюстрация здания суда и папки с делом" },
-      { title: "Работа с документами", body: "Раздел для договоров, обращений и других документов, требующих внимания.", image: "04-documents.webp", alt: "Иллюстрация документов и ручки" },
-      { title: "Вопросы бизнеса", body: "Отдельный путь обращения по правовым вопросам предпринимательской деятельности.", image: "05-business-law.webp", alt: "Иллюстрация офиса и деловой папки" },
+      { title: "Правовая консультация", body: "Обсудим ваш вопрос, уточним обстоятельства и рассмотрим возможные следующие шаги.", image: "02-consultation.webp", alt: "Иллюстрация правовой беседы" },
+      { title: "Представительство в суде", body: "Разберём документы, позицию и дальнейшие этапы спора или судебного процесса.", image: "03-court-representation.webp", alt: "Здание суда и папка с делом" },
+      { title: "Работа с документами", body: "Изучение, подготовка и упорядочивание договоров, заявлений и других важных документов.", image: "04-documents.webp", alt: "Документы и ручка" },
+      { title: "Вопросы бизнеса", body: "Обсудим правовые вопросы предпринимательской деятельности и определим подходящий путь.", image: "05-business-law.webp", alt: "Офисное здание и документы" },
     ],
-    approachEyebrow: "Подход / 03 шага",
-    approachTitle: "От разговора к понятному плану.",
-    approachIntro: "Сайт показывает, как может начаться работа. Здесь представлен пример пути из трёх шагов.",
+    aboutEyebrow: "Обо мне", aboutTitle: "Сначала выслушать. Затем найти направление.",
+    aboutBody: "За каждым обращением стоит человек и важное для него решение. Моя отправная точка — понять ситуацию, сформулировать вопросы и простыми словами объяснить дальнейшие шаги.",
+    aboutQuote: "Правовая помощь начинается с понятного разговора.",
+    approachEyebrow: "Порядок работы / 03 шага", approachTitle: "От беседы к понятному плану.",
+    approachIntro: "Чтобы вы понимали, как может развиваться работа после обращения, я разделил процесс на три шага.",
     steps: [
-      { title: "Выслушать", body: "Определить суть обращения и главные вопросы." },
-      { title: "Изучить информацию", body: "Упорядочить обстоятельства и относящиеся к ним документы." },
-      { title: "Объяснить направление", body: "Обсудить возможные следующие шаги." },
+      { title: "Выслушать", body: "Определим суть вопроса и ваши основные запросы." },
+      { title: "Изучить информацию", body: "Рассмотрим обстоятельства и относящиеся к ним документы." },
+      { title: "Объяснить направление", body: "Обсудим возможные следующие шаги." },
     ],
-    confidential: "В общении важны доверие и бережное отношение к информации.",
-    questionsEyebrow: "Вопросы",
-    questionsTitle: "Перед обращением.",
+    confidential: "Доверие и бережное отношение к информации.",
+    questionsEyebrow: "Частые вопросы", questionsTitle: "Перед обращением.",
     questions: [
-      { title: "Как начинается первая беседа?", body: "Обычно сначала кратко описывают вопрос и нужное направление. Эта страница — только концепция; юридический приём здесь не ведётся." },
-      { title: "Нужно отправлять документы?", body: "Загрузка документов в этом примере не предусмотрена. Не отправляйте HIKMA конфиденциальные файлы. На реальном сайте порядок обращения согласуется с адвокатом." },
-      { title: "Результат гарантирован?", body: "Каждая ситуация индивидуальна. Этот пример не обещает результата или юридической услуги." },
+      { title: "Как проходит первая беседа?", body: "Вы кратко рассказываете о вопросе. Затем мы уточняем обстоятельства и обсуждаем, какие сведения могут понадобиться." },
+      { title: "Нужно заранее отправлять документы?", body: "Сначала кратко опишите вопрос. Какие документы понадобятся, станет понятно после уточнения ситуации. Загрузка файлов на этой странице не предусмотрена." },
+      { title: "Можно ли гарантировать результат?", body: "Каждая ситуация оценивается отдельно. Нельзя заранее гарантировать определённый исход; важно обсудить возможные пути и риски." },
     ],
-    ctaEyebrow: "HIKMA / Ваш проект",
-    ctaTitle: "Подобный сайт может работать и для вашей практики.",
-    ctaBody: "Этот концепт показывает, как HIKMA может представить адвокатскую практику онлайн. Давайте обсудим сайт, созданный под ваш бренд и услуги.",
-    ctaButton: "Связаться с HIKMA",
-    ctaSecondary: "Разработка лендинга",
-    footerNote: "Пример дизайна. HIKMA не оказывает адвокатские услуги и юридические консультации.",
-    projectLink: "Вернуться к проектам",
-    newTab: "открывается в новой вкладке",
+    ctaEyebrow: "Контакт", ctaTitle: "Давайте разберём ваш вопрос.",
+    ctaBody: "Кратко опишите ситуацию. Начнём с уточнения обстоятельств.",
+    draftLabel: "Краткое описание вопроса", draftPlaceholder: "Например, у меня вопрос по договору...",
+    draftButton: "Скопировать текст сообщения",
+    draftCopied: "Сообщение скопировано. Вы можете использовать его в выбранном вами канале связи.",
+    draftError: "Не удалось скопировать автоматически. Выделите и скопируйте текст.",
+    draftNote: "Канал для приёма обращений пока не подключён. Эта форма ничего не отправляет; не вводите конфиденциальные документы и личные данные.",
+    footerNote: "Каждый правовой вопрос индивидуален. Общая информация на сайте не заменяет персональную юридическую консультацию.",
   },
   en: {
-    concept: "HIKMA concept project",
-    conceptNote: "This is not a law practice. The page is a design example.",
-    brandTag: "LEGAL / CONCEPT",
-    nav: ["Services", "Approach", "Questions"],
-    home: "HIKMA home",
-    eyebrow: "01 / A sample page for legal practices",
-    title: "Legal questions deserve",
-    accent: "a clear next step.",
-    lead: "From the first conversation to the next steps, this sample legal landing page makes a complex journey easier to understand.",
-    explore: "Explore services",
-    order: "Request a page like this",
-    heroCaption: "Clarity. Care. Confidence.",
-    markers: ["Understand the issue", "Find a direction", "Plan the next step"],
-    servicesEyebrow: "Areas / 01—04",
-    servicesTitle: "Every matter needs its own approach.",
-    servicesIntro: "Short, clear service descriptions help visitors find the right area quickly.",
+    person: "Advocate X", role: "Independent legal practice",
+    nav: ["Services", "About", "Questions", "Contact"],
+    eyebrow: "Advocate X / Independent practice", title: "Legal questions deserve", accent: "a clear next step.",
+    lead: "A difficult situation calls for clarity and care. I listen to your concern and help you understand the possible ways forward.",
+    contactAction: "Discuss my matter", explore: "Explore services", heroCaption: "Clarity. Care. Confidence.",
+    markers: ["I listen", "We review the facts", "I explain what comes next"],
+    servicesEyebrow: "Practice areas / 01—04", servicesTitle: "Every matter deserves attention.",
+    servicesIntro: "Find the relevant area. We can clarify the details of your enquiry in an initial conversation.",
     services: [
-      { title: "Legal consultation", body: "A conversation about the situation, the questions involved and possible next steps.", image: "02-consultation.webp", alt: "Illustration of a consultation" },
-      { title: "Court representation", body: "An example of how a practice might introduce support for disputes and court proceedings.", image: "03-court-representation.webp", alt: "Illustration of a courthouse and case file" },
-      { title: "Documents", body: "A clear place to introduce work with contracts, applications and other documents.", image: "04-documents.webp", alt: "Illustration of documents and a pen" },
-      { title: "Business matters", body: "A dedicated path for questions related to running a business.", image: "05-business-law.webp", alt: "Illustration of a business building and file" },
+      { title: "Legal consultation", body: "We discuss your concern, identify the relevant circumstances and consider possible next steps.", image: "02-consultation.webp", alt: "Illustration of a legal conversation" },
+      { title: "Court representation", body: "We review documents, your position and the stages ahead in a dispute or court matter.", image: "03-court-representation.webp", alt: "Courthouse and case file illustration" },
+      { title: "Documents", body: "Reviewing, preparing and organizing contracts, applications and other important documents.", image: "04-documents.webp", alt: "Documents and pen illustration" },
+      { title: "Business matters", body: "A conversation about legal questions arising in business and the appropriate direction to take.", image: "05-business-law.webp", alt: "Business building and documents" },
     ],
-    approachEyebrow: "Approach / 03 steps",
-    approachTitle: "From a conversation to a clear plan.",
-    approachIntro: "A useful landing page explains how an enquiry begins. This is a sample three-step journey.",
+    aboutEyebrow: "About me", aboutTitle: "Listen first. Find the way forward together.",
+    aboutBody: "Behind every enquiry is a person making an important decision. I start by understanding the situation, asking the right questions and explaining the next steps in plain language.",
+    aboutQuote: "Good legal support begins with a conversation you understand.",
+    approachEyebrow: "How I work / 03 steps", approachTitle: "From conversation to a clear plan.",
+    approachIntro: "Knowing what happens next matters. Here is how an initial enquiry can move forward.",
     steps: [
-      { title: "Listen", body: "Understand the enquiry and the main questions." },
-      { title: "Review the information", body: "Organize the relevant circumstances and documents." },
+      { title: "Listen", body: "Understand your concern and the main questions." },
+      { title: "Review information", body: "Consider relevant circumstances and documents." },
       { title: "Explain a direction", body: "Talk through possible next steps." },
     ],
-    confidential: "Trust and care with information matter in every conversation.",
-    questionsEyebrow: "Questions",
-    questionsTitle: "Before you reach out.",
+    confidential: "Trust and care with information matter.",
+    questionsEyebrow: "Frequently asked questions", questionsTitle: "Before you reach out.",
     questions: [
-      { title: "How does an initial conversation start?", body: "It generally starts with a short description of the matter. This page is a design concept and does not accept legal enquiries." },
-      { title: "Should I send documents?", body: "This sample has no document upload. Do not send confidential files to HIKMA. A real practice would set out its own enquiry process." },
-      { title: "Is an outcome guaranteed?", body: "Every situation is different. This example does not promise any legal outcome or service." },
+      { title: "How does an initial conversation work?", body: "You briefly describe your concern. We then clarify the circumstances and discuss what information might be relevant." },
+      { title: "Should I send documents first?", body: "Start with a short description. We can determine which documents are needed once the matter is clearer. This page does not accept file uploads." },
+      { title: "Is an outcome guaranteed?", body: "Each matter is assessed individually. No particular outcome can be guaranteed in advance; discussing the possible paths and risks is essential." },
     ],
-    ctaEyebrow: "HIKMA / Your project",
-    ctaTitle: "A page with this impact can be built for your practice.",
-    ctaBody: "This concept shows how HIKMA can present a legal practice online. Let's discuss a landing page tailored to your brand and services.",
-    ctaButton: "Contact HIKMA",
-    ctaSecondary: "Landing page service",
-    footerNote: "Design example. HIKMA does not provide legal representation or advice.",
-    projectLink: "Back to projects",
-    newTab: "opens in a new tab",
+    ctaEyebrow: "Contact", ctaTitle: "Let's talk through your concern.",
+    ctaBody: "Describe your question briefly. The first step is understanding the situation.",
+    draftLabel: "Briefly describe your concern", draftPlaceholder: "For example, I have a question about a contract...",
+    draftButton: "Copy message draft", draftCopied: "Message copied. You can use it in your chosen contact channel.",
+    draftError: "Automatic copying failed. Select and copy the text instead.",
+    draftNote: "The enquiry channel is not connected yet. This form does not send anything; do not enter confidential documents or personal details.",
+    footerNote: "Every legal matter is different. General information on this page does not replace individual legal advice.",
   },
 };
 
