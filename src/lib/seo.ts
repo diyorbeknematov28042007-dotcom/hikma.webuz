@@ -14,6 +14,7 @@ export function pageMetadata(
   }
   const localizedPath = localePath(locale, path);
   return {
+    metadataBase: new URL(siteOrigin()),
     title,
     description,
     alternates: {

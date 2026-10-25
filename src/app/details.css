@@ -303,6 +303,68 @@
   margin: 8px 0 0;
   font-size: 15px;
 }
+.project-concept-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 72px;
+  margin-top: var(--space-5);
+  padding: var(--space-4) 0 0;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-accent-text);
+}
+.project-concept-link span {
+  display: grid;
+  gap: 4px;
+}
+.project-concept-link small {
+  color: var(--color-muted);
+  font-size: 11px;
+}
+.project-concept-link strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.project-concept-link:hover {
+  color: var(--color-text);
+}
+.portfolio-concept {
+  display: grid;
+  align-items: center;
+  gap: var(--space-4);
+  margin-block: var(--space-7);
+  padding: var(--space-6);
+  border: 1px solid #55735e;
+  border-radius: var(--radius-card);
+  background: #1b3024;
+  overflow: hidden;
+}
+.portfolio-concept .eyebrow {
+  margin-bottom: var(--space-4);
+  color: #b7dac4;
+}
+.portfolio-concept h2 {
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -.045em;
+  font-weight: 500;
+}
+.portfolio-concept p:not(.eyebrow) {
+  max-width: 640px;
+  margin-top: var(--space-4);
+  color: #c9d5ca;
+}
+.portfolio-concept .button {
+  display: inline-flex;
+  margin-top: var(--space-6);
+}
+.portfolio-concept img {
+  width: min(100%, 360px);
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 16px 26px #05140a99);
+}
 .case-heading {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -331,6 +393,10 @@
   margin: 0;
 }
 @media (min-width: 768px) {
+  .portfolio-concept {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+    padding: var(--space-7);
+  }
   .detail-page {
     padding-block: var(--space-7) var(--space-9);
   }
