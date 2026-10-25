@@ -10,7 +10,10 @@ for (const width of [320, 390, 768, 1440]) {
     expect(response?.status()).toBe(200);
     await expect(page.locator("h1")).toHaveCount(1);
     await expect(page.getByRole("link", { name: modernUzbek("Advokat X") }).first()).toBeVisible();
-    await expect(page.getByRole("heading", { name: modernUzbek("Avval tinglayman. Keyin yo‘lni aniqlaymiz.") })).toBeVisible();
+    await expect(page.getByRole("heading", { name: modernUzbek("Avval tinglaymiz. Keyin yo‘lni aniqlaymiz.") })).toBeVisible();
+    await expect(page.getByRole("heading", { name: modernUzbek("Ishni aniqlik sari olib boramiz.") })).toBeVisible();
+    await expect(page.getByRole("heading", { name: modernUzbek("Natijani emas, yondashuvni va’da qilamiz.") })).toBeVisible();
+    await expect(page.getByRole("heading", { name: modernUzbek("Uchrashuv uchun manzil.") })).toBeVisible();
     await expect(page.locator(".law-page")).not.toContainText("HIKMA");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     const images = page.locator(".law-page img");
@@ -29,6 +32,10 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.getByRole("link", { name: modernUzbek("Masalamni muhokama qilish") })).toHaveAttribute("href", "#boglanish");
     await expect(page.getByLabel(modernUzbek("Savolingizning qisqacha mazmuni"))).toBeVisible();
     await expect(page.getByText(modernUzbek("Bu shakl xabarni hech qayerga yubormaydi"), { exact: false })).toBeVisible();
+    await expect(page.getByRole("link", { name: modernUzbek("Google Maps’da ko‘rish") })).toHaveAttribute("href", /google\.com\/maps\/search\/\?api=1/);
+    await expect(page.locator(".law-social-pending")).toHaveCount(2);
+    await expect(page.getByText("Telegram", { exact: true })).toBeVisible();
+    await expect(page.getByText("Instagram", { exact: true })).toBeVisible();
   });
 }
 
@@ -49,6 +56,16 @@ test("personal page is discovered from portfolio and language switch keeps route
   await expect(page.locator("h1")).toContainText("Legal questions deserve");
   await expect(page.getByText("Advocate X", { exact: true }).first()).toBeVisible();
   await expect(page.locator(".law-page")).not.toContainText("HIKMA");
+});
+
+test("scroll motion reveals content and updates progress", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/advokat");
+  await expect(page.locator(".law-page")).toHaveClass(/law-motion-ready/);
+  await page.locator(".law-results").scrollIntoViewIfNeeded();
+  await expect(page.locator(".law-results .law-section-head")).toHaveClass(/is-visible/);
+  const scale = await page.locator(".law-scroll-progress").evaluate((el) => getComputedStyle(el).transform);
+  expect(scale).not.toBe("matrix(0, 0, 0, 1, 0, 0)");
 });
 
 test("enquiry draft stays in the browser and copies only the written text", async ({ page }) => {
