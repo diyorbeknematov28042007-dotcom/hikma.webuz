@@ -14,6 +14,9 @@ for (const width of [320, 390, 768, 1440]) {
     const images = page.locator(".law-page img");
     expect(await images.count()).toBeGreaterThanOrEqual(8);
     await expect.poll(() => page.locator(".law-hero-art img").evaluate(node => node instanceof HTMLImageElement && node.complete && node.naturalWidth > 0)).toBe(true);
+    const ctaImage = page.locator(".law-cta-grid > img");
+    await ctaImage.scrollIntoViewIfNeeded();
+    await expect.poll(() => ctaImage.evaluate(node => node instanceof HTMLImageElement && node.complete && node.naturalWidth > 0)).toBe(true);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /\/advokat$/);
     await page.screenshot({ path: info.outputPath(`advokat-${width}.png`), fullPage: true, animations: "disabled" });
     const a11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
