@@ -37,7 +37,8 @@ const raw = {
       directoryAnswer: "Biznesingizdagi vazifani yozing. Suhbat davomida kerakli yo‘nalish va ish hajmini aniqlashtiramiz.",
     },
     projects: {
-      eyebrow: "HIKMA / Loyihalar", title: "Amalda ko‘rish mumkin bo‘lgan ish.", intro: "Loyihaning vazifasi, tanlangan yechim va bajarilgan ishlar. Birinchi namuna — o‘z brendimizning sayti.",
+      eyebrow: "HIKMA / Loyihalar", title: "Amalda ko‘rish mumkin bo‘lgan ish.", intro: "O‘z brendimiz uchun ishlayotgan sayt va advokatlik sohasi uchun tayyorlangan alohida dizayn konsepti.",
+      conceptEyebrow: "Konsept loyiha / Advokatlik", conceptTitle: "Advokatlik xizmatlari uchun landing page", conceptDescription: "HIKMA yaratgan ko‘rgazmali sahifa: sakkizta maxsus stiker, mobilga mos tuzilma va tushunarli murojaat yo‘li. Bu haqiqiy advokatlik idorasi emas.", conceptView: "Konsept sahifani ko‘rish",
       caseEyebrow: "O‘z brendimiz loyihasi / Veb-sayt", caseIntro: "HIKMA xizmatlarini bitta raqamli manzilda tanishtirish.",
       view: "Saytni ko‘rish", source: "Ochiq kod", task: "Vazifa", work: "Bajarilgan ishlar", result: "Amaldagi natija",
       taskBody: "HIKMA’ning amaldagi to‘rtta xizmatini tushunarli ko‘rsatish, brend uslubini saqlash va tashrifchiga o‘z loyihasi haqida murojaat qilish uchun qulay yo‘l yaratish.",
@@ -96,7 +97,8 @@ const raw = {
       directoryAnswer: "Опишите задачу. В разговоре определим нужное направление и объём работ.",
     },
     projects: {
-      eyebrow: "HIKMA / Проекты", title: "Работа, которую можно увидеть.", intro: "Задача, решение и результат. Первый пример — сайт нашего бренда.",
+      eyebrow: "HIKMA / Проекты", title: "Работа, которую можно увидеть.", intro: "Работающий сайт нашего бренда и отдельный дизайн-концепт для адвокатской практики.",
+      conceptEyebrow: "Концепт / Адвокатские услуги", conceptTitle: "Лендинг для адвокатской практики", conceptDescription: "Демонстрационная страница HIKMA: восемь оригинальных иллюстраций, адаптивный дизайн и понятный путь обращения. Это не действующее адвокатское бюро.", conceptView: "Посмотреть концепт",
       caseEyebrow: "Проект для собственного бренда / Сайт", caseIntro: "Все услуги HIKMA в одном цифровом пространстве.",
       view: "Открыть сайт", source: "Исходный код", task: "Задача", work: "Что сделано", result: "Результат",
       taskBody: "Понятно представить четыре действующие услуги HIKMA, сохранить стиль бренда и создать удобный путь для обращения.",
@@ -155,7 +157,8 @@ const raw = {
       directoryAnswer: "Tell us about the task. We'll define the right direction and scope together.",
     },
     projects: {
-      eyebrow: "HIKMA / Projects", title: "Work you can explore.", intro: "The goal, the solution and the work behind it. First up: our own brand website.",
+      eyebrow: "HIKMA / Projects", title: "Work you can explore.", intro: "Our live brand website and a separate landing page concept for legal practices.",
+      conceptEyebrow: "Concept / Legal practice", conceptTitle: "Landing page for a legal practice", conceptDescription: "A HIKMA demonstration with eight bespoke stickers, a responsive layout and a clear enquiry journey. It is not an active law firm.", conceptView: "Explore the concept",
       caseEyebrow: "Our own brand project / Website", caseIntro: "Presenting HIKMA services in one digital place.",
       view: "View website", source: "Open source", task: "The challenge", work: "What we built", result: "Live outcome",
       taskBody: "Showcase HIKMA's four current services clearly, keep the brand identity intact and make it easy for visitors to enquire about a project.",

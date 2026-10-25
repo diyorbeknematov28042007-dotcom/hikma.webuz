@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { InnerPage, Breadcrumbs } from "@/components/InnerPage";
 import { StructuredData } from "@/components/StructuredData";
@@ -85,6 +86,17 @@ export function ProjectsContent({ locale = "uz" }: { locale?: Locale }) {
             </div>
           </section>
         </article>
+        <section className="portfolio-concept" aria-labelledby="advokat-concept-title">
+          <div>
+            <p className="eyebrow">{c.conceptEyebrow}</p>
+            <h2 id="advokat-concept-title">{c.conceptTitle}</h2>
+            <p>{c.conceptDescription}</p>
+            <Link className="button" href={localePath(locale, "/advokat")}>
+              {c.conceptView} <ArrowUpRight size={20} aria-hidden="true" />
+            </Link>
+          </div>
+          <Image src="/images/advokat/01-hero-legal-folio.webp" alt="" width={1600} height={1600} sizes="(max-width: 768px) 75vw, 360px" loading="lazy" />
+        </section>
         <section
           className="detail-example"
           aria-labelledby="your-project-title"
