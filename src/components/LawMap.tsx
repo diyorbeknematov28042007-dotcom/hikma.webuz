@@ -80,7 +80,6 @@ export function LawMap({ eyebrow, title, body, bodyLive, note, linkLabel, pinLab
               </svg>
               <span className="law-map-pin"><MapPin size={29} weight="fill" aria-hidden="true" /><strong>X.</strong></span>
               <span className="law-map-label">{address || pinLabel}</span>
-              <span className="law-map-brand">MAP PREVIEW / 01</span>
             </div>
           )}
         </div>

@@ -363,14 +363,6 @@
   border: 1px solid #bbcbba;
   overflow: hidden;
 }
-.law-about-monogram span {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(210px, 34vw, 470px);
-  line-height: .8;
-  color: #1b4532;
-  letter-spacing: -.14em;
-  transform: translate(-.06em, .1em);
-}
 .law-about h2 { margin-top: 22px; }
 .law-about-body {
   max-width: 610px;
