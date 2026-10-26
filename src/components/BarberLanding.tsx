@@ -90,8 +90,8 @@ export function BarberLanding({ locale = "uz" }: { locale?: Locale }) {
             </div>
             <div className="barber-hero-art" data-barber-reveal>
               <div className="barber-hero-orbit" aria-hidden="true" />
-              <Image src={`${asset}/front/mannequin.webp`} alt="" fill sizes="(max-width: 850px) 90vw, 50vw" priority className="barber-hero-person" />
-              <Image src={`${asset}/front/hair-textured-crop.webp`} alt="" fill sizes="(max-width: 850px) 90vw, 50vw" priority className="barber-hero-hair" />
+              <Image src={`${asset}/front/mannequin.webp`} alt="" fill sizes="(max-width: 850px) 90vw, 50vw" priority unoptimized className="barber-hero-person" />
+              <Image src={`${asset}/front/hair-textured-crop.webp`} alt="" fill sizes="(max-width: 850px) 90vw, 50vw" priority unoptimized className="barber-hero-hair" />
               <span className="barber-hero-stamp" aria-hidden="true">THE<br />STYLE<br />LAB<span>↗</span></span>
             </div>
           </div>
@@ -110,8 +110,8 @@ export function BarberLanding({ locale = "uz" }: { locale?: Locale }) {
                   onPointerCancel={() => { dragStart.current = null; }}>
                   <span className="barber-stage-index">0{viewIndex + 1} / 03</span>
                   <div className="barber-stage-images" key={activeView} role="img" aria-label={`${selectedName} — ${c.view} ${viewIndex + 1}/3`}>
-                    <Image className="barber-mannequin" src={`${asset}/${activeView}/mannequin.webp`} alt="" fill sizes="(max-width: 850px) 94vw, 48vw" priority />
-                    {style && <Image key={`${activeView}-${style}`} className="barber-hair" src={`${asset}/${activeView}/hair-${style}.webp`} alt="" fill sizes="(max-width: 850px) 94vw, 48vw" priority={style === "textured-crop" && activeView === "front"} />}
+                    <Image className="barber-mannequin" src={`${asset}/${activeView}/mannequin.webp`} alt="" fill sizes="(max-width: 850px) 94vw, 48vw" priority unoptimized />
+                    {style && <Image key={`${activeView}-${style}`} className="barber-hair" src={`${asset}/${activeView}/hair-${style}.webp`} alt="" fill sizes="(max-width: 850px) 94vw, 48vw" priority={style === "textured-crop" && activeView === "front"} unoptimized />}
                   </div>
                   <button className="barber-turn barber-turn-left" type="button" aria-label={c.turnLeft} onClick={() => changeView(-1)} disabled={viewIndex === 0}><ArrowLeft size={21} aria-hidden="true" /></button>
                   <button className="barber-turn barber-turn-right" type="button" aria-label={c.turnRight} onClick={() => changeView(1)} disabled={viewIndex === 2}><ArrowRight size={21} aria-hidden="true" /></button>
@@ -124,7 +124,7 @@ export function BarberLanding({ locale = "uz" }: { locale?: Locale }) {
                 <div className="barber-choice-title"><span>{c.selected}</span><h3 aria-live="polite">{selectedName}</h3></div>
                 <div className="barber-style-list" aria-label={c.pickerTitle}>
                   {styles.map((item, index) => <button type="button" className="barber-style-option" aria-pressed={style === item} key={item} onClick={() => setStyle(item)}>
-                    <span className="barber-style-thumb"><Image src={`${asset}/thumbs/front-${item}.webp`} alt="" fill sizes="72px" /></span>
+                    <span className="barber-style-thumb"><Image src={`${asset}/thumbs/front-${item}.webp`} alt="" fill sizes="72px" unoptimized /></span>
                     <span className="barber-style-number">{String(index + 1).padStart(2, "0")}</span><strong>{c.hair[item]}</strong><ArrowUpRight size={17} aria-hidden="true" />
                   </button>)}
                 </div>
