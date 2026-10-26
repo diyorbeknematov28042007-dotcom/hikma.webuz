@@ -37,8 +37,9 @@ const raw = {
       directoryAnswer: "Biznesingizdagi vazifani yozing. Suhbat davomida kerakli yo‘nalish va ish hajmini aniqlashtiramiz.",
     },
     projects: {
-      eyebrow: "HIKMA / Loyihalar", title: "Amalda ko‘rish mumkin bo‘lgan ish.", intro: "O‘z brendimiz uchun ishlayotgan sayt va advokatning shaxsiy sahifasi qanday ko‘rinishini ko‘rsatadigan loyiha.",
+      eyebrow: "HIKMA / Loyihalar", title: "Amalda ko‘rish mumkin bo‘lgan ish.", intro: "O‘z brendimiz sayti, advokat va interyer studiyasi uchun alohida sahifa konseptlari.",
       conceptEyebrow: "Portfolio / Shaxsiy advokat sayti", conceptTitle: "Advokat X — shaxsiy landing page", conceptDescription: "Advokatning o‘z nomidan yozilgan sahifa: xizmatlari, yondashuvi va murojaat yo‘li. “Advokat X” — ko‘rgazmali personaj, qabul kanali ulanmagan; bu real yuridik xizmat emas.", conceptView: "Advokat sahifasini ko‘rish",
+      interiorEyebrow: "Portfolio / Interyer studiyasi", interiorTitle: "MAKON — interyer sahifasi", interiorDescription: "Loyihalar, xizmatlar, ish jarayoni va brif namunasi. Vizual loyihalar konsept, studiya esa ko‘rgazmali personajdir.", interiorView: "Interyer sahifasini ko‘rish",
       caseEyebrow: "O‘z brendimiz loyihasi / Veb-sayt", caseIntro: "HIKMA xizmatlarini bitta raqamli manzilda tanishtirish.",
       view: "Saytni ko‘rish", source: "Ochiq kod", task: "Vazifa", work: "Bajarilgan ishlar", result: "Amaldagi natija",
       taskBody: "HIKMA’ning amaldagi to‘rtta xizmatini tushunarli ko‘rsatish, brend uslubini saqlash va tashrifchiga o‘z loyihasi haqida murojaat qilish uchun qulay yo‘l yaratish.",
@@ -97,8 +98,9 @@ const raw = {
       directoryAnswer: "Опишите задачу. В разговоре определим нужное направление и объём работ.",
     },
     projects: {
-      eyebrow: "HIKMA / Проекты", title: "Работа, которую можно увидеть.", intro: "Работающий сайт нашего бренда и отдельный дизайн-концепт для адвокатской практики.",
+      eyebrow: "HIKMA / Проекты", title: "Работа, которую можно увидеть.", intro: "Работающий сайт бренда и отдельные концепции для адвоката и студии интерьера.",
       conceptEyebrow: "Портфолио / Личный сайт адвоката", conceptTitle: "Адвокат X — личный лендинг", conceptDescription: "Страница от лица адвоката: услуги, подход и путь обращения. «Адвокат X» — вымышленный персонаж, канал приёма обращений не подключён; юридические услуги не оказываются.", conceptView: "Посмотреть сайт адвоката",
+      interiorEyebrow: "Портфолио / Студия интерьера", interiorTitle: "MAKON — сайт студии", interiorDescription: "Концепция с проектами, услугами, этапами работы и описанием будущего проекта. Работы созданы для демонстрации, студия вымышленная.", interiorView: "Посмотреть сайт интерьера",
       caseEyebrow: "Проект для собственного бренда / Сайт", caseIntro: "Все услуги HIKMA в одном цифровом пространстве.",
       view: "Открыть сайт", source: "Исходный код", task: "Задача", work: "Что сделано", result: "Результат",
       taskBody: "Понятно представить четыре действующие услуги HIKMA, сохранить стиль бренда и создать удобный путь для обращения.",
@@ -157,8 +159,9 @@ const raw = {
       directoryAnswer: "Tell us about the task. We'll define the right direction and scope together.",
     },
     projects: {
-      eyebrow: "HIKMA / Projects", title: "Work you can explore.", intro: "Our live brand website and a separate landing page concept for legal practices.",
+      eyebrow: "HIKMA / Projects", title: "Work you can explore.", intro: "Our live brand site and separate page concepts for legal and interior practices.",
       conceptEyebrow: "Portfolio / Personal lawyer site", conceptTitle: "Advocate X — personal landing page", conceptDescription: "A first-person lawyer page with services, approach and an enquiry journey. “Advocate X” is fictional, and no contact channel is connected; this is not an active legal service.", conceptView: "Explore the lawyer site",
+      interiorEyebrow: "Portfolio / Interior studio", interiorTitle: "MAKON — interior page", interiorDescription: "A concept with projects, services, process and a project brief. Visuals are generated concepts and the studio is fictional.", interiorView: "Explore the interior site",
       caseEyebrow: "Our own brand project / Website", caseIntro: "Presenting HIKMA services in one digital place.",
       view: "View website", source: "Open source", task: "The challenge", work: "What we built", result: "Live outcome",
       taskBody: "Showcase HIKMA's four current services clearly, keep the brand identity intact and make it easy for visitors to enquire about a project.",

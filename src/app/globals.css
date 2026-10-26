@@ -1147,9 +1147,6 @@ textarea::placeholder {
   .hero-visual {
     animation: hero-enter 800ms var(--ease) both;
   }
-  .hero-copy {
-    animation: copy-enter 600ms var(--ease) both;
-  }
   .mobile-dialog[open] .mobile-menu-panel {
     animation: menu-enter 260ms var(--ease);
   }
@@ -1157,16 +1154,6 @@ textarea::placeholder {
     from {
       opacity: 0.2;
       transform: translateY(24px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-  @keyframes copy-enter {
-    from {
-      opacity: 0.6;
-      transform: translateY(12px);
     }
     to {
       opacity: 1;

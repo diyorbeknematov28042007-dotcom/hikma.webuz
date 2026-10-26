@@ -97,6 +97,17 @@ export function ProjectsContent({ locale = "uz" }: { locale?: Locale }) {
           </div>
           <Image src="/images/advokat/01-hero-legal-folio.webp" alt="" width={1600} height={1600} sizes="(max-width: 768px) 75vw, 360px" loading="lazy" />
         </section>
+        <section className="portfolio-concept portfolio-concept--interior" aria-labelledby="interior-concept-title">
+          <div>
+            <p className="eyebrow">{c.interiorEyebrow}</p>
+            <h2 id="interior-concept-title">{c.interiorTitle}</h2>
+            <p>{c.interiorDescription}</p>
+            <Link className="button" href={localePath(locale, "/interyer")}>
+              {c.interiorView} <ArrowUpRight size={20} aria-hidden="true" />
+            </Link>
+          </div>
+          <Image src="/images/interyer/hero.webp" alt="" width={1672} height={941} sizes="(max-width: 768px) 100vw, 520px" loading="lazy" />
+        </section>
         <section
           className="detail-example"
           aria-labelledby="your-project-title"
