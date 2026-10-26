@@ -6,7 +6,7 @@ type LawCopy = {
   heroCaption: string; markers: [string, string, string];
   servicesEyebrow: string; servicesTitle: string; servicesIntro: string;
   services: { title: string; body: string; image: string; alt: string }[];
-  aboutEyebrow: string; aboutTitle: string; aboutBody: string; aboutQuote: string;
+  aboutEyebrow: string; aboutTitle: string; aboutBody: string; aboutQuote: string; photoPlaceholder: string;
   resultsEyebrow: string; resultsTitle: string; resultsIntro: string;
   results: { label: string; title: string; body: string }[];
   approachEyebrow: string; approachTitle: string; approachIntro: string;
@@ -42,6 +42,7 @@ const content: Record<Locale, LawCopy> = {
     aboutEyebrow: "Biz haqimizda", aboutTitle: "Avval tinglaymiz. Keyin yo‘lni aniqlaymiz.",
     aboutBody: "Har bir murojaat ortida inson va uning muhim qarori turadi. Yondashuvimizning boshlanish nuqtasi — vaziyatni tushunish, savollarni aniq qo‘yish va keyingi qadamlarni sizga sodda tilda izohlash.",
     aboutQuote: "Huquqiy yordam avvalo tushunarli muloqotdan boshlanadi.",
+    photoPlaceholder: "Bu yerda siz yoki sizning rasmingiz",
     resultsEyebrow: "Erishadigan natijamiz", resultsTitle: "Ishni aniqlik sari olib boramiz.",
     resultsIntro: "Har bir ishning yakuni vaziyatga bog‘liq. Murojaat davomida erishishga intiladigan amaliy natijalarimiz esa quyidagilar.",
     results: [
@@ -76,10 +77,10 @@ const content: Record<Locale, LawCopy> = {
     socialTitle: "Qulay kanalda yozing", socialIntro: "Telegram yoki Instagram orqali murojaat qilish imkoniyati.",
     socialPending: "Profil manzili kiritilgach faollashadi",
     mapEyebrow: "Qayerdamiz", mapTitle: "Uchrashuv uchun manzil.",
-    mapBody: "Xaritada Toshkent markazidagi namunaviy joy ko‘rsatilgan. Bu advokatning haqiqiy ofisi emas.",
+    mapBody: "Bu sizning namunaviy manzilingiz.",
     mapBodyLive: "Uchrashuv manzili va yo‘nalishni xaritada ko‘ring.",
-    mapNote: "Namuna: Amir Temur xiyoboni atrofi, Toshkent. Haqiqiy manzil bilan almashtiriladi.",
-    mapLink: "Google Maps’da ko‘rish", mapPin: "Namuna joylashuv",
+    mapNote: "Amir Temur xiyoboni atrofi, Toshkent. Haqiqiy manzilingiz bilan almashtiriladi.",
+    mapLink: "Google Maps’da ko‘rish", mapPin: "Namunaviy manzilingiz",
     draftLabel: "Savolingizning qisqacha mazmuni", draftPlaceholder: "Masalan, shartnoma bo‘yicha savolim bor...",
     draftButton: "Xabar matnini nusxalash",
     draftCopied: "Xabar nusxalandi. Uni o‘zingiz tanlagan aloqa kanalida ishlatishingiz mumkin.",
@@ -105,6 +106,7 @@ const content: Record<Locale, LawCopy> = {
     aboutEyebrow: "О нас", aboutTitle: "Сначала выслушать. Затем найти направление.",
     aboutBody: "За каждым обращением стоит человек и важное для него решение. Наш подход начинается с понимания ситуации, точных вопросов и простого объяснения дальнейших шагов.",
     aboutQuote: "Правовая помощь начинается с понятного разговора.",
+    photoPlaceholder: "Здесь можете быть вы или ваше фото",
     resultsEyebrow: "К чему мы стремимся", resultsTitle: "Двигаемся к ясности.",
     resultsIntro: "Итог каждого дела зависит от обстоятельств. Вот практические результаты, к которым мы стремимся в работе над обращением.",
     results: [
@@ -139,10 +141,10 @@ const content: Record<Locale, LawCopy> = {
     socialTitle: "Напишите удобным способом", socialIntro: "Возможность обратиться через Telegram или Instagram.",
     socialPending: "Ссылка появится после подключения профиля",
     mapEyebrow: "Где мы", mapTitle: "Место для встречи.",
-    mapBody: "На карте показано примерное место в центре Ташкента. Это не адрес реального офиса адвоката.",
+    mapBody: "Это ваш демонстрационный адрес.",
     mapBodyLive: "Посмотрите адрес встречи и маршрут на карте.",
-    mapNote: "Пример: район сквера Амира Темура, Ташкент. Будет заменён на фактический адрес.",
-    mapLink: "Открыть в Google Maps", mapPin: "Пример расположения",
+    mapNote: "Район сквера Амира Темура, Ташкент. Замените на ваш настоящий адрес.",
+    mapLink: "Открыть в Google Maps", mapPin: "Ваш пример адреса",
     draftLabel: "Краткое описание вопроса", draftPlaceholder: "Например, у меня вопрос по договору...",
     draftButton: "Скопировать текст сообщения",
     draftCopied: "Сообщение скопировано. Вы можете использовать его в выбранном вами канале связи.",
@@ -168,6 +170,7 @@ const content: Record<Locale, LawCopy> = {
     aboutEyebrow: "About us", aboutTitle: "Listen first. Find the way forward together.",
     aboutBody: "Behind every enquiry is a person making an important decision. Our approach starts with understanding the situation, asking the right questions and explaining the next steps in plain language.",
     aboutQuote: "Good legal support begins with a conversation you understand.",
+    photoPlaceholder: "You or your photo goes here",
     resultsEyebrow: "What we work toward", resultsTitle: "Progress starts with clarity.",
     resultsIntro: "The outcome of each matter depends on its circumstances. These are the practical results we work toward in every enquiry.",
     results: [
@@ -202,10 +205,10 @@ const content: Record<Locale, LawCopy> = {
     socialTitle: "Reach out your way", socialIntro: "An option to connect through Telegram or Instagram.",
     socialPending: "Available once a profile is connected",
     mapEyebrow: "Find us", mapTitle: "A place to meet.",
-    mapBody: "The map shows a sample point in central Tashkent. It is not a real lawyer's office address.",
+    mapBody: "This is your sample address.",
     mapBodyLive: "View the meeting address and route on the map.",
-    mapNote: "Sample: near Amir Temur Square, Tashkent. Replace with the actual address.",
-    mapLink: "View in Google Maps", mapPin: "Sample location",
+    mapNote: "Near Amir Temur Square, Tashkent. Replace with your real address.",
+    mapLink: "View in Google Maps", mapPin: "Your sample address",
     draftLabel: "Briefly describe your concern", draftPlaceholder: "For example, I have a question about a contract...",
     draftButton: "Copy message draft", draftCopied: "Message copied. You can use it in your chosen contact channel.",
     draftError: "Automatic copying failed. Select and copy the text instead.",

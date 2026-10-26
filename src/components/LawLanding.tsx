@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowDown, ArrowUpRight, UserCircle } from "@phosphor-icons/react/dist/ssr";
 import { LanguageSwitch } from "./LanguageSwitch";
 import { LawInquiry } from "./LawInquiry";
 import { LawMotion } from "./LawMotion";
@@ -102,7 +102,10 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
 
         <section className="law-about law-section" id="biz-haqimizda" aria-labelledby="law-about-title">
           <div className="law-shell law-about-grid">
-            <div className="law-about-monogram" data-law-reveal aria-hidden="true"><span>X.</span></div>
+            <div className="law-about-monogram law-about-photo" data-law-reveal>
+              <UserCircle size={88} weight="thin" aria-hidden="true" />
+              <p>{c.photoPlaceholder}</p>
+            </div>
             <div data-law-reveal>
               <p className="law-kicker">{c.aboutEyebrow}</p>
               <h2 id="law-about-title">{c.aboutTitle}</h2>
