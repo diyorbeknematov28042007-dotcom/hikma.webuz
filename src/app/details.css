@@ -372,6 +372,9 @@
   object-fit: cover;
   filter: none;
 }
+.portfolio-concept--barber { background:#292623; border-color:#625245; }
+.portfolio-concept--barber .eyebrow { color:#d8ad8c; }
+.portfolio-concept--barber img { max-height:300px; width:auto; object-fit:contain; }
 .case-heading {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
