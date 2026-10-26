@@ -23,7 +23,9 @@ for (const width of [320, 390, 768, 1440]) {
     await page.screenshot({ path: info.outputPath(`interyer-${width}.png`), fullPage: true, animations: "disabled" });
     const a11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
     expect(a11y.violations).toEqual([]);
-    for (const asset of ["hero", "residential", "cafe"]) expect((await request.get(`/images/interyer/${asset}.webp`)).status()).toBe(200);
+    for (const asset of ["01-hero-room", "02-residential-concept", "03-cafe-concept", "04-studio-workspace", "05-plan-and-concept", "06-complete-design", "07-project-guidance", "08-workflow", "09-contact-brief"]) {
+      expect((await request.get(`/images/interyer/stickers/${asset}.webp`)).status()).toBe(200);
+    }
   });
 }
 
