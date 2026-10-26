@@ -365,6 +365,13 @@
   margin: 0 auto;
   filter: drop-shadow(0 16px 26px #05140a99);
 }
+.portfolio-concept--interior img {
+  width: min(100%, 520px);
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  object-fit: cover;
+  filter: none;
+}
 .case-heading {
   background: var(--color-surface);
   border: 1px solid var(--color-border);

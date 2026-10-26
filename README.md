@@ -41,13 +41,22 @@ Instagram `@hikma.service` va Telegram `https://t.me/Hikmaservice_bot` foydalanu
 
 ### Advokat shaxsiy sahifasi
 
-`/advokat` HIKMA portfoliosidagi **Advokat X** uchun vizual prototip. Unda ko‘rsatilgan nom, ish natijalari va Toshkent markazidagi xarita haqiqiy amaliyotga tegishli faktlar deb ko‘rsatilmaydi. Haqiqiy ism va tasdiqlangan faoliyat tafsilotlari `src/lib/law-copy.ts` hamda `LawLanding.tsx`dagi monogram bilan almashtiriladi. Shu vaqtgacha sahifa `noindex` va sitemapdan chiqarilgan.
+`/advokat` HIKMA portfoliosidagi **Advokat X** uchun vizual prototip. Unda ko‘rsatilgan nom, ish natijalari va Toshkent markazidagi manzil haqiqiy amaliyotga tegishli faktlar deb ko‘rsatilmaydi. Haqiqiy ism, fotosurat va tasdiqlangan faoliyat tafsilotlari `src/lib/law-copy.ts` hamda `LawLanding.tsx`dagi surat o‘rni bilan almashtiriladi. Shu vaqtgacha sahifa `noindex` va sitemapdan chiqarilgan.
 
 - `NEXT_PUBLIC_LAW_TELEGRAM_URL`: advokatning `https://t.me/...` profili.
 - `NEXT_PUBLIC_LAW_INSTAGRAM_URL`: advokatning `https://www.instagram.com/...` profili.
 - `NEXT_PUBLIC_LAW_ADDRESS`, `NEXT_PUBLIC_LAW_MAP_URL`, `NEXT_PUBLIC_LAW_MAP_EMBED_URL`: uchtalasi birga o‘rnatilganda namunaviy xarita haqiqiy manzil va Google Maps embed bilan almashadi. Embed havolasini Google Mapsdagi **Share → Embed a map → Copy HTML** orqali oling va `src` qiymatini kiriting. Google Maps Embed API’dan alohida foydalanilsa API kalit va Google Cloud sozlamasi talab qilinadi.
 
 Advokatning profil manzillari kiritilmaguncha Telegram/Instagram kartalari faol bo‘lmaydi. Savol shakli hech qayerga yubormaydi, faqat yozilgan matnni nusxalaydi. Vercel’da public env o‘zgarishidan keyin redeploy qiling.
+
+### Interyer studiyasi konsepti
+
+`/interyer` ham portfolio uchun **namunaviy shaxsiy studiya sahifasi**. MAKON nomi, uchta generatsiya qilingan interyer tasviri va loyiha tavsiflari real buyurtma yoki bajarilgan ishni tasdiqlamaydi. Ularni studiyaning nomi, ruxsat bilan ishlatiladigan haqiqiy fotosuratlari va tekshirilgan xizmat tafsilotlari bilan almashtiring. Sahifa `noindex` va sitemapdan tashqarida.
+
+- `NEXT_PUBLIC_INTERIOR_INSTAGRAM_URL`: studiyaning `https://www.instagram.com/...` profili.
+- `NEXT_PUBLIC_INTERIOR_TELEGRAM_URL`: studiyaning `https://t.me/...` profili.
+
+Profil manzillari ulanmaguncha aloqa kartalari havola emas. Brif faqat qurilmaning almashuv buferiga nusxalanadi, serverga yuborilmaydi. Public env o‘zgargach Vercel’da redeploy qiling.
 
 Turnstile widgetda production domeningizni ruxsat etilgan hostlarga qo‘shing. Preview host kerak bo‘lsa uni ham alohida sozlang. Test kalitlarini productionda ishlatmang. Maxfiy kalitlarni GitHubga, frontendga yoki chatga joylamang.
 
