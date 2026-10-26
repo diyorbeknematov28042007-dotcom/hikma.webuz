@@ -49,3 +49,24 @@ test("interior portfolio, languages and clipboard enquiry", async ({ page, reque
   expect(copied).toContain("Yorug‘roq mehmonxona istayman");
   await expect(page.locator(".int-channel-pending")).toHaveCount(2);
 });
+
+test("interior stickers turn with side controls and pointer drag", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 850 });
+  await page.goto("/interyer");
+  const hero = page.locator(".int-hero-art");
+  const visual = hero.locator(".int-tilt-visual");
+  await hero.getByRole("button", { name: "MAKON: öngga buriş" }).click();
+  await expect.poll(() => visual.evaluate((element) => (element as HTMLElement).style.getPropertyValue("--int-tilt-y"))).toBe("16.0deg");
+  await hero.getByRole("button", { name: "MAKON: çapga buriş" }).click();
+  await expect.poll(() => visual.evaluate((element) => (element as HTMLElement).style.getPropertyValue("--int-tilt-y"))).toBe("0.0deg");
+
+  const box = await hero.boundingBox();
+  expect(box).not.toBeNull();
+  await page.mouse.move(box!.x + box!.width * .7, box!.y + box!.height * .5);
+  await page.mouse.down();
+  await page.mouse.move(box!.x + box!.width * .35, box!.y + box!.height * .5, { steps: 8 });
+  await page.mouse.up();
+  const angle = await visual.evaluate((element) => (element as HTMLElement).style.getPropertyValue("--int-tilt-y"));
+  expect(angle).not.toBe("0.0deg");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
