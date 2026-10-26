@@ -3,6 +3,9 @@ import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { LanguageSwitch } from "./LanguageSwitch";
 import { LawInquiry } from "./LawInquiry";
+import { LawMotion } from "./LawMotion";
+import { LawMap } from "./LawMap";
+import { LawSocialLinks } from "./LawSocialLinks";
 import { lawCopy } from "@/lib/law-copy";
 import { localePath, type Locale } from "@/lib/i18n";
 
@@ -12,6 +15,8 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
   const c = lawCopy(locale);
   return (
     <div className="law-page">
+      <LawMotion />
+      <div className="law-scroll-progress" aria-hidden="true" />
       <header className="law-header">
         <div className="law-shell law-header-inner">
           <Link href={localePath(locale, "/advokat")} className="law-header-brand" aria-label={c.person}>
@@ -21,17 +26,21 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
           </Link>
           <nav className="law-header-nav" aria-label={locale === "uz" ? "Sahifa bo‘limlari" : locale === "ru" ? "Разделы страницы" : "Page sections"}>
             <a href="#xizmatlar">{c.nav[0]}</a>
-            <a href="#men-haqimda">{c.nav[1]}</a>
-            <a href="#savollar">{c.nav[2]}</a>
+            <a href="#biz-haqimizda">{c.nav[1]}</a>
+            <a href="#yondashuv">{c.nav[2]}</a>
             <a href="#boglanish">{c.nav[3]}</a>
           </nav>
           <LanguageSwitch current={locale} />
         </div>
+        <nav className="law-mobile-nav" aria-label={locale === "uz" ? "Bo‘limlarga o‘tish" : locale === "ru" ? "Перейти к разделам" : "Jump to sections"}>
+          <a href="#xizmatlar">{c.nav[0]}</a><a href="#biz-haqimizda">{c.nav[1]}</a>
+          <a href="#yondashuv">{c.nav[2]}</a><a href="#boglanish">{c.nav[3]}</a>
+        </nav>
       </header>
       <main id="main" tabIndex={-1}>
         <section className="law-hero" aria-labelledby="law-title">
           <div className="law-shell law-hero-grid">
-            <div className="law-hero-copy">
+            <div className="law-hero-copy" data-law-reveal>
               <p className="law-overline"><span className="law-overline-line" />{c.eyebrow}</p>
               <h1 id="law-title">{c.title} <em>{c.accent}</em></h1>
               <p className="law-lead">{c.lead}</p>
@@ -44,7 +53,7 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
                 </a>
               </div>
             </div>
-            <div className="law-hero-art">
+            <div className="law-hero-art" data-law-reveal>
               <div className="law-hero-ring" aria-hidden="true" />
               <Image
                 src={`${imageRoot}01-hero-legal-folio.webp`}
@@ -66,14 +75,14 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
 
         <section className="law-services law-section" id="xizmatlar" aria-labelledby="law-services-title">
           <div className="law-shell">
-            <div className="law-section-head">
+            <div className="law-section-head" data-law-reveal>
               <p className="law-kicker">{c.servicesEyebrow}</p>
               <h2 id="law-services-title">{c.servicesTitle}</h2>
               <p>{c.servicesIntro}</p>
             </div>
             <div className="law-services-grid">
               {c.services.map((service, index) => (
-                <article className="law-service" key={service.image}>
+                <article className="law-service" key={service.image} data-law-reveal>
                   <div className="law-service-top">
                     <span className="law-index">0{index + 1} / 04</span>
                     <span className="law-service-line" aria-hidden="true" />
@@ -91,10 +100,10 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
           </div>
         </section>
 
-        <section className="law-about law-section" id="men-haqimda" aria-labelledby="law-about-title">
+        <section className="law-about law-section" id="biz-haqimizda" aria-labelledby="law-about-title">
           <div className="law-shell law-about-grid">
-            <div className="law-about-monogram" aria-hidden="true"><span>X.</span></div>
-            <div>
+            <div className="law-about-monogram" data-law-reveal aria-hidden="true"><span>X.</span></div>
+            <div data-law-reveal>
               <p className="law-kicker">{c.aboutEyebrow}</p>
               <h2 id="law-about-title">{c.aboutTitle}</h2>
               <p className="law-about-body">{c.aboutBody}</p>
@@ -103,16 +112,35 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
           </div>
         </section>
 
+        <section className="law-results law-section" id="natijalar" aria-labelledby="law-results-title">
+          <div className="law-shell">
+            <div className="law-section-head" data-law-reveal>
+              <p className="law-kicker">{c.resultsEyebrow}</p>
+              <h2 id="law-results-title">{c.resultsTitle}</h2>
+              <p>{c.resultsIntro}</p>
+            </div>
+            <div className="law-results-grid">
+              {c.results.map((item) => (
+                <article className="law-result" key={item.label} data-law-reveal>
+                  <span className="law-result-number">{item.label}</span>
+                  <div className="law-result-orbit" aria-hidden="true"><span /></div>
+                  <h3>{item.title}</h3><p>{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="law-approach law-section" id="yondashuv" aria-labelledby="law-approach-title">
           <div className="law-shell law-approach-grid">
-            <div className="law-approach-art">
+            <div className="law-approach-art" data-law-reveal>
               <Image className="law-strategy-art" src={`${imageRoot}07-case-strategy.webp`} alt={locale === "uz" ? "Ish strategiyasi aks etgan hujjatlar" : locale === "ru" ? "Документы с планом работы" : "Documents illustrating a case plan"} width={1000} height={1000} sizes="(max-width: 860px) 80vw, 37vw" loading="lazy" />
               <div className="law-confidential">
                 <Image src={`${imageRoot}06-confidentiality.webp`} alt="" width={1000} height={1000} sizes="120px" loading="lazy" />
                 <p>{c.confidential}</p>
               </div>
             </div>
-            <div className="law-approach-copy">
+            <div className="law-approach-copy" data-law-reveal>
               <p className="law-kicker">{c.approachEyebrow}</p>
               <h2 id="law-approach-title">{c.approachTitle}</h2>
               <p className="law-approach-intro">{c.approachIntro}</p>
@@ -128,14 +156,32 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
           </div>
         </section>
 
+        <section className="law-promises law-section" id="vadalar" aria-labelledby="law-promises-title">
+          <div className="law-shell law-promises-grid">
+            <div className="law-promises-copy" data-law-reveal>
+              <p className="law-kicker">{c.promisesEyebrow}</p>
+              <h2 id="law-promises-title">{c.promisesTitle}</h2>
+              <p>{c.promisesIntro}</p>
+            </div>
+            <div className="law-promises-list">
+              {c.promises.map((item, index) => (
+                <article className="law-promise" key={item.title} data-law-reveal>
+                  <span className="law-index">0{index + 1}</span>
+                  <div><h3>{item.title}</h3><p>{item.body}</p></div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="law-questions law-section" id="savollar" aria-labelledby="law-questions-title">
           <div className="law-shell law-questions-grid">
-            <div>
+            <div data-law-reveal>
               <p className="law-kicker">{c.questionsEyebrow}</p>
               <h2 id="law-questions-title">{c.questionsTitle}</h2>
               <Image src={`${imageRoot}03-court-representation.webp`} alt="" width={1000} height={1000} sizes="(max-width: 860px) 40vw, 220px" loading="lazy" />
             </div>
-            <div className="law-accordion">
+            <div className="law-accordion" data-law-reveal>
               {c.questions.map((item, index) => (
                 <details key={item.title}>
                   <summary><span className="law-index">0{index + 1}</span><span>{item.title}</span><span className="law-plus" aria-hidden="true">+</span></summary>
@@ -146,9 +192,11 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
           </div>
         </section>
 
+        <LawMap eyebrow={c.mapEyebrow} title={c.mapTitle} body={c.mapBody} bodyLive={c.mapBodyLive} note={c.mapNote} linkLabel={c.mapLink} pinLabel={c.mapPin} />
+
         <section className="law-cta" id="boglanish" aria-labelledby="law-cta-title">
           <div className="law-shell law-cta-grid">
-            <div>
+            <div data-law-reveal>
               <p className="law-kicker">{c.ctaEyebrow}</p>
               <h2 id="law-cta-title">{c.ctaTitle}</h2>
               <p>{c.ctaBody}</p>
@@ -161,8 +209,9 @@ export function LawLanding({ locale = "uz" }: { locale?: Locale }) {
                 note={c.draftNote}
               />
             </div>
-            <Image src={`${imageRoot}08-contact.webp`} alt="" width={1000} height={1000} sizes="(max-width: 860px) 65vw, 29vw" loading="lazy" />
+            <Image data-law-reveal src={`${imageRoot}08-contact.webp`} alt="" width={1000} height={1000} sizes="(max-width: 860px) 65vw, 29vw" loading="lazy" />
           </div>
+          <div className="law-shell" data-law-reveal><LawSocialLinks title={c.socialTitle} intro={c.socialIntro} pending={c.socialPending} /></div>
         </section>
       </main>
       <footer className="law-footer">

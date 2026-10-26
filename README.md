@@ -39,6 +39,16 @@ npm start
 
 Instagram `@hikma.service` va Telegram `https://t.me/Hikmaservice_bot` foydalanuvchining 2026-10-17 profil screenshotidan olindi. Eski `INSTAGRAM_VERIFIED` sozlamasi endi kerak emas. Formani yoqmasdan ham ushbu havolalar orqali murojaat qilish mumkin; lokal tavsifni nusxalab Telegramga joylash mumkin. Havolani bosish avtomatik xabar yubormaydi.
 
+### Advokat shaxsiy sahifasi
+
+`/advokat` HIKMA portfoliosidagi **Advokat X** uchun vizual prototip. Unda ko‘rsatilgan nom, ish natijalari va Toshkent markazidagi xarita haqiqiy amaliyotga tegishli faktlar deb ko‘rsatilmaydi. Haqiqiy ism va tasdiqlangan faoliyat tafsilotlari `src/lib/law-copy.ts` hamda `LawLanding.tsx`dagi monogram bilan almashtiriladi. Shu vaqtgacha sahifa `noindex` va sitemapdan chiqarilgan.
+
+- `NEXT_PUBLIC_LAW_TELEGRAM_URL`: advokatning `https://t.me/...` profili.
+- `NEXT_PUBLIC_LAW_INSTAGRAM_URL`: advokatning `https://www.instagram.com/...` profili.
+- `NEXT_PUBLIC_LAW_ADDRESS`, `NEXT_PUBLIC_LAW_MAP_URL`, `NEXT_PUBLIC_LAW_MAP_EMBED_URL`: uchtalasi birga o‘rnatilganda namunaviy xarita haqiqiy manzil va Google Maps embed bilan almashadi. Embed havolasini Google Mapsdagi **Share → Embed a map → Copy HTML** orqali oling va `src` qiymatini kiriting. Google Maps Embed API’dan alohida foydalanilsa API kalit va Google Cloud sozlamasi talab qilinadi.
+
+Advokatning profil manzillari kiritilmaguncha Telegram/Instagram kartalari faol bo‘lmaydi. Savol shakli hech qayerga yubormaydi, faqat yozilgan matnni nusxalaydi. Vercel’da public env o‘zgarishidan keyin redeploy qiling.
+
 Turnstile widgetda production domeningizni ruxsat etilgan hostlarga qo‘shing. Preview host kerak bo‘lsa uni ham alohida sozlang. Test kalitlarini productionda ishlatmang. Maxfiy kalitlarni GitHubga, frontendga yoki chatga joylamang.
 
 Telegram xabari va Turnstile javobi serverda tekshiriladi. Provider xatosida yoki sozlama yetishmaganda success qaytmaydi. Honeypot, body-size limit, origin tekshiruvi va bir martalik Turnstile tokeni mavjud. Forma ishlab turgan Vercel preview’da haqiqiy qabul qiluvchi bilan sinovdan o‘tkazilishi kerak.
