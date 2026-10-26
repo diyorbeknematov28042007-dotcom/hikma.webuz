@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { modernUzbek } from "../../src/lib/i18n";
 
 for (const width of [390, 1440]) {
   test(`barber style preview and layout at ${width}px`, async ({ page, request }, info) => {
@@ -30,7 +31,7 @@ test("barber concept is linked in portfolio and translated", async ({ page, requ
   const sitemap = await (await request.get("/sitemap.xml")).text();
   expect(sitemap).not.toContain("/sartarosh");
   await page.goto("/loyihalar");
-  await page.getByRole("link", { name: "Sartarosh sahifasini körish" }).click();
+  await page.getByRole("link", { name: modernUzbek("Sartarosh sahifasini körish") }).click();
   await expect(page).toHaveURL(/\/sartarosh$/);
   await page.getByRole("link", { name: "Русский" }).click();
   await expect(page).toHaveURL(/\/ru\/sartarosh$/);
