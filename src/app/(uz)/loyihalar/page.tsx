@@ -108,6 +108,17 @@ export function ProjectsContent({ locale = "uz" }: { locale?: Locale }) {
           </div>
           <Image src="/images/interyer/hero.webp" alt="" width={1672} height={941} sizes="(max-width: 768px) 100vw, 520px" loading="lazy" />
         </section>
+        <section className="portfolio-concept portfolio-concept--barber" aria-labelledby="barber-concept-title">
+          <div>
+            <p className="eyebrow">{c.barberEyebrow}</p>
+            <h2 id="barber-concept-title">{c.barberTitle}</h2>
+            <p>{c.barberDescription}</p>
+            <Link className="button" href={localePath(locale, "/sartarosh")}>
+              {c.barberView} <ArrowUpRight size={20} aria-hidden="true" />
+            </Link>
+          </div>
+          <Image src="/images/sartarosh/portfolio.webp" alt="" width={600} height={750} sizes="(max-width: 768px) 75vw, 360px" loading="lazy" />
+        </section>
         <section
           className="detail-example"
           aria-labelledby="your-project-title"
