@@ -46,7 +46,7 @@ export function BarberLanding({ locale = "uz" }: { locale?: Locale }) {
 
   useEffect(() => {
     const root = document.querySelector(".barber-page");
-    if (!root || !("IntersectionObserver" in window)) return;
+    if (!root || !("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const elements = root.querySelectorAll("[data-barber-reveal]");
     const observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
@@ -55,10 +55,11 @@ export function BarberLanding({ locale = "uz" }: { locale?: Locale }) {
           observer.unobserve(entry.target);
         }
       }
-    }, { threshold: 0.01, rootMargin: "0px 0px 110px 0px" });
+    }, { threshold: 0.08, rootMargin: "0px 0px -35px 0px" });
     elements.forEach((element) => {
       // Items in the first viewport must never disappear after hydration.
-      if (element.getBoundingClientRect().top < window.innerHeight + 110) element.classList.add("barber-visible");
+      const bounds = element.getBoundingClientRect();
+      if (bounds.top < window.innerHeight - 35 && bounds.bottom > 0) element.classList.add("barber-visible");
       else observer.observe(element);
     });
     root.classList.add("barber-ready");
@@ -172,7 +173,7 @@ export function BarberLanding({ locale = "uz" }: { locale?: Locale }) {
 
         <section className="barber-prices barber-section" id="narxlar" aria-labelledby="prices-title"><div className="barber-container barber-prices-grid">
           <div data-barber-reveal><p className="barber-eyebrow">{c.priceEyebrow}</p><h2 id="prices-title">{c.priceTitle}</h2><p>{c.priceBody}</p><div className="barber-price-tool" aria-hidden="true"><Scissors size={240} weight="thin" /></div></div>
-          <div className="barber-price-list" data-barber-reveal><p className="barber-price-label">{c.samplePrice}</p>{c.prices.map((item, index) => <div className="barber-price-row" key={item.name}><span className="barber-price-index">0{index + 1}</span><div><strong>{item.name}</strong><small>{item.duration}</small></div><span className="barber-price-value">{item.price} <small>{c.currency}</small></span></div>)}<p className="barber-price-disclaimer">{c.priceBody}</p></div>
+          <div className="barber-price-list"><p className="barber-price-label" data-barber-reveal>{c.samplePrice}</p>{c.prices.map((item, index) => <div className="barber-price-row" key={item.name} data-barber-reveal><span className="barber-price-index">0{index + 1}</span><div><strong>{item.name}</strong><small>{item.duration}</small></div><span className="barber-price-value">{item.price} <small>{c.currency}</small></span></div>)}<p className="barber-price-disclaimer" data-barber-reveal>{c.priceBody}</p></div>
         </div></section>
 
         <section className="barber-location barber-section" id="manzil" aria-labelledby="location-title"><div className="barber-container barber-location-grid">

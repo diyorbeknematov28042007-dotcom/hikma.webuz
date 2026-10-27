@@ -167,12 +167,15 @@
 .barber-footer p { max-width:600px; margin-top:12px; color:#aea397; font-size:12px; line-height:1.7; }
 .barber-footer a { flex:none; display:inline-flex; align-items:center; gap:10px; font-size:12px; }
 .barber-hero-caption,.barber-service p,.barber-section-head > p:last-child,.barber-location-copy > p:not(.barber-eyebrow),.barber-prices-grid > div:first-child > p:not(.barber-eyebrow) { color:#5b5149; }
-.barber-page.barber-ready [data-barber-reveal]:not(.barber-visible) { opacity:0; transform:translateY(22px); }
-.barber-page [data-barber-reveal] { transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1); }
-.barber-page.barber-ready [data-barber-reveal].barber-visible { opacity:1; transform:none; }
-.barber-hero-copy { animation:barber-intro .85s cubic-bezier(.2,.8,.2,1) both; }
-.barber-hero-art { animation:barber-intro 1s .12s cubic-bezier(.2,.8,.2,1) both; }
-@keyframes barber-intro { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+.barber-page.barber-ready [data-barber-reveal] { opacity:0; transform:translateY(24px); transition:opacity .75s ease,transform .85s cubic-bezier(.22,1,.36,1); transition-delay:var(--barber-reveal-delay,0ms); }
+.barber-page.barber-ready [data-barber-reveal].barber-visible { opacity:1; transform:translateY(0); }
+.barber-choice,.barber-studio-content,.barber-map,.barber-contact-links { --barber-reveal-delay:90ms; }
+.barber-service:nth-child(2),.barber-price-row:nth-child(even) { --barber-reveal-delay:85ms; }
+.barber-service:nth-child(3),.barber-price-row:nth-child(odd) { --barber-reveal-delay:160ms; }
+.barber-page.barber-ready .barber-service.barber-visible:hover { transform:translateY(-5px); }
+.barber-hero-copy { animation:barber-intro .85s cubic-bezier(.22,1,.36,1) both; }
+.barber-hero-art { animation:barber-intro .95s .1s cubic-bezier(.22,1,.36,1) both; }
+@keyframes barber-intro { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
 @media(max-width:1150px) {
   .barber-nav { display:none; }
   .barber-hero h1 { font-size:clamp(58px,7.2vw,90px); }
