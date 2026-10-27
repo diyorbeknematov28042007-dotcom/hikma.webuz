@@ -39,6 +39,10 @@ test("barber sections appear when scrolled into view", async ({ page }) => {
   await studio.scrollIntoViewIfNeeded();
   await expect(studio).toHaveClass(/barber-visible/);
   await expect(studio).toHaveCSS("opacity", "1");
+  const price = page.locator(".barber-price-row").first();
+  await price.scrollIntoViewIfNeeded();
+  await expect(price).toHaveClass(/barber-visible/);
+  await expect(price).toHaveCSS("opacity", "1");
 });
 
 test("barber concept is linked in portfolio and translated", async ({ page, request }) => {
