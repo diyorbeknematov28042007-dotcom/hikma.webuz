@@ -25,17 +25,24 @@ export function HoneycombBackground() {
     let height = 0;
     let radius = 0;
     let frame = 0;
+    let ready = false;
+    let needsPaint = true;
+    let lastPaint = 0;
+    let idle = 0;
+    let timer = 0;
 
     const schedule = () => {
-      if (!frame && !document.hidden) frame = requestAnimationFrame(draw);
+      if (ready && !frame && !document.hidden) frame = requestAnimationFrame(draw);
     };
-
-    function draw(now: number) {
-      frame = 0;
-      if (document.hidden) return;
+    const invalidate = () => {
+      needsPaint = true;
+      canvas.dataset.state = "pending";
+      schedule();
+    };
+    const measure = () => {
       const bounds = canvas!.getBoundingClientRect();
       const nextRadius = bounds.width < 768 ? 44 : 68;
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const ratio = Math.min(window.devicePixelRatio || 1, bounds.width < 768 ? 1.5 : 2);
       if (width !== bounds.width || height !== bounds.height || radius !== nextRadius) {
         if (radius !== nextRadius) started.clear();
         width = bounds.width;
@@ -45,6 +52,20 @@ export function HoneycombBackground() {
         canvas!.height = Math.round(height * ratio);
         context!.setTransform(ratio, 0, 0, ratio, 0, 0);
       }
+      invalidate();
+    };
+
+    function draw(now: number) {
+      frame = 0;
+      if (document.hidden) return;
+      // The decorative construction needs only 30 fps. Scroll itself still
+      // paints immediately, and geometry is measured only on initial load/resize.
+      if (!needsPaint && now - lastPaint < 32) {
+        schedule();
+        return;
+      }
+      needsPaint = false;
+      lastPaint = now;
       context!.clearRect(0, 0, width, height);
 
       const scroll = window.scrollY;
@@ -70,8 +91,6 @@ export function HoneycombBackground() {
           }
           const progress = motion.matches ? 1 : Math.max(0, Math.min(1, (now - started.get(key)!) / 900));
           if (progress < 1) building = true;
-          if (progress === 0) continue;
-
           const seed = Math.abs((column * 17 + row * 29) % 19) / 19;
           const edge = Math.abs(x - width * 0.5) / (width * 0.5);
           const strength = 0.72 + Math.min(edge, 1) * 0.28;
@@ -88,9 +107,15 @@ export function HoneycombBackground() {
             else context!.lineTo(x + vertex.x * size, y + vertex.y * size);
           });
           context!.closePath();
+          context!.lineWidth = 0.8;
+          context!.lineJoin = "round";
+          context!.strokeStyle = brand;
+          context!.globalAlpha = (progress === 1 ? 0.2 + seed * 0.13 : 0.045) * strength;
+          context!.stroke();
           context!.fillStyle = brand;
           context!.globalAlpha = (seed > 0.72 ? 0.085 : 0.018) * progress * strength;
           context!.fill();
+          if (progress === 0 || progress === 1) continue;
 
           context!.beginPath();
           context!.moveTo(x + size, y);
@@ -98,8 +123,6 @@ export function HoneycombBackground() {
             context!.lineTo(x + vertices[point].x * size, y + vertices[point].y * size);
           }
           context!.lineTo(tipX, tipY);
-          context!.lineWidth = 0.8;
-          context!.lineJoin = "round";
           context!.strokeStyle = brand;
           context!.globalAlpha = (0.2 + seed * 0.13) * strength;
           context!.stroke();
@@ -128,17 +151,31 @@ export function HoneycombBackground() {
         frame = 0;
       } else schedule();
     };
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule, { passive: true });
-    motion.addEventListener("change", schedule);
+    const start = () => {
+      ready = true;
+      measure();
+    };
+    const afterLoad = () => {
+      // Let the foreground and its images finish first; no animation work
+      // competes with the page's first meaningful paint.
+      if (typeof window.requestIdleCallback === "function") idle = window.requestIdleCallback(start, { timeout: 500 });
+      else timer = window.setTimeout(start, 80);
+    };
+    window.addEventListener("scroll", invalidate, { passive: true });
+    window.addEventListener("resize", measure, { passive: true });
+    motion.addEventListener("change", invalidate);
     document.addEventListener("visibilitychange", visibility);
-    schedule();
+    if (document.readyState === "complete") afterLoad();
+    else window.addEventListener("load", afterLoad, { once: true });
 
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      motion.removeEventListener("change", schedule);
+      if (idle) window.cancelIdleCallback(idle);
+      window.clearTimeout(timer);
+      window.removeEventListener("load", afterLoad);
+      window.removeEventListener("scroll", invalidate);
+      window.removeEventListener("resize", measure);
+      motion.removeEventListener("change", invalidate);
       document.removeEventListener("visibilitychange", visibility);
     };
   }, []);
