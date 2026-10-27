@@ -45,7 +45,7 @@
 .barber-hero-art::after { position:absolute; inset:0; content:""; pointer-events:none; background:linear-gradient(90deg,#f3efe84d 0,transparent 25%),linear-gradient(0deg,#3b292e32 0,transparent 25%); }
 .barber-hero-orbit { position:absolute; left:50%; top:48%; width:86%; aspect-ratio:1; border:1px solid #fff5; border-radius:50%; transform:translate(-50%,-50%); box-shadow:0 0 0 80px #f7ead21c,0 0 0 160px #f7ead20d; }
 .barber-hero-art img { object-fit:contain; object-position:center bottom; transform:scale(var(--barber-hero-scale,.87)) translateY(6%); }
-.barber-hero-person { filter:drop-shadow(20px 34px 31px #3a251c50); mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%); animation:barber-float 8s ease-in-out infinite; }
+.barber-hero-person { filter:drop-shadow(20px 34px 31px #3a251c50); mask-image:radial-gradient(ellipse 72% 65% at 50% 36%,#000 58%,transparent 100%); animation:barber-float 8s ease-in-out infinite; }
 .barber-hero-stamp { position:absolute; z-index:2; right:5%; top:8%; display:flex; flex-direction:column; width:105px; height:105px; justify-content:center; padding:16px; border:1px solid #ffffffa6; border-radius:50%; color:#fff; font-size:10px; font-weight:800; line-height:1.25; letter-spacing:.1em; transform:rotate(10deg); }
 .barber-hero-stamp span { position:absolute; right:18px; bottom:17px; font-size:19px; }
 .barber-hero-bottom { position:absolute; bottom:0; left:0; z-index:3; width:100%; display:flex; justify-content:space-between; gap:20px; padding:17px max(40px,calc((100vw - 1380px)/2)); border-top:1px solid #f4efe5aa; background:#eee8d958; backdrop-filter:blur(6px); color:#403a34; font-size:10px; letter-spacing:.16em; }
@@ -63,7 +63,7 @@
 .barber-stage::before { content:""; position:absolute; width:75%; aspect-ratio:1; border-radius:50%; border:1px solid #e4d6c125; box-shadow:0 0 0 58px #ffffff08,0 0 0 115px #ffffff05; }
 .barber-stage-images { position:absolute; inset:7% 9% 2%; }
 .barber-stage-images img { object-fit:contain; object-position:center bottom; pointer-events:none; -webkit-user-drag:none; }
-.barber-stage-images .barber-portrait { filter:drop-shadow(18px 17px 14px #09090955); mask-image:linear-gradient(to bottom,#000 0%,#000 72%,transparent 100%); }
+.barber-stage-images .barber-portrait { filter:drop-shadow(18px 17px 14px #09090955); mask-image:radial-gradient(ellipse 75% 70% at 50% 36%,#000 60%,transparent 100%); }
 .barber-stage-images .barber-portrait-old { animation:barber-portrait-out .35s ease-out both; }
 .barber-stage-images .barber-portrait-new { animation:barber-portrait-in .42s cubic-bezier(.2,.8,.2,1) both; }
 .barber-stage-images[data-loading="true"]::after { content:""; position:absolute; z-index:2; bottom:0; left:0; width:32%; height:2px; background:#d3a587; animation:barber-loading 1s ease-in-out infinite alternate; }
