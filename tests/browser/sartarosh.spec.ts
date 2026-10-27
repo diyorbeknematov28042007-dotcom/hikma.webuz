@@ -19,7 +19,7 @@ for (const width of [390, 1440]) {
     await expect.poll(async () => stage.locator(".barber-portrait:not(.barber-portrait-old)").evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
     await page.getByRole("button", { name: "Low fade" }).click();
     await page.getByRole("button", { name: "Pompadur" }).click();
-    await stage.getByRole("button", { name: "Rakurs 1/3" }).click();
+    await page.getByRole("button", { name: "Rakurs 1/3" }).click();
     await expect(stage.locator(".barber-portrait:not(.barber-portrait-old)")).toHaveAttribute("src", /left30\/pompadour/);
     await expect(stage.locator(".barber-stage-images")).toHaveAttribute("data-loading", "false");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
