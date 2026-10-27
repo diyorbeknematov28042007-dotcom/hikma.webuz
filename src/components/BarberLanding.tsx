@@ -14,6 +14,7 @@ import { localePath, type Locale } from "@/lib/i18n";
 type View = "left30" | "front" | "right30";
 const views: View[] = ["left30", "front", "right30"];
 const asset = "/images/sartarosh";
+const portrait = (view: View, style: HairStyle | null) => `${asset}/portraits/${view}/${style ?? "bald"}.webp`;
 
 function validSocial(input: string | undefined, service: "instagram" | "telegram") {
   if (!input) return null;
@@ -34,8 +35,11 @@ export function BarberLanding({ locale = "uz" }: { locale?: Locale }) {
   const c = barberCopy(locale);
   const [style, setStyle] = useState<HairStyle | null>("textured-crop");
   const [viewIndex, setViewIndex] = useState(1);
+  const [displaySrc, setDisplaySrc] = useState(portrait("front", "textured-crop"));
+  const [previousSrc, setPreviousSrc] = useState<string | null>(null);
   const dragStart = useRef<number | null>(null);
   const activeView = views[viewIndex];
+  const desiredSrc = portrait(activeView, style);
   const instagram = validSocial(process.env.NEXT_PUBLIC_BARBER_INSTAGRAM_URL, "instagram");
   const telegram = validSocial(process.env.NEXT_PUBLIC_BARBER_TELEGRAM_URL, "telegram");
   const phone = validPhone(process.env.NEXT_PUBLIC_BARBER_PHONE);
@@ -51,11 +55,30 @@ export function BarberLanding({ locale = "uz" }: { locale?: Locale }) {
           observer.unobserve(entry.target);
         }
       }
-    }, { threshold: 0.08, rootMargin: "0px 0px 50px 0px" });
-    elements.forEach((element) => observer.observe(element));
+    }, { threshold: 0.01, rootMargin: "0px 0px 110px 0px" });
+    elements.forEach((element) => {
+      // Items in the first viewport must never disappear after hydration.
+      if (element.getBoundingClientRect().top < window.innerHeight + 110) element.classList.add("barber-visible");
+      else observer.observe(element);
+    });
     root.classList.add("barber-ready");
     return () => { observer.disconnect(); root.classList.remove("barber-ready"); };
   }, []);
+
+  useEffect(() => {
+    if (desiredSrc === displaySrc) return;
+    let cancelled = false;
+    const next = new window.Image();
+    next.src = desiredSrc;
+    const show = () => {
+      if (cancelled) return;
+      setPreviousSrc(displaySrc);
+      setDisplaySrc(desiredSrc);
+    };
+    if (next.complete && next.naturalWidth > 0) show();
+    else next.addEventListener("load", show, { once: true });
+    return () => { cancelled = true; next.removeEventListener("load", show); };
+  }, [desiredSrc, displaySrc]);
 
   const changeView = (direction: -1 | 1) => setViewIndex((current) => Math.max(0, Math.min(2, current + direction)));
   const selectedName = style ? c.hair[style] : c.noHair;
@@ -88,10 +111,9 @@ export function BarberLanding({ locale = "uz" }: { locale?: Locale }) {
               </div>
               <p className="barber-hero-caption"><span>01 — 08</span>{c.demo}</p>
             </div>
-            <div className="barber-hero-art" data-barber-reveal>
+            <div className="barber-hero-art">
               <div className="barber-hero-orbit" aria-hidden="true" />
-              <Image src={`${asset}/front/mannequin.webp`} alt="" fill sizes="(max-width: 850px) 90vw, 50vw" priority unoptimized className="barber-hero-person" />
-              <Image src={`${asset}/front/hair-textured-crop.webp`} alt="" fill sizes="(max-width: 850px) 90vw, 50vw" priority unoptimized className="barber-hero-hair" />
+              <Image src={portrait("front", "textured-crop")} alt="" fill sizes="(max-width: 850px) 90vw, 50vw" priority unoptimized className="barber-hero-person" />
               <span className="barber-hero-stamp" aria-hidden="true">THE<br />STYLE<br />LAB<span>↗</span></span>
             </div>
           </div>
@@ -109,9 +131,9 @@ export function BarberLanding({ locale = "uz" }: { locale?: Locale }) {
                   onPointerUp={(event) => { if (dragStart.current !== null) { const delta = event.clientX - dragStart.current; if (Math.abs(delta) > 40) changeView(delta < 0 ? 1 : -1); dragStart.current = null; } }}
                   onPointerCancel={() => { dragStart.current = null; }}>
                   <span className="barber-stage-index">0{viewIndex + 1} / 03</span>
-                  <div className="barber-stage-images" key={activeView} role="img" aria-label={`${selectedName} — ${c.view} ${viewIndex + 1}/3`}>
-                    <Image className="barber-mannequin" src={`${asset}/${activeView}/mannequin.webp`} alt="" fill sizes="(max-width: 850px) 94vw, 48vw" priority unoptimized />
-                    {style && <Image key={`${activeView}-${style}`} className="barber-hair" src={`${asset}/${activeView}/hair-${style}.webp`} alt="" fill sizes="(max-width: 850px) 94vw, 48vw" priority={style === "textured-crop" && activeView === "front"} unoptimized />}
+                  <div className="barber-stage-images" role="img" aria-label={`${selectedName} — ${c.view} ${viewIndex + 1}/3`} data-loading={displaySrc !== desiredSrc}>
+                    {previousSrc && <Image key={previousSrc} className="barber-portrait barber-portrait-old" src={previousSrc} alt="" fill sizes="(max-width: 850px) 94vw, 48vw" unoptimized onAnimationEnd={() => setPreviousSrc((current) => current === previousSrc ? null : current)} />}
+                    <Image key={displaySrc} className={`barber-portrait${previousSrc ? " barber-portrait-new" : ""}`} src={displaySrc} alt="" fill sizes="(max-width: 850px) 94vw, 48vw" priority={displaySrc === portrait("front", "textured-crop")} unoptimized />
                   </div>
                   <button className="barber-turn barber-turn-left" type="button" aria-label={c.turnLeft} onClick={() => changeView(-1)} disabled={viewIndex === 0}><ArrowLeft size={21} aria-hidden="true" /></button>
                   <button className="barber-turn barber-turn-right" type="button" aria-label={c.turnRight} onClick={() => changeView(1)} disabled={viewIndex === 2}><ArrowRight size={21} aria-hidden="true" /></button>
@@ -142,14 +164,14 @@ export function BarberLanding({ locale = "uz" }: { locale?: Locale }) {
         <section className="barber-services barber-section" id="xizmatlar" aria-labelledby="services-title">
           <div className="barber-container"><div className="barber-section-head" data-barber-reveal><p className="barber-eyebrow">{c.serviceEyebrow}</p><h2 id="services-title">{c.serviceTitle}</h2><p>{c.serviceBody}</p></div>
             <div className="barber-services-grid">{c.services.map((service, index) => <article key={service.title} className="barber-service" data-barber-reveal>
-              <div className="barber-service-art"><Image src={`${asset}/${index === 0 ? "photos/barber-at-work" : index === 1 ? "stickers/straight-razor" : "stickers/styling-product"}.webp`} alt="" fill sizes="(max-width: 850px) 90vw, 30vw" /></div>
+              <div className="barber-service-art"><Image src={`${asset}/photos/${["barber-at-work", "straight-razor", "hair-styling"][index]}.webp`} alt="" fill sizes="(max-width: 850px) 90vw, 30vw" /></div>
               <div className="barber-service-text"><span>0{index + 1} / 03</span><h3>{service.title}</h3><p>{service.body}</p></div>
             </article>)}</div>
           </div>
         </section>
 
         <section className="barber-prices barber-section" id="narxlar" aria-labelledby="prices-title"><div className="barber-container barber-prices-grid">
-          <div data-barber-reveal><p className="barber-eyebrow">{c.priceEyebrow}</p><h2 id="prices-title">{c.priceTitle}</h2><p>{c.priceBody}</p><Image className="barber-price-tool" src={`${asset}/stickers/scissors.webp`} alt="" width={370} height={370} sizes="(max-width: 850px) 50vw, 370px" /></div>
+          <div data-barber-reveal><p className="barber-eyebrow">{c.priceEyebrow}</p><h2 id="prices-title">{c.priceTitle}</h2><p>{c.priceBody}</p><div className="barber-price-tool" aria-hidden="true"><Scissors size={240} weight="thin" /></div></div>
           <div className="barber-price-list" data-barber-reveal><p className="barber-price-label">{c.samplePrice}</p>{c.prices.map((item, index) => <div className="barber-price-row" key={item.name}><span className="barber-price-index">0{index + 1}</span><div><strong>{item.name}</strong><small>{item.duration}</small></div><span className="barber-price-value">{item.price} <small>{c.currency}</small></span></div>)}<p className="barber-price-disclaimer">{c.priceBody}</p></div>
         </div></section>
 
