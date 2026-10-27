@@ -8,13 +8,16 @@ import { ProjectSpotlight } from "@/components/ProjectSpotlight";
 import { StructuredData } from "@/components/StructuredData";
 import { brandStructuredData } from "@/lib/seo";
 import type { Locale } from "@/lib/i18n";
+import { HoneycombBackground } from "@/components/HoneycombBackground";
+import "../honeycomb.css";
 
 export function HomeContent({ locale = "uz" }: { locale?: Locale }) {
   const enabled = isContactEnabled();
   // The owner supplied the current brand profile as the new source of truth.
   const instagramVerified = true;
   return (
-    <>
+    <div className="honeycomb-home">
+      <HoneycombBackground />
       <StructuredData data={brandStructuredData(locale)} />
       <Header locale={locale} />
       <main id="main" tabIndex={-1}>
@@ -35,7 +38,7 @@ export function HomeContent({ locale = "uz" }: { locale?: Locale }) {
         />
       </main>
       <Footer instagramVerified={instagramVerified} locale={locale} />
-    </>
+    </div>
   );
 }
 
