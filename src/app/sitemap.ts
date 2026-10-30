@@ -4,7 +4,7 @@ import { servicePages } from "@/lib/service-pages";
 import { localePath, locales } from "@/lib/i18n";
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = ["/", "/xizmatlar", ...servicePages.map((service) => service.href), "/loyihalar", "/privacy"];
-  return paths.flatMap((path) => locales.map((locale) => ({
+  const localizedPages = paths.flatMap((path) => locales.map((locale) => ({
     url: `${siteOrigin()}${localePath(locale, path) === "/" ? "" : localePath(locale, path)}`,
     changeFrequency: path === "/privacy" ? "yearly" as const : "monthly" as const,
     priority: path === "/" ? 1 : path === "/privacy" ? 0.2 : 0.8,
@@ -16,4 +16,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
   })));
+  return [...localizedPages, {
+    url: `${siteOrigin()}/diyorbeknematov`,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }];
 }
