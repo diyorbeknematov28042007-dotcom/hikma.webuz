@@ -6,9 +6,9 @@ import {
   ArrowRight,
   ArrowUpRight,
   GithubLogo,
-  Plus,
 } from "@phosphor-icons/react/dist/ssr";
-import { Reveal } from "@/components/Reveal";
+import { PersonalReveal as Reveal } from "@/components/personal/PersonalReveal";
+import { PersonalAccordion } from "@/components/personal/PersonalAccordion";
 import { StructuredData } from "@/components/StructuredData";
 import { PersonalMenu } from "@/components/personal/PersonalMenu";
 import { telegramUrl } from "@/lib/site";
@@ -162,19 +162,16 @@ export default function DiyorbekPersonalPage() {
         </section>
 
         <section className="dn-legal dn-container dn-section" id="konikmalar" aria-labelledby="dn-legal-title">
-          <Reveal className="dn-legal-visual">
+          <div className="dn-legal-visual">
             <h2 id="dn-legal-title">Huquqiy fikr.<br /><span>Aniq asos.</span></h2>
             <Sticker name="legal-research" alt="Huquqiy tadqiqot ramzi: kitob, hujjatlar va lupa" />
             <p>Manbani tekşiriş.<br />Faktlarni tahlil qiliş.<br />Pozitsiyani asoslaş.</p>
-          </Reveal>
+          </div>
           <Reveal className="dn-legal-content">
             <p className="dn-legal-intro">Qiziqiş yönalişlarim va amaliy könikmalarim.</p>
             <div className="dn-accordions">
               {legalAreas.map((area, index) => (
-                <details className="dn-accordion" key={area.title} open={index === 0}>
-                  <summary>{area.title}<Plus size={22} aria-hidden="true" /></summary>
-                  <div className="dn-accordion-content"><p>{area.text}</p><span>{area.note}</span></div>
-                </details>
+                <PersonalAccordion key={area.title} {...area} defaultOpen={index === 0} />
               ))}
             </div>
             <div className="dn-method" aria-label="Huquqiy tahlil usuli"><span>Fakt</span><ArrowRight size={17} aria-hidden="true" /><span>Norma</span><ArrowRight size={17} aria-hidden="true" /><span>Tahlil</span><ArrowRight size={17} aria-hidden="true" /><span>Xulosa</span></div>
@@ -182,10 +179,10 @@ export default function DiyorbekPersonalPage() {
         </section>
 
         <section className="dn-project dn-container dn-section" id="yuristim" aria-labelledby="dn-project-title">
-          <Reveal>
+          <div>
             <p className="dn-section-label">Tanlangan loyiha</p>
             <h2 className="dn-section-title" id="dn-project-title">Huquq va texnologiya<br /><span>bir mahsulotda.</span></h2>
-          </Reveal>
+          </div>
           <Reveal className="dn-project-showcase">
             <div className="dn-project-copy">
               <p className="dn-project-type">LegalTech platforma</p>
@@ -196,28 +193,28 @@ export default function DiyorbekPersonalPage() {
             </div>
             <div className="dn-project-art"><Sticker name="legaltech-product" alt="YURISTIM konsepsiyasi: adolat tarozisi va özaro boğlangan raqamli modullar" /></div>
           </Reveal>
-          <Reveal className="dn-project-notes" stagger>
+          <div className="dn-project-notes">
             <div><h3>Jarayondan mahsulotga</h3><p>Yuridik xizmat jarayonlarini user flow va texnik biznes-qoidalarga aylantiriş.</p></div>
             <div><h3>Huquqiy arxitektura</h3><p>Ommaviy oferta, foydalanuvçi roziligi va marketplace qoidalarini integratsiya qiliş.</p></div>
             <div><h3>Rollar va ruxsatlar</h3><p>Role-based access va huquqiy çeklovlarni mahsulot arxitekturasida hisobga oliş.</p></div>
-          </Reveal>
+          </div>
         </section>
 
         <section className="dn-tech dn-container dn-section" aria-labelledby="dn-tech-title">
-          <Reveal className="dn-tech-intro">
+          <div className="dn-tech-intro">
             <h2 className="dn-section-title" id="dn-tech-title">Ğoyani işlaydigan<br /><span>mahsulotga.</span></h2>
             <p>Huquqiy bilimlarimni dasturlaş, sun’iy intellekt va raqamli vositalar bilan birga qöllayman.</p>
             <Sticker name="digital-builder" alt="Noutbuk va raqamli mahsulot interfeyslari tasviri" />
-          </Reveal>
-          <Reveal className="dn-tool-groups" stagger>
+          </div>
+          <div className="dn-tool-groups">
             {tools.map((group) => (
               <div className="dn-tool-group" key={group.title}><h3>{group.title}</h3><ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul></div>
             ))}
-          </Reveal>
+          </div>
         </section>
 
         <section className="dn-experience dn-container dn-section" id="tajriba" aria-labelledby="dn-experience-title">
-          <Reveal><h2 className="dn-section-title" id="dn-experience-title">Örganiş. Qöllaş.<br /><span>Tajriba orttiriş.</span></h2></Reveal>
+          <div><h2 className="dn-section-title" id="dn-experience-title">Örganiş. Qöllaş.<br /><span>Tajriba orttiriş.</span></h2></div>
           <Reveal className="dn-academy">
             <div><span className="dn-academy-category">Ta’lim</span><h3>Toşkent davlat<br />yuridik universiteti</h3><p>Ommaviy huquq, bakalavr</p><span className="dn-academy-year">3-kurs</span></div>
             <Sticker name="education" alt="Ta’lim ramzi: kitoblar va akademik qalpoq" />
@@ -226,17 +223,17 @@ export default function DiyorbekPersonalPage() {
             <article className="dn-experience-card dn-mentoring"><Sticker name="mentoring" alt="Bilim ulaşiş ramzi: kitob va muloqot kartalari" /><div><p className="dn-card-meta">3 oy / “Ideal”</p><h3>Yordamçi öqituvçi</h3><p>Materiallarni tuşuntiriş, öquvçilar bilan işlaş va taşkiliy vazifalar.</p></div></article>
             <article className="dn-experience-card dn-achievement"><Sticker name="achievement" alt="Kutubxona kubogi yutuğini ifodalovçi dekorativ kubok" /><div><p className="dn-card-meta">Yutuq / 2026</p><h3>Kutubxona kubogi<br />ğolibi</h3><p>TDYU Public Law kutubxonasi kubogi.</p></div></article>
           </Reveal>
-          <Reveal className="dn-language-row">
+          <div className="dn-language-row">
             <h3>Tillar</h3><dl><div><dt>Özbek tili</dt><dd>Ona tili</dd></div><div><dt>Ingliz tili</dt><dd>B2-C1</dd></div><div><dt>Rus tili</dt><dd>B1</dd></div></dl>
-          </Reveal>
-          <Reveal className="dn-principles"><p>Analitik fikrlaş</p><span aria-hidden="true">/</span><p>Mas’uliyat</p><span aria-hidden="true">/</span><p>Aniq kommunikatsiya</p><span aria-hidden="true">/</span><p>Tez örganiş</p></Reveal>
+          </div>
+          <div className="dn-principles"><p>Analitik fikrlaş</p><span aria-hidden="true">/</span><p>Mas’uliyat</p><span aria-hidden="true">/</span><p>Aniq kommunikatsiya</p><span aria-hidden="true">/</span><p>Tez örganiş</p></div>
         </section>
 
         <section className="dn-contact" id="aloqa" aria-labelledby="dn-contact-title">
-          <Reveal className="dn-contact-inner dn-container">
+          <div className="dn-contact-inner dn-container">
             <div><p className="dn-section-label">Hamkorlik uçun</p><h2 id="dn-contact-title">Birga yeçim<br /><span>yarataylik.</span></h2></div>
             <div className="dn-contact-links"><p>LegalTech, raqamli mahsulot yoki hamkorlik haqida gaplaşamiz. HIKMA orqali murojaat qoldirişingiz mumkin.</p><a className="dn-button dn-button-orange" href={telegramUrl} target="_blank" rel="noopener noreferrer">HIKMA orqali yoziş<ArrowUpRight size={20} aria-hidden="true" /></a><a className="dn-text-link" href={github} target="_blank" rel="noopener noreferrer"><GithubLogo size={20} aria-hidden="true" />GitHub profilim<ArrowUpRight size={18} aria-hidden="true" /></a></div>
-          </Reveal>
+          </div>
         </section>
       </main>
 
