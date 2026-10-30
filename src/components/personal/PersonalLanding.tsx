@@ -17,6 +17,7 @@ import { personalText, personalDescription } from "@/lib/personal-copy";
 import { PersonalLanguageSwitch } from "./PersonalLanguageSwitch";
 import { PersonalEffects, MagneticLink } from "./PersonalEffects";
 import { PersonalHeading } from "./PersonalHeading";
+import { PersonalAtmosphere, PersonalAmbientToggle } from "./PersonalAtmosphere";
 
 const manrope = localFont({
   src: "../../../public/fonts/manrope-latin.woff",
@@ -69,6 +70,7 @@ export function PersonalLanding({ locale = "uz" }: { locale?: Locale }) {
   const description = t(personalDescription);
   return (
     <div className={`dn-page ${manrope.variable}`} lang={locale}>
+      <PersonalAtmosphere />
       <PersonalEffects />
       <StructuredData data={{
         "@context": "https://schema.org",
@@ -108,7 +110,6 @@ export function PersonalLanding({ locale = "uz" }: { locale?: Locale }) {
         <section className="dn-hero" aria-labelledby="dn-name">
           <div className="dn-stage">
             <div className="dn-hero-light" aria-hidden="true" />
-            <div className="dn-hero-orbit" aria-hidden="true" />
             <div className="dn-hero-letter" aria-hidden="true">{t("n")}</div>
             <div className="dn-hero-intro">
               <p className="dn-hero-role">{t("Huquq talabasi / Product builder")}</p>
@@ -222,7 +223,7 @@ export function PersonalLanding({ locale = "uz" }: { locale?: Locale }) {
         </section>
       </main>
 
-      <footer className="dn-footer dn-container"><a className="dn-footer-name" href="#main">{t("Diyorbek Ne’matov")}<span>{t("Huquq va LegalTech")}</span></a><p>{t("© 2026")}</p><a className="dn-hikma" href={localePath(locale, "/")}>{t("HIKMA")}<ArrowUpRight size={16} aria-hidden="true" /></a></footer>
+      <footer className="dn-footer dn-container"><a className="dn-footer-name" href="#main">{t("Diyorbek Ne’matov")}<span>{t("Huquq va LegalTech")}</span></a><div className="dn-footer-meta"><p>{t("© 2026")}</p><PersonalAmbientToggle pauseLabel={t("Fon harakatini töxtatiş")} resumeLabel={t("Fon harakatini yoqiş")} /></div><a className="dn-hikma" href={localePath(locale, "/")}>{t("HIKMA")}<ArrowUpRight size={16} aria-hidden="true" /></a></footer>
     </div>
   );
 }

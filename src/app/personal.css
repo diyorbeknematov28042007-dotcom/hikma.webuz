@@ -2,8 +2,8 @@
    VISUAL_DENSITY 4. Manrope is a self-hosted grotesk approximation of the reference.
    Theme: dark. Shapes: cards 18px, buttons full-pill. Layers: artwork 0,
    portrait 1, hero copy 2, header 3, native dialog top layer.
-   Motion: a stable portrait, a brief type entrance, five restrained section
-   reveals, and local feedback for buttons, disclosures and the mobile menu. */
+   Motion: a stable portrait, brief type and section entrances, local feedback,
+   and a slow ambient glass layer. Only the decorative background drifts. */
 .dn-page {
   --dn-bg: #080808;
   --dn-panel: #121212;
@@ -21,6 +21,8 @@
   line-height: 1.55;
   overflow: clip;
   color-scheme: dark;
+  position: relative;
+  isolation: isolate;
 }
 body:has(.dn-page) { background: #080808; }
 body:has(.dn-menu[open]) { overflow: hidden; }
@@ -49,7 +51,6 @@ body:has(.dn-page) > .skip-link { background: #ff9b38; color: #11100e; }
 .dn-stage { position: relative; height: min(740px, calc(100svh - 88px)); min-height: 635px; isolation: isolate; }
 .dn-stage::after { content: ""; position: absolute; inset: auto 0 0; height: 80px; background: linear-gradient(transparent,var(--dn-bg)); pointer-events: none; z-index: 1; }
 .dn-hero-light { position: absolute; inset: -130px -12% 0; background: radial-gradient(ellipse at 51% 55%,#b24e0b80 0%,#8b380d55 23%,#4d200737 43%,#08080800 65%); pointer-events: none; }
-.dn-hero-orbit { position: absolute; width: 1050px; height: 340px; top: 83px; left: 50%; border-radius: 50%; transform: translateX(-44%) rotate(-19deg); background: linear-gradient(180deg,#a04b1022,#572b0c0a 70%); box-shadow: 0 110px 0 2px #502a0d1f,0 238px 0 10px #3b200b22; pointer-events: none; }
 .dn-hero-letter { position: absolute; left: 41%; top: -82px; font-size: 770px; font-weight: 700; line-height: 1; letter-spacing: -.12em; color: #a04f1510; transform: rotate(-13deg); pointer-events: none; }
 .dn-hero-intro { position: absolute; left: max(48px, calc((100% - 1280px) / 2)); top: 80px; z-index: 2; }
 .dn-hero-role { font-size: 12px; color: #c8b5a2; margin-bottom: 27px; }
@@ -268,7 +269,6 @@ body:has(.dn-page) > .skip-link { background: #ff9b38; color: #11100e; }
   .dn-icon-button { width: 39px; height: 39px; }
   .dn-stage { height: calc(100svh - 76px); min-height: 640px; max-height: 820px; }
   .dn-hero-light { inset: -30px -80% 0; background: radial-gradient(ellipse at 50% 58%,#9b43094a 0%,#74330840 19%,#48210722 39%,#08080800 66%); }
-  .dn-hero-orbit { top: 220px; width: 780px; height: 220px; transform: translateX(-42%) rotate(-30deg); }
   .dn-hero-letter { font-size: 600px; left: -10%; top: 120px; }
   .dn-hero-intro { left: 24px; top: 26px; }
   .dn-hero-role { font-size: 10px; margin-bottom: 16px; }
@@ -421,4 +421,119 @@ body:has(.dn-page) > .skip-link { background: #ff9b38; color: #11100e; }
   .dn-page[lang="ru"] .dn-academy h3 { font-size: 27px; }
   .dn-page[lang="en"] .dn-contact h2 { font-size: clamp(44px,12vw,70px); }
   .dn-page[lang="ru"] .dn-hero-role { font-size: 9px; }
+}
+
+/* Web frosted glass: brand-colored light behind still, readable content.
+   The large background planes animate transforms only, without live blur. */
+.dn-atmosphere {
+  --dn-drift-x: 92px;
+  --dn-drift-y: 58px;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  contain: strict;
+  pointer-events: none;
+}
+.dn-ambient-layer { position: absolute; display: block; }
+.dn-ambient-glow {
+  width: min(1120px,110vw);
+  height: 92vh;
+  left: 8%;
+  top: 8%;
+  background: radial-gradient(ellipse at center,#ff9b3826, #a04b1014 35%,transparent 68%);
+  transform: translate(-3%,2%);
+}
+.dn-ambient-pane {
+  border-radius: 50%;
+  border: 1px solid #ffd0a326;
+  background: linear-gradient(145deg,#ffe3c411,#ff9b3805 42%,#ffb46c0d 78%,#fff2df12);
+  box-shadow: inset 0 1px 0 #ffe8d01a, inset 0 -24px 70px #ff9b3806, 0 18px 80px #00000024;
+}
+.dn-ambient-pane-far {
+  width: min(1180px,96vw);
+  height: min(520px,44vw);
+  top: 9%;
+  right: -26%;
+  transform: translate(0,0) rotate(-28deg);
+}
+.dn-ambient-pane-near {
+  width: min(900px,76vw);
+  height: min(430px,39vw);
+  left: -23%;
+  bottom: -18%;
+  opacity: .6;
+  transform: translate(0,0) rotate(-24deg);
+}
+.dn-hero-light { opacity: .72; }
+.dn-hero-project,.dn-profile-card,.dn-legal-visual,.dn-project-showcase,.dn-experience-card {
+  box-shadow: inset 0 1px 0 #fff5dd12, inset 0 0 0 1px #ffe5c914;
+}
+.dn-footer-meta { display: flex; align-items: center; gap: 12px; }
+.dn-ambient-toggle {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid #514231;
+  border-radius: 50%;
+  color: #c3b6a7;
+  background: #17130f;
+  transition: color var(--dn-motion-fast), border-color var(--dn-motion-fast);
+}
+.dn-ambient-toggle:hover { color: var(--dn-orange); border-color: var(--dn-orange); }
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .dn-hero-project,.dn-profile-card,.dn-legal-visual,.dn-project-showcase,.dn-experience-card {
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .dn-hero-project,.dn-profile-card { background: #f4f3f0ed; }
+  .dn-legal-visual { background: radial-gradient(ellipse at 60% 60%,#4f2b142e,transparent 66%),#10100fb8; }
+  .dn-project-showcase { background: radial-gradient(ellipse at 85% 68%,#71390e45,transparent 55%),linear-gradient(120deg,#17120edb,#1f130bbd 65%,#241508c7); }
+  .dn-experience-card { background: #121110bd; }
+  .dn-languages { background: #10100f73; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+  .dn-menu { background: #11100eed; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dn-ambient-glow { animation: dn-ambient-light 28s ease-in-out infinite alternate paused; }
+  .dn-ambient-pane-far { animation: dn-ambient-far 34s ease-in-out infinite alternate paused; }
+  .dn-ambient-pane-near { animation: dn-ambient-near 30s ease-in-out infinite alternate paused; }
+  .dn-atmosphere[data-running="true"] .dn-ambient-layer { animation-play-state: running; }
+  .dn-page:has(.dn-ambient-toggle[data-paused="true"]) .dn-ambient-layer { animation-play-state: paused; }
+  @keyframes dn-ambient-light {
+    to { transform: translate(var(--dn-drift-x),calc(-1 * var(--dn-drift-y))) scale(1.06); }
+  }
+  @keyframes dn-ambient-far {
+    to { transform: translate(calc(-1 * var(--dn-drift-x)),var(--dn-drift-y)) rotate(-20deg); }
+  }
+  @keyframes dn-ambient-near {
+    to { transform: translate(var(--dn-drift-x),calc(-1 * var(--dn-drift-y))) rotate(-16deg); }
+  }
+}
+@media (max-width: 767px) {
+  .dn-atmosphere { --dn-drift-x: 35px; --dn-drift-y: 26px; }
+  .dn-ambient-glow { width: 160vw; height: 85vh; left: -35%; top: 14%; }
+  .dn-ambient-pane-far { width: 150vw; height: 90vw; right: -83%; top: 24%; }
+  .dn-ambient-pane-near { width: 120vw; height: 70vw; left: -67%; bottom: -8%; }
+  .dn-footer-meta { gap: 8px; font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dn-ambient-toggle { display: none; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .dn-atmosphere { display: none; }
+  .dn-ambient-toggle { display: none; }
+  .dn-hero-project,.dn-profile-card,.dn-legal-visual,.dn-project-showcase,.dn-experience-card,.dn-languages,.dn-menu {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .dn-hero-project,.dn-profile-card { background: var(--dn-white); }
+  .dn-legal-visual { background: #10100f; }
+  .dn-project-showcase { background: #1f130b; }
+  .dn-experience-card { background: #121110; }
+  .dn-languages { background: #10100f; }
+  .dn-menu { background: #11100e; }
 }

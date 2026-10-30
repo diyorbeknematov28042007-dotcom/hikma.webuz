@@ -9,6 +9,8 @@ const rows = [
   ["Mobil navigatsiya", "Мобильная навигация", "Mobile navigation"],
   ["Menyuni oçiş", "Открыть меню", "Open menu"],
   ["Menyuni yopiş", "Закрыть меню", "Close menu"],
+  ["Fon harakatini töxtatiş", "Приостановить анимацию фона", "Pause background motion"],
+  ["Fon harakatini yoqiş", "Включить анимацию фона", "Resume background motion"],
   ["Men haqimda", "Обо мне", "About me"],
   ["Könikmalar", "Навыки", "Skills"],
   ["Tajriba", "Опыт", "Experience"],
