@@ -3,22 +3,16 @@
 import { useRef } from "react";
 import { ArrowUpRight, List, X } from "@phosphor-icons/react";
 
-const links = [
-  ["#haqimda", "Men haqimda"],
-  ["#konikmalar", "Könikmalar"],
-  ["#yuristim", "YURISTIM"],
-  ["#tajriba", "Tajriba"],
-] as const;
-
-export function PersonalMenu() {
+export function PersonalMenu({ labels }: { labels: { open: string; close: string; navigation: string; about: string; skills: string; experience: string; contact: string } }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const links = [["#haqimda",labels.about],["#konikmalar",labels.skills],["#yuristim","YURISTIM"],["#tajriba",labels.experience]];
 
   return (
     <>
       <button
         type="button"
         className="dn-menu-trigger dn-icon-button"
-        aria-label="Menyuni oçiş"
+        aria-label={labels.open}
         aria-haspopup="dialog"
         aria-controls="dn-mobile-menu"
         onClick={() => dialog.current?.showModal()}
@@ -40,13 +34,13 @@ export function PersonalMenu() {
             <button
               type="button"
               className="dn-icon-button"
-              aria-label="Menyuni yopiş"
+              aria-label={labels.close}
               onClick={() => dialog.current?.close()}
             >
               <X size={23} aria-hidden="true" />
             </button>
           </div>
-          <nav aria-label="Mobil navigatsiya">
+          <nav aria-label={labels.navigation}>
             {links.map(([href, label]) => (
               <a key={href} href={href} onClick={() => dialog.current?.close()}>
                 {label}<ArrowUpRight size={24} aria-hidden="true" />
@@ -54,7 +48,7 @@ export function PersonalMenu() {
             ))}
           </nav>
           <a className="dn-button dn-button-orange" href="#aloqa" onClick={() => dialog.current?.close()}>
-            Boğlaniş<ArrowUpRight size={19} aria-hidden="true" />
+            {labels.contact}<ArrowUpRight size={19} aria-hidden="true" />
           </a>
         </div>
       </dialog>
