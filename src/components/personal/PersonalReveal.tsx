@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { motionDurationMs } from "@/lib/personal-motion";
 
 export function PersonalReveal({
   children,
@@ -26,7 +27,7 @@ export function PersonalReveal({
         if (preference.matches || document.visibilityState !== "visible") return;
 
         const tokens = getComputedStyle(node);
-        const duration = Number.parseFloat(tokens.getPropertyValue("--dn-motion-reveal")) || 420;
+        const duration = motionDurationMs(tokens.getPropertyValue("--dn-motion-reveal"));
         const easing = tokens.getPropertyValue("--dn-ease").trim() || "cubic-bezier(.22,1,.36,1)";
         const targets = stagger ? Array.from(node.children) : [node];
 
