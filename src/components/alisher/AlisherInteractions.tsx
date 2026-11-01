@@ -1,59 +1,62 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring } from "motion/react";
 import { ArrowUpRight, List, Pause, Play, Plus, X } from "@phosphor-icons/react";
 import { alisherPath, type AlisherCopy } from "@/lib/alisher-copy";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function AlisherEffects() {
   const progress = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll();
   useEffect(() => {
     const page = progress.current?.closest<HTMLElement>(".as-page");
     if (!page) return;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const animations = new Set<Animation>();
-    let frame = 0;
-    const updateProgress = () => {
-      frame = 0;
-      const distance = document.documentElement.scrollHeight - window.innerHeight;
-      if (progress.current) progress.current.style.transform = `scaleX(${distance > 0 ? Math.min(1, window.scrollY / distance) : 0})`;
+    let disposed = false;
+    const started = performance.now();
+    const syncVisibility = () => {
+      page.dataset.visible = String(document.visibilityState === "visible");
+      if (document.visibilityState !== "visible") animations.forEach((animation) => animation.cancel());
     };
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(updateProgress); };
-    const syncVisibility = () => { page.dataset.visible = String(document.visibilityState === "visible"); };
     const stopAnimations = () => { if (preference.matches) animations.forEach((animation) => animation.cancel()); };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         observer.unobserve(entry.target);
-        if (preference.matches || document.visibilityState !== "visible") return;
+        if (preference.matches || document.visibilityState !== "visible" || (entry.target.classList.contains("as-hero-title") && performance.now() - started > 800)) return;
         const masked = entry.target.getAttribute("data-as-reveal") === "mask";
         const targets = masked ? entry.target.querySelectorAll(".as-mask-text") : [entry.target];
         targets.forEach((target, index) => {
           const animation = target.animate(masked
-            ? [{ transform: "translateY(110%)" }, { transform: "translateY(0)" }]
-            : [{ opacity: 0.86, transform: "translateY(8px)" }, { opacity: 1, transform: "translateY(0)" }],
-          { duration: masked ? 600 : 420, delay: masked ? Math.min(index * 65, 130) : 0, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+            ? [{ opacity: .55, transform: "translateY(.12em)" }, { opacity: 1, transform: "translateY(0)" }]
+            : [{ opacity: .86, transform: "translateY(6px)" }, { opacity: 1, transform: "translateY(0)" }],
+          { duration: masked ? 480 : 360, delay: masked ? Math.min(index * 55, 110) : 0, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
           animations.add(animation);
           animation.finished.then(() => animations.delete(animation), () => animations.delete(animation));
         });
       });
     }, { threshold: 0.12 });
-    page.querySelectorAll("[data-as-reveal]").forEach((element) => observer.observe(element));
-    syncVisibility(); updateProgress();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    // Keep server-rendered copy readable during slow font loads. Reveal only after
+    // metrics settle, and never replay a delayed hero entrance over text being read.
+    const observe = () => {
+      if (disposed) return;
+      page.querySelectorAll("[data-as-reveal]").forEach((element) => observer.observe(element));
+    };
+    if (document.fonts.status === "loaded") observe();
+    else document.fonts.ready.then(observe);
+    syncVisibility();
     document.addEventListener("visibilitychange", syncVisibility);
     preference.addEventListener("change", stopAnimations);
     return () => {
       observer.disconnect(); animations.forEach((animation) => animation.cancel());
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll);
+      disposed = true;
       document.removeEventListener("visibilitychange", syncVisibility);
       preference.removeEventListener("change", stopAnimations);
     };
   }, []);
-  return <div className="as-progress" ref={progress} aria-hidden="true" />;
+  return <motion.div className="as-progress" ref={progress} style={{ scaleX: scrollYProgress }} aria-hidden="true" />;
 }
 
 export function AlisherAction({ children, href, className = "", external = false }: { children: ReactNode; href: string; className?: string; external?: boolean }) {
@@ -83,11 +86,11 @@ export function AlisherLanguages({ current }: { current: Locale }) {
 export function AlisherMenu({ copy }: { copy: Pick<AlisherCopy, "openMenu" | "closeMenu" | "navigation" | "nav" | "contact"> }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
-  const close = () => dialog.current?.close();
+  const close = () => { dialog.current?.close(); setOpen(false); };
   return <>
     <button className="as-menu-trigger as-icon-button" type="button" aria-label={copy.openMenu} aria-haspopup="dialog" aria-expanded={open} aria-controls="as-menu"
       onClick={() => { dialog.current?.showModal(); setOpen(true); }}><List size={23} aria-hidden="true" /></button>
-    <dialog id="as-menu" ref={dialog} className="as-menu" aria-labelledby="as-menu-title" onClose={() => setOpen(false)} onClick={(event) => { if (event.target === event.currentTarget) close(); }}>
+    <dialog id="as-menu" ref={dialog} className="as-menu" aria-labelledby="as-menu-title" onClose={() => setOpen(false)} onCancel={() => setOpen(false)} onClick={(event) => { if (event.target === event.currentTarget) close(); }}>
       <div className="as-menu-inner">
         <div className="as-menu-top"><p id="as-menu-title">Yurist Shukrulloyev</p><button className="as-icon-button" type="button" onClick={close} aria-label={copy.closeMenu}><X size={23} aria-hidden="true" /></button></div>
         <nav aria-label={copy.navigation}>{copy.nav.map((item) => <a href={item.href} key={item.href} onClick={close}>{item.label}<ArrowUpRight size={22} aria-hidden="true" /></a>)}</nav>
