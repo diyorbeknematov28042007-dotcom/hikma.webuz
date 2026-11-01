@@ -4,7 +4,7 @@ import { ArrowDown, ArrowUpRight, Asterisk, Check, TelegramLogo } from "@phospho
 import { StructuredData } from "@/components/StructuredData";
 import { alisherBrand, alisherCopy, alisherName, alisherPath, alisherTelegram } from "@/lib/alisher-copy";
 import { localePath, type Locale } from "@/lib/i18n";
-import { AlisherAction, AlisherAreas, AlisherEffects, AlisherLanguages, AlisherMenu, AlisherMotionToggle } from "./AlisherInteractions";
+import { AlisherAction, AlisherAreas, AlisherEffects, AlisherHeroStage, AlisherLanguages, AlisherMenu, AlisherMotionToggle } from "./AlisherInteractions";
 import "../../app/alisher.css";
 
 const serif = localFont({ src: [
@@ -24,13 +24,18 @@ function Sticker({ name, className = "", sizes = "(max-width: 767px) 50vw, 25vw"
 function Arch() {
   return <svg className="as-arch" viewBox="0 0 440 620" fill="none" aria-hidden="true">
     <defs>
-      <linearGradient id="as-arch-front" x1="100" y1="20" x2="380" y2="600" gradientUnits="userSpaceOnUse"><stop stopColor="#c6b9d3" stopOpacity=".32" /><stop offset="1" stopColor="#42314f" stopOpacity=".06" /></linearGradient>
-      <linearGradient id="as-arch-edge" x1="0" y1="0" x2="200" y2="600" gradientUnits="userSpaceOnUse"><stop stopColor="#6f4b70" stopOpacity=".26" /><stop offset="1" stopColor="#25182a" stopOpacity=".03" /></linearGradient>
-      <linearGradient id="as-arch-stroke" x1="40" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse"><stop stopColor="#e7d8ee" stopOpacity=".36" /><stop offset="1" stopColor="#bda2d2" stopOpacity=".04" /></linearGradient>
+      <linearGradient id="as-arch-front" x1="100" y1="20" x2="380" y2="600" gradientUnits="userSpaceOnUse"><stop stopColor="#d8c5e7" stopOpacity=".32" /><stop offset=".5" stopColor="#92739f" stopOpacity=".12" /><stop offset="1" stopColor="#42314f" stopOpacity=".02" /></linearGradient>
+      <linearGradient id="as-arch-edge" x1="0" y1="0" x2="200" y2="600" gradientUnits="userSpaceOnUse"><stop stopColor="#ae84bb" stopOpacity=".3" /><stop offset="1" stopColor="#25182a" stopOpacity=".03" /></linearGradient>
+      <linearGradient id="as-arch-stroke" x1="40" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse"><stop stopColor="#f3e7fb" stopOpacity=".7" /><stop offset=".5" stopColor="#d1b5e6" stopOpacity=".28" /><stop offset="1" stopColor="#bda2d2" stopOpacity=".04" /></linearGradient>
+      <linearGradient id="as-arch-beam"><stop stopColor="#fff" stopOpacity="0" /><stop offset=".5" stopColor="#f4e9fb" stopOpacity=".2" /><stop offset="1" stopColor="#fff" stopOpacity="0" /></linearGradient>
+      <clipPath id="as-arch-clip"><path d="M77 620V218C77 126 133 63 223 20C313 63 369 126 369 218V620H77Z" /></clipPath>
     </defs>
     <path d="M25 620V205C25 120 76 65 170 12L223 20L388 620H25Z" fill="url(#as-arch-edge)" />
     <path d="M77 620V218C77 126 133 63 223 20C313 63 369 126 369 218V620H77Z" fill="url(#as-arch-front)" stroke="url(#as-arch-stroke)" />
     <path d="M25 205C25 120 76 65 170 12L223 20" stroke="#bda2d2" strokeOpacity=".12" />
+    <path d="M49 620V216C49 113 114 43 223 0C332 43 397 113 397 216V620" stroke="url(#as-arch-stroke)" strokeOpacity=".55" />
+    <path d="M98 620V220C98 139 146 84 223 43C300 84 348 139 348 220V620" stroke="url(#as-arch-stroke)" strokeOpacity=".35" />
+    <g clipPath="url(#as-arch-clip)"><path className="as-arch-sheen" d="M-180 0H-20L220 620H60L-180 0Z" fill="url(#as-arch-beam)" /></g>
   </svg>;
 }
 
@@ -51,8 +56,7 @@ export function AlisherLanding({ locale }: { locale: Locale }) {
 
     <main id="main" tabIndex={-1}>
       <section className="as-hero as-container" aria-labelledby="as-hero-title">
-        <div className="as-hero-stage">
-          <div className="as-hero-scene" aria-hidden="true"><div className="as-hero-halo" /><Arch /><div className="as-portrait"><Image src="/images/alisher/portrait.webp" alt="" width={1133} height={1388} sizes="(max-width: 767px) 95vw, 48vw" preload unoptimized /></div></div>
+        <AlisherHeroStage arch={<Arch />} portrait={<Image src="/images/alisher/portrait.webp" alt="" width={1133} height={1388} sizes="(max-width: 767px) 95vw, 48vw" preload unoptimized />}>
           <div className="as-hero-copy">
             <div className="as-hero-identity"><p className="as-hero-name">{alisherName}</p><p className="as-eyebrow as-hero-role">{c.role}</p></div>
             <h1 id="as-hero-title" aria-label={`${c.heroStart} ${c.heroAccent} ${c.heroEnd}`} className="as-hero-title" data-as-reveal="mask"><span className="as-mask"><span className="as-mask-text">{c.heroStart}</span></span><span className="as-mask"><span className="as-mask-text"><em>{c.heroAccent}</em>{" "}{c.heroEnd}</span></span></h1>
@@ -60,8 +64,8 @@ export function AlisherLanding({ locale }: { locale: Locale }) {
             <div className="as-hero-cta"><AlisherAction href="#aloqa">{c.contact}</AlisherAction><a className="as-text-link" href="#yonalishlar">{c.explore}<ArrowUpRight size={17} aria-hidden="true" /></a></div>
           </div>
           <a className="as-scroll-link" href="#haqimda"><span>{c.scroll}</span><span className="as-scroll-circle"><ArrowDown size={18} aria-hidden="true" /></span></a>
-        </div>
-        <dl className="as-facts">{c.factLabels.map((label, index) => <div key={label}><dt>{label}</dt><dd>{c.factValues[index]}</dd></div>)}</dl>
+        </AlisherHeroStage>
+        <dl className="as-facts">{c.factLabels.map((label, index) => <div key={label} data-as-reveal="soft" data-as-order={index}><dt>{label}</dt><dd>{c.factValues[index]}</dd></div>)}</dl>
       </section>
 
       <section id="haqimda" className="as-about as-container as-section" aria-labelledby="as-about-title">
@@ -76,16 +80,16 @@ export function AlisherLanding({ locale }: { locale: Locale }) {
 
       <section id="yondashuv" className="as-process as-container as-section" aria-labelledby="as-process-title">
         <div className="as-process-heading"><div><p className="as-eyebrow">{c.processLabel}</p><Heading id="as-process-title" start={c.processTitle} accent={c.processAccent} /><p className="as-section-description">{c.processIntro}</p></div><Sticker name="work-process" className="as-process-art" sizes="220px" /></div>
-        <ol className="as-process-steps">{c.steps.map((step, index) => <li key={step.title} data-as-reveal="soft"><span className="as-step-number" aria-hidden="true">0{index + 1}<ArrowUpRight size={17} aria-hidden="true" /></span><h3>{step.title}</h3><p>{step.text}</p></li>)}</ol>
+        <ol className="as-process-steps">{c.steps.map((step, index) => <li key={step.title} data-as-reveal="soft" data-as-order={index}><span className="as-step-number" aria-hidden="true">0{index + 1}<ArrowUpRight size={17} aria-hidden="true" /></span><h3>{step.title}</h3><p>{step.text}</p></li>)}</ol>
       </section>
 
       <section id="media" className="as-media-section as-container" aria-labelledby="as-media-title">
-        <div className="as-media-panel"><div className="as-media-visual"><div className="as-media-orbit" aria-hidden="true" /><Sticker name="legal-media" sizes="(max-width: 767px) 70vw, 38vw" /><p>{alisherBrand}<span>LEGAL MEDIA</span></p></div><div className="as-media-copy"><p className="as-eyebrow">{c.mediaLabel}</p><Heading id="as-media-title" start={c.mediaTitle} accent={c.mediaAccent} /><p className="as-section-description">{c.mediaIntro}</p><ul className="as-media-topics">{c.mediaTopics.map((topic) => <li key={topic}><Check size={14} aria-hidden="true" />{topic}</li>)}</ul><a className="as-text-link" href={alisherTelegram} target="_blank" rel="noopener noreferrer">{c.mediaCta}<ArrowUpRight size={18} aria-hidden="true" /></a></div></div>
+        <div className="as-media-panel as-glass-surface" data-as-reveal="soft"><div className="as-media-visual"><div className="as-media-orbit" aria-hidden="true" /><Sticker name="legal-media" sizes="(max-width: 767px) 70vw, 38vw" /><p>{alisherBrand}<span>LEGAL MEDIA</span></p></div><div className="as-media-copy"><p className="as-eyebrow">{c.mediaLabel}</p><Heading id="as-media-title" start={c.mediaTitle} accent={c.mediaAccent} /><p className="as-section-description">{c.mediaIntro}</p><ul className="as-media-topics">{c.mediaTopics.map((topic) => <li key={topic}><Check size={14} aria-hidden="true" />{topic}</li>)}</ul><a className="as-text-link" href={alisherTelegram} target="_blank" rel="noopener noreferrer">{c.mediaCta}<ArrowUpRight size={18} aria-hidden="true" /></a></div></div>
       </section>
 
       <section id="talim" className="as-education as-container as-section" aria-labelledby="as-education-title">
         <p className="as-eyebrow">{c.educationLabel}</p><h2 className="as-education-heading" id="as-education-title" data-as-reveal="soft">{c.educationTitle}</h2>
-        <div className="as-education-grid"><div className="as-university" data-as-reveal="soft"><div><span className="as-course">{c.course}</span><h3>{c.university}</h3><p>{c.faculty}</p></div><Sticker name="legal-education" sizes="180px" /><div className="as-interests"><p className="as-eyebrow">{c.interestsLabel}</p><p>{c.interests}</p></div></div><div className="as-principles">{c.principles.map((principle, index) => <div key={principle.title}><span aria-hidden="true">0{index + 1}</span><div><h3>{principle.title}</h3><p>{principle.text}</p></div></div>)}</div></div>
+        <div className="as-education-grid"><div className="as-university as-glass-surface" data-as-reveal="soft"><div><span className="as-course">{c.course}</span><h3>{c.university}</h3><p>{c.faculty}</p></div><Sticker name="legal-education" sizes="180px" /><div className="as-interests"><p className="as-eyebrow">{c.interestsLabel}</p><p>{c.interests}</p></div></div><div className="as-principles">{c.principles.map((principle, index) => <div key={principle.title} data-as-reveal="soft" data-as-order={index}><span aria-hidden="true">0{index + 1}</span><div><h3>{principle.title}</h3><p>{principle.text}</p></div></div>)}</div></div>
       </section>
 
       <section id="aloqa" className="as-contact" aria-labelledby="as-contact-title">

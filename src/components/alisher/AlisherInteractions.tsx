@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useMotionValue, useReducedMotion, useScroll, useSpring } from "motion/react";
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { ArrowUpRight, List, Pause, Play, Plus, X } from "@phosphor-icons/react";
 import { alisherPath, type AlisherCopy } from "@/lib/alisher-copy";
 import { localePath, type Locale } from "@/lib/i18n";
@@ -26,13 +26,20 @@ export function AlisherEffects() {
         if (!entry.isIntersecting) return;
         observer.unobserve(entry.target);
         if (preference.matches || document.visibilityState !== "visible" || (entry.target.classList.contains("as-hero-title") && performance.now() - started > 800)) return;
-        const masked = entry.target.getAttribute("data-as-reveal") === "mask";
+        const mode = entry.target.getAttribute("data-as-reveal");
+        const masked = mode === "mask";
+        const portal = mode === "portal";
+        const order = Number(entry.target.getAttribute("data-as-order") || 0);
+        entry.target.setAttribute("data-as-entered", "true");
         const targets = masked ? entry.target.querySelectorAll(".as-mask-text") : [entry.target];
         targets.forEach((target, index) => {
-          const animation = target.animate(masked
-            ? [{ opacity: .55, transform: "translateY(.12em)" }, { opacity: 1, transform: "translateY(0)" }]
-            : [{ opacity: .86, transform: "translateY(6px)" }, { opacity: 1, transform: "translateY(0)" }],
-          { duration: masked ? 480 : 360, delay: masked ? Math.min(index * 55, 110) : 0, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+          const frames = portal
+            ? [{ opacity: .25, transform: "perspective(1000px) rotateY(-16deg) translate3d(0,24px,0) scale(.94)" }, { opacity: 1, transform: "perspective(1000px) rotateY(0deg) translate3d(0,0,0) scale(1)" }]
+            : masked
+              ? [{ transform: "translateY(105%)" }, { transform: "translateY(0)" }]
+              : [{ opacity: .86, transform: "translateY(8px)" }, { opacity: 1, transform: "translateY(0)" }];
+          const animation = target.animate(frames,
+          { duration: portal ? 1000 : masked ? 600 : 420, delay: portal ? 80 : masked ? Math.min(index * 65, 130) : Math.min(order * 40, 80), easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
           animations.add(animation);
           animation.finished.then(() => animations.delete(animation), () => animations.delete(animation));
         });
@@ -57,6 +64,35 @@ export function AlisherEffects() {
     };
   }, []);
   return <motion.div className="as-progress" ref={progress} style={{ scaleX: scrollYProgress }} aria-hidden="true" />;
+}
+
+export function AlisherHeroStage({ children, arch, portrait }: { children: ReactNode; arch: ReactNode; portrait: ReactNode }) {
+  const stage = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: stage, offset: ["start start", "end start"] });
+  // Scroll changes the glass depth, while the supplied portrait stays still.
+  const depthY = useTransform(scrollYProgress, [0, 1], [0, -56]);
+  const depthScale = useTransform(scrollYProgress, [0, 1], [1, .94]);
+  const pointer = useMotionValue(0);
+  const softened = useSpring(pointer, { stiffness: 140, damping: 26, mass: .6 });
+  const tilt = useTransform(softened, [-1, 1], [-3, 3]);
+  const shift = useTransform(softened, [-1, 1], [-7, 7]);
+  return <div className="as-hero-stage" ref={stage}
+    onPointerMove={(event) => {
+      if (reduced || event.pointerType !== "mouse" || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+      const box = event.currentTarget.getBoundingClientRect();
+      pointer.set(Math.max(-1, Math.min(1, (event.clientX - box.left) / box.width * 2 - 1)));
+    }} onPointerLeave={() => pointer.set(0)}>
+    <div className="as-hero-scene" aria-hidden="true">
+      <div className="as-hero-halo" />
+      <motion.div className="as-portal" style={{ y: reduced ? 0 : depthY, scale: reduced ? 1 : depthScale, x: reduced ? 0 : shift, rotateY: reduced ? 0 : tilt, transformPerspective: 1000 }}>
+        <div className="as-portal-panel" data-as-reveal="portal">{arch}</div>
+      </motion.div>
+      <div className="as-hero-floor" />
+      <div className="as-portrait">{portrait}</div>
+    </div>
+    {children}
+  </div>;
 }
 
 export function AlisherAction({ children, href, className = "", external = false }: { children: ReactNode; href: string; className?: string; external?: boolean }) {
@@ -103,7 +139,7 @@ export function AlisherMenu({ copy }: { copy: Pick<AlisherCopy, "openMenu" | "cl
 export function AlisherAreas({ areas }: { areas: AlisherCopy["areas"] }) {
   const [open, setOpen] = useState<number | null>(0);
   return <div className="as-areas">
-    {areas.map((area, index) => <article className="as-area" data-open={open === index} key={area.image}>
+    {areas.map((area, index) => <article className="as-area" data-open={open === index} data-as-reveal="soft" data-as-order={index % 3} key={area.image}>
       <h3><button id={`as-trigger-${index}`} className="as-area-trigger" type="button" aria-expanded={open === index} aria-controls={`as-panel-${index}`} onClick={() => setOpen(open === index ? null : index)}>
         <span className="as-area-number" aria-hidden="true">0{index + 1}</span>
         {/* A small, supplied WebP is already optimized; keep it independent of text. */}
