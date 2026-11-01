@@ -3,7 +3,7 @@ import { siteOrigin } from "@/lib/site";
 import { servicePages } from "@/lib/service-pages";
 import { localePath, locales } from "@/lib/i18n";
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = ["/", "/xizmatlar", ...servicePages.map((service) => service.href), "/loyihalar", "/privacy", "/diyorbeknematov"];
+  const paths = ["/", "/xizmatlar", ...servicePages.map((service) => service.href), "/loyihalar", "/privacy", "/diyorbeknematov", "/alishershukurulloyev"];
   const localizedPages = paths.flatMap((path) => locales.map((locale) => ({
     url: `${siteOrigin()}${localePath(locale, path) === "/" ? "" : localePath(locale, path)}`,
     changeFrequency: path === "/privacy" ? "yearly" as const : "monthly" as const,
