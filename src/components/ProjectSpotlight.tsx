@@ -41,6 +41,10 @@ export function ProjectSpotlight({ locale = "uz" }: { locale?: Locale }) {
             <span><small>{concept.conceptEyebrow}</small><strong>{concept.conceptView}</strong></span>
             <ArrowUpRight size={20} aria-hidden="true" />
           </Link>
+          <Link className="project-concept-link" href={localePath(locale, "/sartarosh")}>
+            <span><small>{concept.barberEyebrow}</small><strong>{concept.barberView}</strong></span>
+            <ArrowUpRight size={20} aria-hidden="true" />
+          </Link>
         </div>
       </Reveal>
     </section>
